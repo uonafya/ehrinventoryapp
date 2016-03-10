@@ -36,7 +36,7 @@
 
 			<groupId>org.openmrs.module</groupId>
 						
-			<artifactId>uiframework-api-api</artifactId>
+			<artifactId>uiframework-api</artifactId>
 												
 		</dependency>
 		
@@ -44,7 +44,7 @@
 
 			<groupId>org.openmrs.module</groupId>
 						
-			<artifactId>uilibrary-api-api</artifactId>
+			<artifactId>uilibrary-api</artifactId>
 												
 		</dependency>
 		
@@ -52,7 +52,7 @@
 
 			<groupId>org.openmrs.module</groupId>
 						
-			<artifactId>hospitalcore-api-api</artifactId>
+			<artifactId>hospitalcore-api</artifactId>
 												
 		</dependency>
 						
