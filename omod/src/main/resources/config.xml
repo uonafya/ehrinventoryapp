@@ -20,15 +20,15 @@
 	<require_modules>
 																											
 		<require_module version="3.3.1">
-			org.openmrs.module.uiframework-api
+			org.openmrs.module.uiframework
 		</require_module>
 																											
 		<require_module version="2.0.4">
-			org.openmrs.module.uilibrary-api
+			org.openmrs.module.uilibrary
 		</require_module>
 																											
 		<require_module version="1.5.3-SNAPSHOT">
-			org.openmrs.module.hospitalcore-api
+			org.openmrs.module.hospitalcore
 		</require_module>
 			
 	</require_modules>
