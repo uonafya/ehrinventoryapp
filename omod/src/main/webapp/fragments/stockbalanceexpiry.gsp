@@ -5,22 +5,51 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.js"></script>
 <script>
     jq(function () {
+
+        loadExpiredDrugs(1);
+
+        //action when the drug category is selected
+        jq("#categoryId").on("change", function () {
+            var categoryId = jq("#categoryId").val();
+            var drugName = jq("#drugName").val();
+            loadExpiredDrugs(1,categoryId,drugName);
+
+        });
+
+        jq("#drugName").on("blur", function () {
+            var categoryId = jq("#categoryId").val();
+            var drugName = jq("#drugName").val();
+//            TODO check fragment action for search functionality
+//            loadExpiredDrugs(1,categoryId,drugName);
+        });
+
+
+    });
+
+    function loadExpiredDrugs(currentPage,categoryId,drugName) {
         jq.getJSON('${ui.actionLink("inventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
                 {
-                    "currentPage": 1
+                    currentPage: currentPage,
+                    categoryId:categoryId,
+                    drugName:drugName
                 }).success(function (data) {
                     if (data.length === 0 && data != null) {
                         jq().toastmessage('showNoticeToast', "No drug found!");
                     } else {
                         updateQueueTable(data)
                     }
+                }).error(function(){
+                    jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
+                    jq('#expiry-search-results-table > tbody > tr').remove();
+                    var tbody = jq('#expiry-search-results-table > tbody');
+                    var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
+                    tbody.append(row);
                 });
-    });
-</script>
-<script>
+    }
+
     //update the queue table
     function updateQueueTable(tests) {
-        var jq = jQuery
+        var jq = jQuery;
         jq('#expiry-search-results-table > tbody > tr').remove();
         var tbody = jq('#expiry-search-results-table > tbody');
         var row = '<tr>';
@@ -52,18 +81,21 @@
             <thead>
 
             <div>
-                <label>Drug Category</label>
+                <label for="categoryId">Drug Category</label>
                 <select name="categoryId" id="categoryId" style="width: 250px;">
                     <option value=""></option>
+                    <% listCategory.each { %>
+                    <option value="${it.id}" title="${it.name}">
+                        ${it.name}
+                    </option>
+                    <% } %>
                 </select>
 
-                <label>Drug Name</label>
-                <input type="text" name="drugName" id="drugName" value=""/>
-
-                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="Search"/>
+                <label for="drugName">Drug Name</label>
+                <input type="text" name="drugName" id="drugName"/>
 
             </div>
-            <br />
+            <br/>
 
 
 

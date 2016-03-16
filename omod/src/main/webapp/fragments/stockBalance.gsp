@@ -3,11 +3,10 @@
     jq(function(){
         var pData = getStockBalance();
         pDataString = JSON.stringify(pData);
-        console.log(pDataString);
         function StockListView(){
             var self = this;
             // Editable data
-            self.stockItems = ko.observableArray([]);;
+            self.stockItems = ko.observableArray([]);
             var mappedStockItems = jQuery.map(pData, function (item) {
                 return item;
             });
