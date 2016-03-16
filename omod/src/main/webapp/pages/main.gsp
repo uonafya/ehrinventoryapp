@@ -233,7 +233,7 @@
             </ul>
 
             <div id="queues">
-                ${ ui.includeFragment("inventoryapp", "stockbalance") }
+                ${ ui.includeFragment("inventoryapp", "stockBalance") }
             </div>
 
             <div id="manage">
