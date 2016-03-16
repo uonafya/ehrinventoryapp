@@ -252,10 +252,13 @@
             <ul id="inline-tabs">
                 <li><a href="#queues">View Drug Stock</a></li>
                 <li><a href="#manage">View Expired Drugs</a></li>
+                <li><a href="#receipts">Receipts to General Store</a></li>
             </ul>
 
             <div id="queues">
-                ${ui.includeFragment("inventoryapp", "stockBalance")}
+
+                <h2 style="display: inline-block;">View Drug Stock</h2>
+                ${ ui.includeFragment("inventoryapp", "stockBalance") }
             </div>
 
             <div id="manage">
@@ -269,6 +272,12 @@
                     </div>
                 </div>
                 <div>${ui.includeFragment("inventoryapp", "stockBalanceExpiry")}
+                </div>
+            </div>
+
+            <div id="receipts">
+                <h2 style="display: inline-block;">Manage Receipt Drug</h2>
+                <div>  ${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
                 </div>
             </div>
 

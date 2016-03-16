@@ -48,7 +48,6 @@
 
 <div id="expiry-search-results" style="display: block; margin-top:3px;">
     <div role="grid" class="dataTables_wrapper" id="expiry-search-results-table_wrapper">
-        ${listCategory}
         <table id="expiry-search-results-table" class="dataTable" aria-describedby="expiry-search-results-table_info">
             <thead>
 
