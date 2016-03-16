@@ -69,20 +69,25 @@
         text-align: center;
         width: 27%;
     }
+
     form .advanced i {
         font-size: 22px;
     }
+
     .col4 label {
         width: 110px;
         display: inline-block;
     }
+
     .col4 input[type=text] {
         display: inline-block;
         padding: 4px 10px;
     }
+
     .col4 select {
         padding: 4px 10px;
     }
+
     form select {
         min-width: 50px;
         display: inline-block;
@@ -118,13 +123,14 @@
     }
 
     #lastDayOfVisit label,
-    #referred-date label{
+    #referred-date label {
         display: none;
     }
 
     #lastDayOfVisit input {
         width: 160px;
     }
+
     .add-on {
         color: #f26522;
         float: right;
@@ -133,30 +139,38 @@
         margin-top: 10px;
         position: absolute;
     }
+
     .chrome .add-on {
-        margin-left:-31px;
-        margin-top:-27px !important;
-        position:relative !important;
+        margin-left: -31px;
+        margin-top: -27px !important;
+        position: relative !important;
     }
-    #lastDayOfVisit-wrapper .add-on{
+
+    #lastDayOfVisit-wrapper .add-on {
         margin-top: 5px;
     }
+
     .ui-widget-content a {
         color: #007fff;
     }
+
     #breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
         text-decoration: none;
     }
+
     .new-patient-header .identifiers {
         margin-top: 5px;
     }
+
     .name {
         color: #f26522;
     }
+
     #inline-tabs {
         background: #f9f9f9 none repeat scroll 0 0;
     }
-    .formfactor{
+
+    .formfactor {
         background: #f3f3f3 none repeat scroll 0 0;
         border: 1px solid #ddd;
         margin-bottom: 5px;
@@ -164,19 +178,22 @@
         text-align: left;
         width: auto;
     }
-    .formfactor .lone-col{
+
+    .formfactor .lone-col {
         display: inline-block;
         margin-top: 5px;
         overflow: hidden;
         width: 100%;
     }
-    .formfactor .first-col{
+
+    .formfactor .first-col {
         display: inline-block;
         margin-top: 5px;
         overflow: hidden;
         width: 300px;
     }
-    .formfactor .second-col{
+
+    .formfactor .second-col {
         display: inline-block;
         float: right;
         margin-top: 5px;
@@ -186,19 +203,21 @@
 
     .formfactor .lone-col input,
     .formfactor .first-col input,
-    .formfactor .second-col input{
+    .formfactor .second-col input {
         margin-top: 5px;
         padding: 5px 15px;
         width: 100%;
     }
+
     .formfactor .lone-col label,
     .formfactor .first-col label,
-    .formfactor .second-col label{
+    .formfactor .second-col label {
         padding-left: 5px;
         color: #363463;
         cursor: pointer;
     }
-    .ui-tabs-panel h2{
+
+    .ui-tabs-panel h2 {
         display: inline-block;
     }
     </style>
@@ -206,11 +225,12 @@
 
 <body>
 <div class="clear"></div>
+
 <div class="container">
     <div class="example">
         <ul id="breadcrumbs">
             <li>
-                <a href="${ui.pageLink('referenceapplication','home')}">
+                <a href="${ui.pageLink('referenceapplication', 'home')}">
                     <i class="icon-home small"></i></a>
             </li>
 
@@ -220,12 +240,14 @@
             </li>
         </ul>
     </div>
+
     <div class="patient-header new-patient-header">
         <div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
                 <span>INVENTORY DASHBOARD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
+
         <div id="tabs" style="margin-top: 40px!important;">
             <ul id="inline-tabs">
                 <li><a href="#queues">View Drug Stock</a></li>
@@ -233,12 +255,20 @@
             </ul>
 
             <div id="queues">
-                ${ ui.includeFragment("inventoryapp", "stockBalance") }
+                ${ui.includeFragment("inventoryapp", "stockBalance")}
             </div>
 
             <div id="manage">
-                <h2 style="display: inline-block;">Manage User Drugs</h2>
-                <div>  ${ ui.includeFragment("inventoryapp", "stockBalanceExpiry") }
+                <div class="dashboard clear">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="icon-calendar"></i>
+
+                            <h3>Manage User Drugs</h3>
+                        </div>
+                    </div>
+                </div>
+                <div>${ui.includeFragment("inventoryapp", "stockBalanceExpiry")}
                 </div>
             </div>
 
