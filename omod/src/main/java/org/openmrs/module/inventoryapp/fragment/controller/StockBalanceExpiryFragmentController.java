@@ -112,7 +112,7 @@ public class StockBalanceExpiryFragmentController {
             }
 
         }
-        expiryDetails = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.name","drug.category.name", "formulation.dozage", "currentQuantity", "reorderPoint");
+        expiryDetails = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.id","drug.name","drug.category.name", "formulation.id","formulation.dozage", "currentQuantity", "reorderPoint");
         return  expiryDetails;
     }
 }
