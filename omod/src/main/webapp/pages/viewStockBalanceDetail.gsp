@@ -32,8 +32,9 @@
         var jq = jQuery;
         jq('#expiry-detail-results-table > tbody > tr').remove();
         var tbody = jq('#expiry-detail-results-table > tbody');
-        var row = '<tr>';
+
         for (index in tests) {
+        var row = '<tr>';
             var item = tests[index];
             <% props.each { %>
 
@@ -57,49 +58,49 @@
                     </div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:60px;">
+                <th class="ui-state-default" role="columnheader"">
                     <div class="DataTables_sort_wrapper">category<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:60px;">
+                <th class="ui-state-default" role="columnheader">
 
                     <div class="DataTables_sort_wrapper">formulation<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:60px;">
+                <th class="ui-state-default" role="columnheader">
 
                     <div class="DataTables_sort_wrapper">attribute<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width: 60px;">
+                <th class="ui-state-default" role="columnheader" >
                     <div class="DataTables_sort_wrapper">quantity<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader" >
                     <div class="DataTables_sort_wrapper">issueQuantity<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader" >
                     <div class="DataTables_sort_wrapper">currentQuantity<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader" >
                     <div class="DataTables_sort_wrapper">openingBalance<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader">
                     <div class="DataTables_sort_wrapper">closingBalance<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader">
                     <div class="DataTables_sort_wrapper">dateManufacture<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader">
                     <div class="DataTables_sort_wrapper">dateExpiry<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader" style="width:120px;">
+                <th class="ui-state-default" role="columnheader">
                     <div class="DataTables_sort_wrapper">receiptDate<span class="DataTables_sort_icon"></span></div>
                 </th>
 
