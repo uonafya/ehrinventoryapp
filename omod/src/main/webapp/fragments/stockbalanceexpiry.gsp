@@ -6,13 +6,13 @@
 <script>
     jq(function () {
 
-        loadExpiredDrugs(1);
+        loadExpiredDrugs();
 
         //action when the drug category is selected
         jq("#categoryId").on("change", function () {
             var categoryId = jq("#categoryId").val();
             var drugName = jq("#drugName").val();
-            loadExpiredDrugs(1,categoryId,drugName);
+            loadExpiredDrugs(1, categoryId, drugName);
 
         });
 
@@ -20,25 +20,25 @@
             var categoryId = jq("#categoryId").val();
             var drugName = jq("#drugName").val();
 //            TODO check fragment action for search functionality
-//            loadExpiredDrugs(1,categoryId,drugName);
+            loadExpiredDrugs(1, categoryId, drugName);
         });
 
 
-    });
+    });//end of doc ready
 
-    function loadExpiredDrugs(currentPage,categoryId,drugName) {
+    function loadExpiredDrugs(currentPage, categoryId, drugName) {
         jq.getJSON('${ui.actionLink("inventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
                 {
                     currentPage: currentPage,
-                    categoryId:categoryId,
-                    drugName:drugName
+                    categoryId: categoryId,
+                    drugName: drugName
                 }).success(function (data) {
                     if (data.length === 0 && data != null) {
                         jq().toastmessage('showNoticeToast', "No drug found!");
                     } else {
-                        updateQueueTable(data)
+                        updateQueueTable(data);
                     }
-                }).error(function(){
+                }).error(function () {
                     jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
                     jq('#expiry-search-results-table > tbody > tr').remove();
                     var tbody = jq('#expiry-search-results-table > tbody');
@@ -46,27 +46,25 @@
                     tbody.append(row);
                 });
     }
-
     //update the queue table
     function updateQueueTable(tests) {
-        var jq = jQuery;
         jq('#expiry-search-results-table > tbody > tr').remove();
         var tbody = jq('#expiry-search-results-table > tbody');
-        var row = '<tr>';
+
         for (index in tests) {
+            var row = '<tr>';
             var item = tests[index];
             <% props.each {
-              if(it == props.last()){ %>
-            var pageLinkEdit = emr.pageLink("inventoryapp", "viewStockBalanceDetail", {
-                drugId: item.drug.id,
-                formulationId: item.formulation.id,
-                expiry: 1
-            });
-            row += '<td> <a title="Detail all transactions of this drug" href="' + pageLinkEdit + '"><i class="icon-arrow-right small" ></i></a>';
+                if(it == props.last()){ %>
+                    var pageLinkEdit = emr.pageLink("inventoryapp", "viewStockBalanceDetail", {
+                        drugId: item.drug.id,
+                        formulationId: item.formulation.id,
+                        expiry: 1
+                    });
+                row += '<td> <a title="Detail all transactions of this drug" href="' + pageLinkEdit + '"><i class="icon-arrow-right small" ></i></a></td>';
 
             <% } else {%>
-
-            row += '<td>' + item.${ it } + '</td>';
+                row += '<td>' + item.${ it } + '</td>';
             <% }
               } %>
             row += '</tr>';
