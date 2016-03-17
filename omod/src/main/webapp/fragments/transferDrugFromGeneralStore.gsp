@@ -86,7 +86,7 @@ ${ui.includeFragment("uicommons", "field/datetimepicker", [id: 'toDate', label: 
     <th>Action</th>
     </thead>
     <tbody data-bind="foreach: indentItems">
-    <td data-bind="text: \$index"></td>
+    <td data-bind="text: ($index() + 1)"></td>
     <td data-bind="text: store.name"></td>
     <td data-bind="text: name"></td>
     <td data-bind="text: createdOn"></td>
