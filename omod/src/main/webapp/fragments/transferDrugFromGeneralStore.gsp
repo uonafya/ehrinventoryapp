@@ -1,9 +1,10 @@
 <script>
     var pDataString;
-    jq(function(){
+    jq(function () {
+        jQuery('.date-pick').datepicker({minDate: '-100y', dateFormat: 'dd/mm/yy'});
         var pData = getIndentList();
         pDataString = JSON.stringify(pData);
-        function IndentListView(){
+        function IndentListView() {
             var self = this;
             // Fetched data
             self.indentItems = ko.observableArray([]);
@@ -19,7 +20,7 @@
     });//end of doc ready function
 
 
-    function getIndentList(indentId, storeId, statusId, indentName, fromDate,toDate,viewIndent) {
+    function getIndentList(storeId, statusId, indentName, fromDate, toDate, viewIndent,indentId) {
         var toReturn;
         jQuery.ajax({
             type: "GET",
@@ -33,8 +34,8 @@
                 statusId: statusId,
                 indentName: indentName,
                 fromDate: fromDate,
-                toDate:toDate,
-                viewIndent:viewIndent
+                toDate: toDate,
+                viewIndent: viewIndent
             },
             success: function (data) {
                 if (data.length === 0 && data != null) {
@@ -74,8 +75,12 @@
 </select>
 
 <input type="text" id="indentName" name="indentName" placeholder="Drug Name"/>
-${ui.includeFragment("uicommons", "field/datetimepicker", [id: 'fromDate', label: 'From', formFieldName: 'date picker', useTime: false])}
-${ui.includeFragment("uicommons", "field/datetimepicker", [id: 'toDate', label: 'To', formFieldName: 'date picker', useTime: false])}
+<label for="fromDate">From</label>
+<input type="text" id="fromDate" class="date-pick" readonly="readonly" name="fromDate"
+       title="Double Click to Clear" ondblclick="this.value = '';"/>
+<label for="toDate">To</label>
+<input type="text" id="toDate" class="date-pick" readonly="readonly" name="toDate"
+       title="Double Click to Clear" ondblclick="this.value = '';"/>
 <table id="transferList">
     <thead>
     <th>S. No</th>
@@ -86,7 +91,7 @@ ${ui.includeFragment("uicommons", "field/datetimepicker", [id: 'toDate', label: 
     <th>Action</th>
     </thead>
     <tbody data-bind="foreach: indentItems">
-    <td data-bind="text: ($index() + 1)"></td>
+    <td data-bind="text: (\$index() + 1)"></td>
     <td data-bind="text: store.name"></td>
     <td data-bind="text: name"></td>
     <td data-bind="text: createdOn"></td>
