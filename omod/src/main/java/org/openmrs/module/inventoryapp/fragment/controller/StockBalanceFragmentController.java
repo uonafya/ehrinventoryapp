@@ -41,7 +41,7 @@ public class StockBalanceFragmentController {
 
         if (stockBalances!=null) {
             Collections.sort(stockBalances);
-            stockBalanceList = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.name","drug.category.name","formulation.name","formulation.dozage","quantity","issueQuantity","currentQuantity","drug.reorderQty");
+            stockBalanceList = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.id","drug.name","drug.category.name","formulation.id","formulation.name","formulation.dozage","quantity","issueQuantity","currentQuantity","drug.reorderQty");
 
         }
         return stockBalanceList;
