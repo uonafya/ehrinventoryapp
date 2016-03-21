@@ -31,6 +31,26 @@
         jQuery('.date-pick').datepicker({minDate: '-100y', dateFormat: 'dd/mm/yy'});
         getIndentList();
 
+        //action when the searchField change occurs
+        jq(".searchFieldChange").on("change", function () {
+            reloadList();
+
+        });
+
+        //action when the searchField blur occurs
+        jq(".searchFieldBlur").on("blur", function () {
+            reloadList();
+        });
+
+        function reloadList(){
+            var storeId = jq("#storeId").val();
+            var statusId = jq("#statusId").val();
+            var indentName = jq("#indentName").val();
+            var fromDate = jq("#fromDate").val();
+            var toDate=jq("#toDate").val();
+            getIndentList(storeId, statusId, indentName, fromDate, toDate);
+        }
+
 
     });//end of doc ready function
     function detailDrugIndent(indentId) {
@@ -38,7 +58,7 @@
 
     }
 
-    function processDrugIndent(indentId){
+    function processDrugIndent(indentId) {
         window.location.href = emr.pageLink("inventoryapp", "mainStoreDrugProcessIndent", {
             "indentId": indentId
         });
@@ -71,6 +91,10 @@
                 }).success(function (data) {
                     if (data.length === 0 && data != null) {
                         jq().toastmessage('showNoticeToast', "No drug found!");
+                        jq('#transferList > tbody > tr').remove();
+                        var tbody = jq('#transferList > tbody');
+                        var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
+                        tbody.append(row);
                     } else {
                         updateTransferList(data);
                     }
@@ -97,8 +121,8 @@
             row += '<td>' + item.createdOn + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
             var link = "";
-            if(item.mainStoreStatus == 1){
-                link+= '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process Indent</a>';
+            if (item.mainStoreStatus == 1) {
+                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process Indent</a>';
             }
             row += '<td>' + link + '</td>';
             row += '</tr>';
@@ -109,8 +133,8 @@
 </script>
 
 <table id="transferList">
-    <select name="storeId" class="searchField" title="Select Drug Store">
-        <option value="">Select Store</option>
+    <select name="storeId" id="storeId" class="searchFieldChange" title="Select Drug Store">
+        <option value>Select Store</option>
         <% listStore.each { %>
         <option value="${it.id}" title="${it.name}">
             ${it.name}
@@ -118,8 +142,8 @@
         <% } %>
     </select>
 
-    <select name="statusId" class="searchField" title="Select Status">
-        <option value="">Select Status</option>
+    <select name="statusId" id="statusId" class="searchFieldChange" title="Select Status">
+        <option value >Select Status</option>
         <% listMainStoreStatus.each { %>
         <option value="${it.id}" title="${it.name}">
             ${it.name}
@@ -127,13 +151,13 @@
         <% } %>
     </select>
 
-    <input type="text" id="indentName" name="indentName" placeholder="Drug Name" class="searchField"
+    <input type="text" id="indentName" name="indentName" placeholder="Drug Name" class="searchFieldBlur"
            title="Enter Drug Name"/>
     <label for="fromDate">From</label>
-    <input type="text" id="fromDate" class="date-pick searchField" readonly="readonly" name="fromDate"
+    <input type="text" id="fromDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="fromDate"
            title="Double Click to Clear" ondblclick="this.value = '';"/>
     <label for="toDate">To</label>
-    <input type="text" id="toDate" class="date-pick searchField" readonly="readonly" name="toDate"
+    <input type="text" id="toDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="toDate"
            title="Double Click to Clear" ondblclick="this.value = '';"/>
     <thead>
     <th>S. No</th>
@@ -158,7 +182,6 @@
     </div>
 
     <div class="dialog-content">
-
 
         <span class="button confirm right">Confirm</span>
         <span class="button cancel">Cancel</span>
