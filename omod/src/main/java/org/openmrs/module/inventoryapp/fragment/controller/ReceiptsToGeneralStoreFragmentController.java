@@ -78,7 +78,7 @@ public class ReceiptsToGeneralStoreFragmentController {
 
         List<InventoryStoreDrugTransaction> transactions = inventoryService.listStoreDrugTransaction(ActionValue.TRANSACTION[0], store.getId(), receiptName, fromDate, toDate,0, 0);
 
-        receiptsToGeneralStore = SimpleObject.fromCollection(transactions, uiUtils,"description","createdOn");
+        receiptsToGeneralStore = SimpleObject.fromCollection(transactions, uiUtils,"id","description","createdOn");
 
         return receiptsToGeneralStore;
     }
