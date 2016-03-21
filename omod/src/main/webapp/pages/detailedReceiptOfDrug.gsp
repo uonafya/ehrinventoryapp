@@ -7,6 +7,7 @@
     ui.includeJavascript("billingui", "moment.js")
     ui.includeJavascript("billingui", "jquery.dataTables.min.js")
     ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+    ui.includeJavascript("billingui", "jquery.PrintArea.js")
 %>
 
 <script>
@@ -20,6 +21,28 @@
         }
     }
 </script>
+<script>
+
+    jQuery(document).ready(function () {
+         function print () {
+            var myStyle = '<link rel="stylesheet" href="http://localhost:8080/openmrs/ms/uiframework/resource/registration/styles/onepcssgrid.css" />';
+            var printDiv = jQuery("#print").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>Information</title>');
+            printWindow.document.write(printDiv);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        jQuery("#printButton").on("click", function(e){
+            print().show();
+        });
+    });
+
+
+</script>
+<div id="print">
 <table cellpadding="5" cellspacing="0" width="100%" id="queueList">
     <tr align="center">
         <th>category</th>
@@ -62,3 +85,7 @@
     </tr>
     <% } %>
 </table>
+</div>
+<div>
+<button class="button" type="button" id="printButton">Print</button>
+</div>
