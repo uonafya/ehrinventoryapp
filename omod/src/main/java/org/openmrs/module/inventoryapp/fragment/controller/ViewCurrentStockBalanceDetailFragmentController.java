@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by USER on 3/17/2016.
+ * Created by ngarivictor on 3/18/2016.
  */
-public class ViewStockBalanceDetailFragmentController {
+public class ViewCurrentStockBalanceDetailFragmentController {
     public void controller() {
 
     }
 
-    public List<SimpleObject> viewStockBalanceDetail(
+    public List<SimpleObject> viewCurrentStockBalanceDetail(
             @RequestParam(value = "drugId", required = false) Integer drugId,
             @RequestParam(value = "formulationId", required = false) Integer formulationId,
             @RequestParam(value = "expiry", required = false) Integer expiry,
@@ -48,6 +48,6 @@ public class ViewStockBalanceDetailFragmentController {
                 .listStoreDrugTransactionDetail(store.getId(), drugId,
                         formulationId, expiry);
 
-        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage","transaction.indents.store.name","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate");
+        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage","drug.attribute","transaction.paymentMode","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate");
     }
 }

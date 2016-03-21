@@ -10,6 +10,11 @@
             var mappedStockItems = jQuery.map(pData, function (item) {
                 return item;
             });
+
+            self.viewDetails = function(item){
+                window.location.replace("viewCurrentStockBalanceDetail.page?drugId="+item.drug.id +"&formulationId="+item.formulation.id);
+
+            }
             self.stockItems(mappedStockItems);
         }
 
@@ -41,7 +46,7 @@
     <th>Reorder Point</th>
     </thead>
     <tbody data-bind="foreach: stockItems">
-    <td data-bind="text: drug.name"></td>
+    <td><a data-bind="html: drug.name,click:\$parent.viewDetails"></a></td>
     <td data-bind="text: drug.category.name"></td>
     <td data-bind="text: formulation.name"></td>
     <td data-bind="text: currentQuantity"></td>
