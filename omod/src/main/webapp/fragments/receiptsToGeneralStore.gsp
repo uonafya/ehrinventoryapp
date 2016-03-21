@@ -10,7 +10,13 @@
             var mappedReceiptsDataItems = jQuery.map(receiptsData, function (item) {
                 return item;
             });
+
+            self.viewDetails = function(item){
+                window.location.replace("detailedReceiptOfDrug.page?receiptId="+item.id);
+
+            }
             self.receiptsDataItems(mappedReceiptsDataItems);
+
         }
 
         var list = new ReceiptsDataListView();
@@ -40,7 +46,7 @@
     </thead>
     <tbody data-bind="foreach: receiptsDataItems">
         <td data-bind="text: \$index() + 1"></td>
-        <td data-bind="text: description"></td>
+        <td><a data-bind="html:description ,click:\$parent.viewDetails"></a></td>
         <td data-bind="text: createdOn"></td>
     </tbody>
 </table>
