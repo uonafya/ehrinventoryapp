@@ -9,6 +9,7 @@ import org.openmrs.module.inventory.InventoryService;
 import org.openmrs.module.inventory.model.InventoryStoreDrug;
 import org.openmrs.module.inventory.model.InventoryStoreDrugIndentDetail;
 import org.openmrs.module.inventory.util.DateUtils;
+import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.ui.Model;
@@ -71,23 +72,24 @@ public class MainStoreDrugProcessIndentPageController {
                 drugIds.add(t.getDrug().getId());
             }
 
-            List<InventoryStoreDrugTransactionDetail> transactionAvaiableOfMainStore = inventoryService.listStoreDrugAvaiable(mainStore.getId(), drugIds, formulationIds);
+            List<InventoryStoreDrugTransactionDetail> transactionAvailableOfMainStore = inventoryService.listStoreDrugAvaiable(mainStore.getId(), drugIds, formulationIds);
             List<InventoryStoreDrugIndentDetail> listDrugTP = new ArrayList<InventoryStoreDrugIndentDetail>();
             for (InventoryStoreDrugIndentDetail t : listDrugNeedProcess) {
-                if (transactionAvaiableOfMainStore != null && transactionAvaiableOfMainStore.size() > 0) {
-                    for (InventoryStoreDrugTransactionDetail trDetail : transactionAvaiableOfMainStore) {
+                if (transactionAvailableOfMainStore != null && transactionAvailableOfMainStore.size() > 0) {
+                    for (InventoryStoreDrugTransactionDetail trDetail : transactionAvailableOfMainStore) {
                         if (t.getDrug().getId().equals(trDetail.getDrug().getId()) && t.getFormulation().getId().equals(trDetail.getFormulation().getId())) {
                             t.setMainStoreTransfer(trDetail.getCurrentQuantity());
                         }
-
                     }
                 } else {
                     t.setMainStoreTransfer(0);
                 }
                 listDrugTP.add(t);
             }
-
-            model.addAttribute("listDrugNeedProcess", listDrugTP);
+            List<SimpleObject> simpleObjects = SimpleObject.fromCollection(listDrugTP, uiUtils, "drug.id", "drug.name",
+                    "formulation.id", "formulation.name", "formulation.dozage", "formulation.description", "quantity","mainStoreTransfer");
+            String listDrugTPJson = SimpleObject.create("listDrugNeedProcess", simpleObjects).toJson();
+            model.addAttribute("listDrugNeedProcess", listDrugTPJson);
             model.addAttribute("indent", indent);
 
             return "mainStoreDrugProcessIndent";
@@ -100,25 +102,26 @@ public class MainStoreDrugProcessIndentPageController {
 
     /**
      * Handles POST requests on the main store drug process page
+     *
      * @param request - payload from the page
      * @param model
      * @return - backing bean for holding attributes
      */
-    public String post( HttpServletRequest request, PageModel model) {
+    public String post(HttpServletRequest request, PageModel model) {
         List<String> errors = new ArrayList<String>();
         InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
         Integer indentId = NumberUtils.toInt(request.getParameter("indentId"));
-        InventoryStoreDrugIndent indent =inventoryService.getStoreDrugIndentById(indentId);
+        InventoryStoreDrugIndent indent = inventoryService.getStoreDrugIndentById(indentId);
         List<InventoryStoreDrugIndentDetail> listIndentDetail = inventoryService.listStoreDrugIndentDetail(indentId);
-        if("1".equals(request.getParameter("refuse"))){
-            if(indent != null){
+        if ("1".equals(request.getParameter("refuse"))) {
+            if (indent != null) {
                 indent.setMainStoreStatus(ActionValue.INDENT_MAINSTORE[1]);
                 indent.setSubStoreStatus(ActionValue.INDENT_SUBSTORE[5]);
                 inventoryService.saveStoreDrugIndent(indent);
 
-                for(InventoryStoreDrugIndentDetail t : listIndentDetail){
-                    InventoryStoreDrug storeDrug = inventoryService.getStoreDrug(indent.getStore().getId(), t.getDrug().getId(),t.getFormulation().getId());
-                    if(storeDrug != null ){
+                for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
+                    InventoryStoreDrug storeDrug = inventoryService.getStoreDrug(indent.getStore().getId(), t.getDrug().getId(), t.getFormulation().getId());
+                    if (storeDrug != null) {
                         storeDrug.setStatusIndent(0);
                         inventoryService.saveStoreDrug(storeDrug);
                     }
@@ -131,23 +134,23 @@ public class MainStoreDrugProcessIndentPageController {
 
         Collection<Integer> formulationIds = new ArrayList<Integer>();
         Collection<Integer> drugIds = new ArrayList<Integer>();
-        for(InventoryStoreDrugIndentDetail t : listIndentDetail){
+        for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
             formulationIds.add(t.getFormulation().getId());
             drugIds.add(t.getDrug().getId());
         }
         //InventoryStore mainStore =  inventoryService.getStoreByCollectionRole(new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles()));
-        List <Role>role=new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
+        List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
 
-        InventoryStoreRoleRelation srl=null;
+        InventoryStoreRoleRelation srl = null;
         Role rl = null;
-        for(Role r: role){
-            if(inventoryService.getStoreRoleByName(r.toString())!=null){
+        for (Role r : role) {
+            if (inventoryService.getStoreRoleByName(r.toString()) != null) {
                 srl = inventoryService.getStoreRoleByName(r.toString());
-                rl=r;
+                rl = r;
             }
         }
-        InventoryStore mainStore =null;
-        if(srl!=null){
+        InventoryStore mainStore = null;
+        if (srl != null) {
             mainStore = inventoryService.getStoreById(srl.getStoreid());
             System.out.println(mainStore.getName());
         }
@@ -158,34 +161,34 @@ public class MainStoreDrugProcessIndentPageController {
         List<Integer> quantityTransfers = new ArrayList<Integer>();
         //get available quantity mainstore have on hand
         List<InventoryStoreDrugIndentDetail> listDrugTP = new ArrayList<InventoryStoreDrugIndentDetail>();
-        for(InventoryStoreDrugIndentDetail t : listIndentDetail){
-            int temp = NumberUtils.toInt(request.getParameter(t.getId()+""));
+        for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
+            int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""));
             //get to return view value
             quantityTransfers.add(temp);
-            if(transactionAvaiableOfMainStore != null && transactionAvaiableOfMainStore.size() > 0){
-                for(InventoryStoreDrugTransactionDetail trDetail : transactionAvaiableOfMainStore ){
+            if (transactionAvaiableOfMainStore != null && transactionAvaiableOfMainStore.size() > 0) {
+                for (InventoryStoreDrugTransactionDetail trDetail : transactionAvaiableOfMainStore) {
                     //ghanshyam 7-august-2013 code review bug
-                    if(t.getDrug().getId().equals(trDetail.getDrug().getId()) && t.getFormulation().getId().equals(trDetail.getFormulation().getId())){
+                    if (t.getDrug().getId().equals(trDetail.getDrug().getId()) && t.getFormulation().getId().equals(trDetail.getFormulation().getId())) {
                         t.setMainStoreTransfer(trDetail.getCurrentQuantity());
-                        if(temp > trDetail.getCurrentQuantity() || temp < 0 ){
+                        if (temp > trDetail.getCurrentQuantity() || temp < 0) {
                             errors.add("inventory.indent.error.quantity");
                         }
                     }
 
 
                 }
-            }else{
+            } else {
                 errors.add("inventory.indent.error.quantity");
             }
-            if(temp > 0){
+            if (temp > 0) {
                 passTransfer = false;
             }
             listDrugTP.add(t);
         }
-        if(passTransfer){
+        if (passTransfer) {
             errors.add("inventory.indent.error.transfer");
         }
-        if(errors != null && errors.size() > 0){
+        if (errors != null && errors.size() > 0) {
             model.addAttribute("listDrugNeedProcess", listDrugTP);
             model.addAttribute("indent", indent);
             model.addAttribute("errors", errors);
@@ -195,7 +198,7 @@ public class MainStoreDrugProcessIndentPageController {
 
         //create transaction
         InventoryStoreDrugTransaction transaction = new InventoryStoreDrugTransaction();
-        transaction.setDescription("TRANSFER SYSTEM AUTO "+ DateUtils.getDDMMYYYY());
+        transaction.setDescription("TRANSFER SYSTEM AUTO " + DateUtils.getDDMMYYYY());
         transaction.setStore(mainStore);
         transaction.setTypeTransaction(ActionValue.TRANSACTION[1]);
         transaction.setCreatedOn(new Date());
@@ -206,22 +209,21 @@ public class MainStoreDrugProcessIndentPageController {
         transaction = inventoryService.saveStoreDrugTransaction(transaction);
 
 
-
-        for(InventoryStoreDrugIndentDetail t : listIndentDetail){
-            int temp = NumberUtils.toInt(request.getParameter(t.getId()+""), 0);
+        for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
+            int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""), 0);
             //System.out.println("temp : "+temp);
             t.setMainStoreTransfer(temp);
-            if(temp > 0){
+            if (temp > 0) {
                 //sum currentQuantity of drugId, formulationId of store
-                Integer totalQuantity = inventoryService.sumCurrentQuantityDrugOfStore(mainStore.getId(),t.getDrug().getId(), t.getFormulation().getId());
+                Integer totalQuantity = inventoryService.sumCurrentQuantityDrugOfStore(mainStore.getId(), t.getDrug().getId(), t.getFormulation().getId());
                 //list all transaction detail with condition dateExpiry > now() , drugId = ? , formulationId = ? of mainstore
                 List<InventoryStoreDrugTransactionDetail> listTransactionAvailableMS = inventoryService.listStoreDrugTransactionDetail(mainStore.getId(), t.getDrug().getId(), t.getFormulation().getId(), true);
                 InventoryStoreDrugTransactionDetail transDetail = new InventoryStoreDrugTransactionDetail();
                 transDetail.setTransaction(transaction);
                 InventoryStoreDrug storeDrug = inventoryService.getStoreDrug(mainStore.getId(), t.getDrug().getId(), t.getFormulation().getId());
-                for(InventoryStoreDrugTransactionDetail trDetail : listTransactionAvailableMS ){
+                for (InventoryStoreDrugTransactionDetail trDetail : listTransactionAvailableMS) {
                     Integer x = trDetail.getCurrentQuantity() - temp;
-                    if( x >= 0){
+                    if (x >= 0) {
                         Date date = new Date();
                         //update current quantity of mainstore in transactionDetail
                         trDetail.setCurrentQuantity(x);
@@ -247,8 +249,8 @@ public class MainStoreDrugProcessIndentPageController {
                         // Money m = moneyUnitPrice.plus(vATUnitPrice);
                         // Money totl = m.times(temp);
                         //--------
-						/* Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-						 Money totl = moneyUnitPrice.times(temp);
+                        /* Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
+                         Money totl = moneyUnitPrice.times(temp);
 
 						totl = totl.plus(totl.times((double)trDetail.getVAT()/100));
 						transDetail.setTotalPrice(totl.getAmount());
@@ -281,7 +283,7 @@ public class MainStoreDrugProcessIndentPageController {
                             e.printStackTrace();
                         }
                         break;
-                    }else{
+                    } else {
                         //truong hop mot transactionDetail be hon cai can transfer.
                         Date date = new Date();
                         transDetail.setIssueQuantity(trDetail.getCurrentQuantity());
@@ -291,7 +293,7 @@ public class MainStoreDrugProcessIndentPageController {
                         inventoryService.saveStoreDrugTransactionDetail(trDetail);
 
 /*						 Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-						 Money vATUnitPrice = new Money(trDetail.getVAT());
+                         Money vATUnitPrice = new Money(trDetail.getVAT());
 						 Money m = moneyUnitPrice.plus(vATUnitPrice);
 						 Money totl = m.times(transDetail.getIssueQuantity());
 						 transDetail.setTotalPrice(totl.getAmount());*/
@@ -325,8 +327,8 @@ public class MainStoreDrugProcessIndentPageController {
 
                         transDetail.setClosingBalance(totalQuantity - transDetail.getIssueQuantity());
                         inventoryService.saveStoreDrugTransactionDetail(transDetail);
-                        totalQuantity -=  transDetail.getIssueQuantity();
-                        temp -=  transDetail.getIssueQuantity();
+                        totalQuantity -= transDetail.getIssueQuantity();
+                        temp -= transDetail.getIssueQuantity();
                         //create transactionDetail for transfer
                         try {
                             Thread.sleep(2000);
@@ -347,7 +349,7 @@ public class MainStoreDrugProcessIndentPageController {
         indent.setSubStoreStatus(ActionValue.INDENT_SUBSTORE[2]);
         indent.setTransaction(transaction);
         inventoryService.saveStoreDrugIndent(indent);
-        return "redirect:/module/inventory/transferDrugFromGeneralStore.form?viewIndent="+indentId;
+        return "redirect:/module/inventory/transferDrugFromGeneralStore.form?viewIndent=" + indentId;
 
     }
 }
