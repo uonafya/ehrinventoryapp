@@ -24,7 +24,6 @@
 
     jQuery(document).ready(function () {
         function print () {
-            var myStyle = '<link rel="stylesheet" href="http://localhost:8080/openmrs/ms/uiframework/resource/registration/styles/onepcssgrid.css" />';
             var printDiv = jQuery("#print").html();
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title>Information</title>');
