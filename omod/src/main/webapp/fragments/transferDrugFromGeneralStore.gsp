@@ -54,7 +54,10 @@
 
     });//end of doc ready function
     function detailDrugIndent(indentId) {
-        prescriptionDialog.show();
+//        prescriptionDialog.show();
+        window.location.href = emr.pageLink("inventoryapp", "detailDrugIndent", {
+            "indentId": indentId
+        });
 
     }
 
@@ -169,21 +172,7 @@
     </thead>
     <tbody role="alert" aria-live="polite" aria-relevant="all">
     <tr align="center">
-        <td colspan="6">No Drugs found</td>
+        <td colspan="6">No Indent found</td>
     </tr>
     </tbody>
 </table>
-
-<div id="prescription-dialog" class="dialog">
-    <div class="dialog-header">
-        <i class="icon-folder-open"></i>
-
-        <h3>Prescription</h3>
-    </div>
-
-    <div class="dialog-content">
-
-        <span class="button confirm right">Confirm</span>
-        <span class="button cancel">Cancel</span>
-    </div>
-</div>
