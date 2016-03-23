@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -107,9 +104,9 @@ public class MainStoreDrugProcessIndentPageController {
      * @param model
      * @return - backing bean for holding attributes
      */
-    public String post(HttpServletRequest request, PageModel model) {
+    public String post(HttpServletRequest request, PageModel model,UiUtils uiUtils) {
         List<String> errors = new ArrayList<String>();
-        InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
+        InventoryService inventoryService = Context.getService(InventoryService.class);
         Integer indentId = NumberUtils.toInt(request.getParameter("indentId"));
         InventoryStoreDrugIndent indent = inventoryService.getStoreDrugIndentById(indentId);
         List<InventoryStoreDrugIndentDetail> listIndentDetail = inventoryService.listStoreDrugIndentDetail(indentId);
@@ -128,7 +125,7 @@ public class MainStoreDrugProcessIndentPageController {
 
                 }
             }
-            return "redirect:/module/inventory/transferDrugFromGeneralStore.form";
+            return "redirect:"+ uiUtils.pageLink("inventoryapp","main");
         }
         //validate here
 
@@ -193,7 +190,7 @@ public class MainStoreDrugProcessIndentPageController {
             model.addAttribute("indent", indent);
             model.addAttribute("errors", errors);
             model.addAttribute("quantityTransfers", quantityTransfers);
-            return "/module/inventory/mainstore/mainStoreDrugProcessIndent";
+            return "mainStoreDrugProcessIndent";
         }
 
         //create transaction
@@ -202,16 +199,12 @@ public class MainStoreDrugProcessIndentPageController {
         transaction.setStore(mainStore);
         transaction.setTypeTransaction(ActionValue.TRANSACTION[1]);
         transaction.setCreatedOn(new Date());
-
-        // transaction.setCreatedBy("System");
-        // Sagar Bele - 07-08-2012 Bug #326 [INVENTORY] Transaction Stored with different user name
         transaction.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
         transaction = inventoryService.saveStoreDrugTransaction(transaction);
 
 
         for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
             int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""), 0);
-            //System.out.println("temp : "+temp);
             t.setMainStoreTransfer(temp);
             if (temp > 0) {
                 //sum currentQuantity of drugId, formulationId of store
@@ -243,20 +236,6 @@ public class MainStoreDrugProcessIndentPageController {
                         transDetail.setCostToPatient(trDetail.getCostToPatient());
                         transDetail.setParent(trDetail);
                         transDetail.setReceiptDate(date);
-                        //------------
-                        //Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-                        // Money vATUnitPrice = new Money(trDetail.getVAT());
-                        // Money m = moneyUnitPrice.plus(vATUnitPrice);
-                        // Money totl = m.times(temp);
-                        //--------
-                        /* Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-                         Money totl = moneyUnitPrice.times(temp);
-
-						totl = totl.plus(totl.times((double)trDetail.getVAT()/100));
-						transDetail.setTotalPrice(totl.getAmount());
-						transDetail.setTotalPrice(totl.getAmount());
-
-						*/
                         BigDecimal moneyUnitPrice = trDetail.getCostToPatient().multiply(new BigDecimal(temp));
                         //moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(trDetail.getVAT().divide(new BigDecimal(100))));
                         transDetail.setTotalPrice(moneyUnitPrice);
@@ -291,25 +270,11 @@ public class MainStoreDrugProcessIndentPageController {
                         trDetail.setQuantity(0);
 
                         inventoryService.saveStoreDrugTransactionDetail(trDetail);
-
-/*						 Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-                         Money vATUnitPrice = new Money(trDetail.getVAT());
-						 Money m = moneyUnitPrice.plus(vATUnitPrice);
-						 Money totl = m.times(transDetail.getIssueQuantity());
-						 transDetail.setTotalPrice(totl.getAmount());*/
-						 /*Money moneyUnitPrice = new Money(trDetail.getUnitPrice());
-						 Money totl = moneyUnitPrice.times(temp);
-
-						totl = totl.plus(totl.times((double)trDetail.getVAT()/100));
-						transDetail.setTotalPrice(totl.getAmount());
-						 */
                         BigDecimal moneyUnitPrice = trDetail.getUnitPrice().multiply(new BigDecimal(transDetail.getIssueQuantity()));
                         moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(trDetail.getVAT().divide(new BigDecimal(100))));
                         transDetail.setTotalPrice(moneyUnitPrice);
-
                         transDetail.setCurrentQuantity(0);
                         transDetail.setOpeningBalance(totalQuantity);
-
                         transDetail.setDrug(trDetail.getDrug());
                         transDetail.setReorderPoint(trDetail.getDrug().getReorderQty());
                         transDetail.setAttribute(trDetail.getDrug().getAttributeName());
@@ -324,7 +289,6 @@ public class MainStoreDrugProcessIndentPageController {
                         transDetail.setCostToPatient(trDetail.getCostToPatient());
                         transDetail.setParent(trDetail);
                         transDetail.setReceiptDate(date);
-
                         transDetail.setClosingBalance(totalQuantity - transDetail.getIssueQuantity());
                         inventoryService.saveStoreDrugTransactionDetail(transDetail);
                         totalQuantity -= transDetail.getIssueQuantity();
@@ -343,13 +307,14 @@ public class MainStoreDrugProcessIndentPageController {
             }
             inventoryService.saveStoreDrugIndentDetail(t);
         }
-        //System.out.println("den day roi");
         //add issue transaction from general store
         indent.setMainStoreStatus(ActionValue.INDENT_MAINSTORE[2]);
         indent.setSubStoreStatus(ActionValue.INDENT_SUBSTORE[2]);
         indent.setTransaction(transaction);
         inventoryService.saveStoreDrugIndent(indent);
-        return "redirect:/module/inventory/transferDrugFromGeneralStore.form?viewIndent=" + indentId;
+        Map<String,Object> redirectParams = new HashMap<String, Object>();
+        redirectParams.put("viewIndent",indentId);
+        return "redirect"+uiUtils.pageLink("inventoryapp","transferDrugFromGeneralStore",redirectParams);
 
     }
 }

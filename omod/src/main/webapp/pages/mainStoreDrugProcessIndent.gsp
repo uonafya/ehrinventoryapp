@@ -1,6 +1,13 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Process Indent "])
 %>
+<style>
+.retired {
+    text-decoration: line-through;
+    color: darkgrey;
+}
+
+</style>
 <script>
     jq(function () {
         var storeIndent = ${listDrugNeedProcess};
@@ -10,7 +17,7 @@
             var self = this;
             self.indentItems = ko.observableArray([]);
             var mappedStockItems = jQuery.map(pStoreIndent, function (item) {
-                return new IntentItem(item);
+                return new IndentItem(item);
             });
 
             self.viewDetails = function (item) {
@@ -30,8 +37,11 @@
             }
 
             self.transferIndent = function () {
-//                jq("#indentsForm").submit();
-                jq().toastmessage('showNoticeToast', "Submitting Form!");
+                if(jq("#transferIndent").hasClass("disabled")){
+                    jq().toastmessage('showNoticeToast', "Transfer Not Allowed due to Insufficient Quantities Available!");
+                }else{
+                    jq("#indentsForm").submit();
+                }
             }
 
             self.refuseIndent = function () {
@@ -51,13 +61,21 @@
             self.indentItems(mappedStockItems);
         }
 
-        function IntentItem(initialItem) {
+        function IndentItem(initialItem) {
             var self = this;
             self.initialItem = ko.observable(initialItem);
             self.transferQuantity = ko.observable();
+
             self.compFormulation = ko.computed(function () {
                 return initialItem.formulation.name + "-" + initialItem.formulation.dozage;
             });
+
+            self.isDisabled = ko.computed(function(){
+                return (self.initialItem().mainStoreTransfer <= 0) ;
+            });
+
+
+
         }
 
         var list = new IndentListViewModel();
@@ -100,13 +118,13 @@
             <th>Transfer Qnty</th>
             <th>Qnty Available</th>
             </thead>
-            <tbody data-bind="foreach: indentItems">
-            <td data-bind="text: (\$index() + 1)"></td>
-            <td data-bind="text: initialItem().drug.name"></td>
-            <td data-bind="text: compFormulation()"></td>
-            <td data-bind="text: initialItem().quantity"></td>
-            <td><input data-bind="value: transferQuantity, event:{blur:\$root.viewDetails}"/></td>
-            <td data-bind="text: initialItem().mainStoreTransfer"></td>
+            <tbody data-bind="foreach: indentItems ">
+            <td data-bind="text: (\$index() + 1),css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: initialItem().drug.name,css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: compFormulation(),css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: initialItem().quantity,css:{'retired': isDisabled()}"></td>
+            <td><input data-bind="value: transferQuantity, event:{blur:\$root.viewDetails},disable: isDisabled()"/></td>
+            <td data-bind="text: initialItem().mainStoreTransfer,css:{'retired': isDisabled()}"></td>
             </tbody>
 
         </table>
@@ -116,9 +134,9 @@
             <input type="hidden" id="refuse" name="refuse" value="">
             <textarea name="bill" data-bind="value: ko.toJSON(\$root)" style="display:none;"></textarea>
 
-            <button data-bind="click:transferIndent, enable: indentItems().length > 0 " class="confirm"
+            <button id="transferIndent" data-bind="click:transferIndent, css: {'disabled':indentItems()[0].isDisabled} " class="confirm"
                     style="float: right; margin-right: 2px;">Transfer</button>
-            <button id="billVoid" data-bind="click: refuseIndent" class="cancel"
+            <button id="refuseIndent" data-bind="click: refuseIndent" class="cancel"
                     style="margin-left: 2px">Refuse This Indent</button>
             <button data-bind="click: returnList" class="cancel">Return List</button>
 
