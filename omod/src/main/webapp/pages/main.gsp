@@ -258,7 +258,15 @@
 
             <div id="queues">
 
-                <h2 style="display: inline-block;">View Drug Stock</h2>
+                <div class="dashboard clear">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="icon-calendar"></i>
+
+                            <h3>View Drug Stock</h3>
+                        </div>
+                    </div>
+                </div>
                 ${ ui.includeFragment("inventoryapp", "stockBalance") }
             </div>
 
@@ -268,7 +276,7 @@
                         <div class="info-header">
                             <i class="icon-calendar"></i>
 
-                            <h3>Manage User Drugs</h3>
+                            <h3>Manage Expired Drugs</h3>
                         </div>
                     </div>
                 </div>
