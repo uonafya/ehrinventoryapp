@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * Created by ngarivictor on 3/22/2016.
+ * @author ngarivictor
+ *         Created on 3/22/2016.
  */
 public class DetailDrugIndentPageController {
     public void get(
@@ -37,6 +38,6 @@ public class DetailDrugIndentPageController {
                 !CollectionUtils.isEmpty(listIndentDetail) ? listIndentDetail
                         .get(0).getIndent().getCreatedOn() : null);
 
-        }
-
     }
+
+}
