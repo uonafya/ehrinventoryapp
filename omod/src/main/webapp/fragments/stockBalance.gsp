@@ -39,6 +39,7 @@
 
 <table id="stocklist">
     <thead>
+    <th>S.No</th>
     <th>Drug Name</th>
     <th>Drug Category</th>
     <th>Formulation</th>
@@ -46,9 +47,10 @@
     <th>Reorder Point</th>
     </thead>
     <tbody data-bind="foreach: stockItems">
+    <td data-bind="text: \$index() + 1"></td>
     <td><a data-bind="html: drug.name,click:\$parent.viewDetails"></a></td>
     <td data-bind="text: drug.category.name"></td>
-    <td data-bind="text: formulation.name"></td>
+    <td><span data-bind="text: formulation.name"></span>: <span data-bind="text: formulation.dozage"></span></td>
     <td data-bind="text: currentQuantity"></td>
     <td data-bind="text: drug.reorderQty"></td>
     </tbody>
