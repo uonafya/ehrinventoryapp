@@ -52,15 +52,14 @@
         <th>name</th>
         <th>formulation</th>
         <th>receiptQuantity</th>
-        <th>costToPatient</th>
-        <th>InstitutionalCost</th>
-        <th>totalPrice</th>
+        <th>Unit Price</th>
+        <th>Institutional Cost(%)</th>
+        <th>Cost To The Patient</th>
          <th>batchNo</th>
         <th>companyName</th>
         <th>dateManufacture</th>
         <th>dateExpiry</th>
         <th>receiptDate</th>
-        <th>receiptFrom</th>
     </tr>
     <% if (transactionDetails!=null || transactionDetails!="") { %>
     <% transactionDetails.each { pTransaction -> %>
@@ -69,19 +68,14 @@
     <td>${pTransaction.drug.name}</td>
     <td>${pTransaction.formulation.name}-${pTransaction.formulation.dozage}</td>
     <td>${pTransaction.quantity}</td>
-    <td>${pTransaction.costToPatient}</td>
-    <td>${pTransaction.costToPatient}</td>
     <td>${pTransaction.unitPrice}</td>
-    <td>${pTransaction.totalPrice}</td>
+    <td>${pTransaction.costToPatient}</td>
+    <td>${pTransaction.costToPatient}</td>
     <td>${pTransaction.batchNo}</td>
     <td>${pTransaction.companyName}</td>
     <td>${pTransaction.dateManufacture}</td>
     <td>${pTransaction.dateExpiry}</td>
     <td>${pTransaction.createdOn}</td>
-    <td>${pTransaction.receiptFrom}</td>
-
-
-
     <% } %>
     <% } else { %>
     <tr align="center" >

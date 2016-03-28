@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Drug Stock"])
-    def props = ["drug.name","drug.category.name","formulation.dozage","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate"]
+    def props = ["drug.name","drug.category.name","formulation.dozage","transaction.typeTransactionName","openingBalance","quantity","issueQuantity","closingBalance","dateExpiry","receiptDate"
+    ]
 
 %>
 
@@ -69,31 +70,23 @@
 
                 <th class="ui-state-default" role="columnheader">
 
-                    <div class="DataTables_sort_wrapper">attribute<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader" >
-                    <div class="DataTables_sort_wrapper">quantity<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader" >
-                    <div class="DataTables_sort_wrapper">issueQuantity<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader" >
-                    <div class="DataTables_sort_wrapper">currentQuantity<span class="DataTables_sort_icon"></span></div>
+                    <div class="DataTables_sort_wrapper">transaction<span class="DataTables_sort_icon"></span></div>
                 </th>
 
                 <th class="ui-state-default" role="columnheader" >
                     <div class="DataTables_sort_wrapper">openingBalance<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">closingBalance<span class="DataTables_sort_icon"></span></div>
+                <th class="ui-state-default" role="columnheader" >
+                    <div class="DataTables_sort_wrapper">receiptQuantity<span class="DataTables_sort_icon"></span></div>
                 </th>
 
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">dateManufacture<span class="DataTables_sort_icon"></span></div>
+                <th class="ui-state-default" role="columnheader" >
+                    <div class="DataTables_sort_wrapper">stockIssued<span class="DataTables_sort_icon"></span></div>
+                </th>
+
+                <th class="ui-state-default" role="columnheader" >
+                    <div class="DataTables_sort_wrapper">closingBalance<span class="DataTables_sort_icon"></span></div>
                 </th>
 
                 <th class="ui-state-default" role="columnheader">
