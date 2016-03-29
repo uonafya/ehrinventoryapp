@@ -25,7 +25,6 @@
 
     jQuery(document).ready(function () {
          function print () {
-            var myStyle = '<link rel="stylesheet" href="http://localhost:8080/openmrs/ms/uiframework/resource/registration/styles/onepcssgrid.css" />';
             var printDiv = jQuery("#print").html();
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title>Information</title>');
@@ -44,40 +43,39 @@
 </script>
 <div id="print">
 <table cellpadding="5" cellspacing="0" width="100%" id="queueList">
+    <h>
+        Receipt List
+
+    </h>
     <tr align="center">
         <th>category</th>
         <th>name</th>
         <th>formulation</th>
         <th>receiptQuantity</th>
-        <th>VAT</th>
-        <th>costToPatient</th>
-        <th>totalPrice</th>
+        <th>Unit Price</th>
+        <th>Institutional Cost(%)</th>
+        <th>Cost To The Patient</th>
          <th>batchNo</th>
         <th>companyName</th>
         <th>dateManufacture</th>
         <th>dateExpiry</th>
         <th>receiptDate</th>
-        <th>receiptFrom</th>
     </tr>
     <% if (transactionDetails!=null || transactionDetails!="") { %>
     <% transactionDetails.each { pTransaction -> %>
     <tr align="center" class=' ' >
     <td>${pTransaction.drug.category.name}</td>
     <td>${pTransaction.drug.name}</td>
-    <td>${pTransaction.formulation.dozage}</td>
+    <td>${pTransaction.formulation.name}-${pTransaction.formulation.dozage}</td>
     <td>${pTransaction.quantity}</td>
-    <td>${pTransaction.VAT}</td>
+    <td>${pTransaction.unitPrice}</td>
     <td>${pTransaction.costToPatient}</td>
-    <td>${pTransaction.totalPrice}</td>
+    <td>${pTransaction.costToPatient}</td>
     <td>${pTransaction.batchNo}</td>
     <td>${pTransaction.companyName}</td>
     <td>${pTransaction.dateManufacture}</td>
     <td>${pTransaction.dateExpiry}</td>
     <td>${pTransaction.createdOn}</td>
-    <td>${pTransaction.receiptFrom}</td>
-
-
-
     <% } %>
     <% } else { %>
     <tr align="center" >
