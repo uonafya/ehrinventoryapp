@@ -285,7 +285,14 @@
             </div>
 
             <div id="receipts">
-                <h2 style="display: inline-block;">Manage Receipt Drug</h2>
+                <div class="dashboard clear">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="icon-external-link"></i>
+                            <h3>Manage Receipt Drug</h3>
+                        </div>
+                    </div>
+                </div>
                 <div>  ${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
                 </div>
             </div>

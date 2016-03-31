@@ -132,7 +132,7 @@
         <form method="post" id="indentsForm" style="padding-top: 10px">
             <input type="hidden" name="indentId" id="indentId" value="${indent.id}">
             <input type="hidden" id="refuse" name="refuse" value="">
-            <textarea name="drugIntents" data-bind="value: ko.toJSON(\$root)" ></textarea>
+            <textarea name="drugIntents" data-bind="value: ko.toJSON(\$root)" style="display:none;"></textarea>
 
             <button id="transferIndent" data-bind="click:transferIndent, css: {'disabled':indentItems()[0].isDisabled} " class="confirm"
                     style="float: right; margin-right: 2px;">Transfer</button>
