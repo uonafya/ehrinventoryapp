@@ -1,0 +1,21 @@
+#show-icon{
+	background: rgba(0, 0, 0, 0) url("../images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+    display: inline-block;
+    float: right;
+    height: 50px;
+    margin-bottom: -40px;
+    width: 60px;
+}
+td a{
+	cursor: pointer;
+}
+td:first-child {  
+	text-align: center;
+}
+
+th:first-child {  
+	width: 15px;
+}
+th:last-child {  
+	width: 159px;
+}

@@ -37,21 +37,37 @@
     }
 </script>
 
+<div class="dashboard clear">
+	<div class="info-section">
+		<div class="info-header">
+			<i class="icon-calendar"></i>
+
+			<h3>View Drug Stock</h3>
+		</div>
+	</div>
+</div>
+
 <table id="stocklist">
     <thead>
-    <th>S.No</th>
-    <th>Drug Name</th>
-    <th>Drug Category</th>
-    <th>Formulation</th>
-    <th>Current Qty</th>
-    <th>Reorder Point</th>
+		<th>#</th>
+		<th>Drug Name</th>
+		<th>Drug Category</th>
+		<th>Formulation</th>
+		<th>Current Qty</th>
+		<th>Reorder Point</th>
     </thead>
     <tbody data-bind="foreach: stockItems">
-    <td data-bind="text: \$index() + 1"></td>
-    <td><a data-bind="html: drug.name,click:\$parent.viewDetails"></a></td>
-    <td data-bind="text: drug.category.name"></td>
-    <td><span data-bind="text: formulation.name"></span>: <span data-bind="text: formulation.dozage"></span></td>
-    <td data-bind="text: currentQuantity"></td>
-    <td data-bind="text: drug.reorderQty"></td>
+		<td data-bind="text: \$index() + 1"></td>
+		<td>
+			<a data-bind="html: drug.name,click:\$parent.viewDetails"></a>
+		</td>
+		
+		<td data-bind="text: drug.category.name"></td>
+		<td>
+			<span data-bind="text: formulation.name"></span>: <span data-bind="text: formulation.dozage"></span>
+		</td>
+		
+		<td data-bind="text: currentQuantity"></td>
+		<td data-bind="text: drug.reorderQty"></td>
     </tbody>
 </table>

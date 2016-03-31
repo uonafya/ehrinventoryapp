@@ -1,22 +1,23 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Pharmacy Module"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory"])
 
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
+    ui.includeCss("inventoryapp", "main.css")
 
     ui.includeJavascript("billingui", "moment.js")
     ui.includeJavascript("billingui", "jquery.dataTables.min.js")
     ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
 %>
-<head>
-    <script>
-        jq(function () {
-            jq("#tabs").tabs();
 
-        });
-    </script>
+<script>
+	jq(function () {
+		jq("#tabs").tabs();
 
-    <style>
+	});
+</script>
+
+<style>
     body {
         margin-top: 20px;
     }
@@ -220,10 +221,9 @@
     .ui-tabs-panel h2 {
         display: inline-block;
     }
-    </style>
-</head>
+	
+</style>
 
-<body>
 <div class="clear"></div>
 
 <div class="container">
@@ -236,7 +236,7 @@
 
             <li>
                 <i class="icon-chevron-right link"></i>
-                Inventory Module
+                Inventory
             </li>
         </ul>
     </div>
@@ -247,26 +247,22 @@
                 <span>INVENTORY DASHBOARD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
+		
+		<div id="show-icon">
+			&nbsp;
+		</div>
 
         <div id="tabs" style="margin-top: 40px!important;">
             <ul id="inline-tabs">
-                <li><a href="#queues">View Drug Stock</a></li>
-                <li><a href="#manage">View Expired Drugs</a></li>
+                <li><a href="#queues">Drug Stock</a></li>
+                <li><a href="#manage">Expired Drugs</a></li>
                 <li><a href="#receipts">Receipts to General Store</a></li>
                 <li><a href="#transer">Transfer from General Store</a></li>
             </ul>
 
             <div id="queues">
-
-                <div class="dashboard clear">
-                    <div class="info-section">
-                        <div class="info-header">
-                            <i class="icon-calendar"></i>
-
-                            <h3>View Drug Stock</h3>
-                        </div>
-                    </div>
-                </div>
+                
+				
                 ${ ui.includeFragment("inventoryapp", "stockBalance") }
             </div>
 
@@ -314,7 +310,3 @@
 
     </div>
 </div>
-
-</body>
-
-

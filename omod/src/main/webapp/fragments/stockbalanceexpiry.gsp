@@ -1,8 +1,9 @@
 <%
+	ui.includeJavascript("billingui", "moment.js")
+	
     def props = ["drug.name", "drug.category.name", "formulation.dozage", "currentQuantity", "reorderPoint", "action"]
 %>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.js"></script>
 <script>
     jq(function () {
 
