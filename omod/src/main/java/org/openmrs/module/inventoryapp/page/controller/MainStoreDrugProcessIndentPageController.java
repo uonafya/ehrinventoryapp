@@ -1,6 +1,8 @@
 package org.openmrs.module.inventoryapp.page.controller;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.*;
@@ -83,8 +85,8 @@ public class MainStoreDrugProcessIndentPageController {
                 }
                 listDrugTP.add(t);
             }
-            List<SimpleObject> simpleObjects = SimpleObject.fromCollection(listDrugTP, uiUtils, "drug.id", "drug.name",
-                    "formulation.id", "formulation.name", "formulation.dozage", "formulation.description", "quantity","mainStoreTransfer");
+            List<SimpleObject> simpleObjects = SimpleObject.fromCollection(listDrugTP, uiUtils, "id", "drug.id", "drug.name",
+                    "formulation.id", "formulation.name", "formulation.dozage", "formulation.description", "quantity", "mainStoreTransfer");
             String listDrugTPJson = SimpleObject.create("listDrugNeedProcess", simpleObjects).toJson();
             model.addAttribute("listDrugNeedProcess", listDrugTPJson);
             model.addAttribute("indent", indent);
@@ -104,7 +106,7 @@ public class MainStoreDrugProcessIndentPageController {
      * @param model
      * @return - backing bean for holding attributes
      */
-    public String post(HttpServletRequest request, PageModel model,UiUtils uiUtils) {
+    public String post(HttpServletRequest request, PageModel model, UiUtils uiUtils) {
         List<String> errors = new ArrayList<String>();
         InventoryService inventoryService = Context.getService(InventoryService.class);
         Integer indentId = NumberUtils.toInt(request.getParameter("indentId"));
@@ -125,7 +127,7 @@ public class MainStoreDrugProcessIndentPageController {
 
                 }
             }
-            return "redirect:"+ uiUtils.pageLink("inventoryapp","main");
+            return "redirect:" + uiUtils.pageLink("inventoryapp", "main");
         }
         //validate here
 
@@ -158,8 +160,26 @@ public class MainStoreDrugProcessIndentPageController {
         List<Integer> quantityTransfers = new ArrayList<Integer>();
         //get available quantity mainstore have on hand
         List<InventoryStoreDrugIndentDetail> listDrugTP = new ArrayList<InventoryStoreDrugIndentDetail>();
+
+        String drugIndents = request.getParameter("drugIntents");
+        JSONObject obj = new JSONObject(drugIndents);
+        JSONArray indentItems = obj.getJSONArray("indentItems");
+
+
         for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
-            int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""));
+            //temp is the current quantity received from the ui
+            int temp = 0;
+            for (int i = 0; i < indentItems.length(); i++) {
+                JSONObject incomingItem = indentItems.getJSONObject(i);
+                JSONObject initialItem = incomingItem.getJSONObject("initialItem");
+                int id = initialItem.getInt("id");
+                if (id == t.getId()) {
+                    String transferQuantity = incomingItem.getString("transferQuantity");
+                    System.out.println(transferQuantity);
+                    temp=Integer.valueOf(transferQuantity);
+                    break;
+                }
+            }
             //get to return view value
             quantityTransfers.add(temp);
             if (transactionAvaiableOfMainStore != null && transactionAvaiableOfMainStore.size() > 0) {
@@ -182,9 +202,11 @@ public class MainStoreDrugProcessIndentPageController {
             }
             listDrugTP.add(t);
         }
+
         if (passTransfer) {
             errors.add("inventory.indent.error.transfer");
         }
+
         if (errors != null && errors.size() > 0) {
             model.addAttribute("listDrugNeedProcess", listDrugTP);
             model.addAttribute("indent", indent);
@@ -204,7 +226,21 @@ public class MainStoreDrugProcessIndentPageController {
 
 
         for (InventoryStoreDrugIndentDetail t : listIndentDetail) {
-            int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""), 0);
+//            int temp = NumberUtils.toInt(request.getParameter(t.getId() + ""), 0);
+            int temp = 0;
+            for (int i = 0; i < indentItems.length(); i++) {
+                JSONObject incomingItem = indentItems.getJSONObject(i);
+                JSONObject initialItem = incomingItem.getJSONObject("initialItem");
+                int id = initialItem.getInt("id");
+                if (id == t.getId()) {
+                    String transferQuantity = incomingItem.getString("transferQuantity");
+                    System.out.println(transferQuantity);
+                    temp=Integer.valueOf(transferQuantity);
+                    System.out.println("Temp is: "+temp);
+                    break;
+                }
+            }
+
             t.setMainStoreTransfer(temp);
             if (temp > 0) {
                 //sum currentQuantity of drugId, formulationId of store
@@ -263,7 +299,6 @@ public class MainStoreDrugProcessIndentPageController {
                         }
                         break;
                     } else {
-                        //truong hop mot transactionDetail be hon cai can transfer.
                         Date date = new Date();
                         transDetail.setIssueQuantity(trDetail.getCurrentQuantity());
                         trDetail.setCurrentQuantity(0);
@@ -312,9 +347,9 @@ public class MainStoreDrugProcessIndentPageController {
         indent.setSubStoreStatus(ActionValue.INDENT_SUBSTORE[2]);
         indent.setTransaction(transaction);
         inventoryService.saveStoreDrugIndent(indent);
-        Map<String,Object> redirectParams = new HashMap<String, Object>();
-        redirectParams.put("viewIndent",indentId);
-        return "redirect"+uiUtils.pageLink("inventoryapp","transferDrugFromGeneralStore",redirectParams);
+        Map<String, Object> redirectParams = new HashMap<String, Object>();
+        redirectParams.put("viewIndent", indentId);
+        return "redirect:" + uiUtils.pageLink("inventoryapp", "main", redirectParams);
 
     }
 }

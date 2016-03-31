@@ -28,17 +28,17 @@
                 if (x != null && x != '') {
                     if (parseInt(x) > parseInt(value)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity indent!");
-                        item.transferQuantity(0);
+                        item.transferQuantity(1);
                     } else if (parseInt(x) > parseInt(mainStoreValue)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity at hand!");
-                        item.transferQuantity(0);
+                        item.transferQuantity(1);
                     }
                 }
             }
 
             self.transferIndent = function () {
                 if(jq("#transferIndent").hasClass("disabled")){
-                    jq().toastmessage('showNoticeToast', "Transfer Not Allowed due to Insufficient Quantities Available!");
+                    jq().toastmessage('showNoticeToast', "Transfer Not Allowed due to Insufficient Quantities!");
                 }else{
                     jq("#indentsForm").submit();
                 }
@@ -64,7 +64,7 @@
         function IndentItem(initialItem) {
             var self = this;
             self.initialItem = ko.observable(initialItem);
-            self.transferQuantity = ko.observable();
+            self.transferQuantity = ko.observable(1);
 
             self.compFormulation = ko.computed(function () {
                 return initialItem.formulation.name + "-" + initialItem.formulation.dozage;
@@ -132,7 +132,7 @@
         <form method="post" id="indentsForm" style="padding-top: 10px">
             <input type="hidden" name="indentId" id="indentId" value="${indent.id}">
             <input type="hidden" id="refuse" name="refuse" value="">
-            <textarea name="bill" data-bind="value: ko.toJSON(\$root)" style="display:none;"></textarea>
+            <textarea name="drugIntents" data-bind="value: ko.toJSON(\$root)" ></textarea>
 
             <button id="transferIndent" data-bind="click:transferIndent, css: {'disabled':indentItems()[0].isDisabled} " class="confirm"
                     style="float: right; margin-right: 2px;">Transfer</button>
