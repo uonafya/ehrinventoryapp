@@ -58,7 +58,7 @@
         <tr align="center" class=' ' >
             <td>${pTransaction.drug.category.name}</td>
             <td>${pTransaction.drug.name}</td>
-            <td>${pTransaction.formulation.dozage}</td>
+            <td>${pTransaction.formulation.name}-${pTransaction.formulation.dozage}</td>
             <td>${listIndentDetail.quantity}</td>
             <td>${listIndentDetail.mainStoreTransfer}
             <td>${pTransaction.batchNo}</td>
