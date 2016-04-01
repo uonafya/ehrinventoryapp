@@ -60,6 +60,7 @@
         <th>dateManufacture</th>
         <th>dateExpiry</th>
         <th>receiptDate</th>
+        <th>receiptFrom</th>
     </tr>
     <% if (transactionDetails!=null || transactionDetails!="") { %>
     <% transactionDetails.each { pTransaction -> %>
@@ -76,6 +77,7 @@
     <td>${pTransaction.dateManufacture}</td>
     <td>${pTransaction.dateExpiry}</td>
     <td>${pTransaction.createdOn}</td>
+    <td>${pTransaction.receiptFrom}</td>
     <% } %>
     <% } else { %>
     <tr align="center" >
