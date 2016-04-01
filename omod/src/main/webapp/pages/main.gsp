@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Dashboard"])
 
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
@@ -116,7 +116,8 @@
         border-radius: 2px !important;
         box-shadow: none !important;
         box-sizing: border-box !important;
-        height: 32px;
+        height: 30px;
+		padding-left: 5px;
     }
 
     .newdtp {
@@ -256,13 +257,11 @@
             <ul id="inline-tabs">
                 <li><a href="#queues">Drug Stock</a></li>
                 <li><a href="#manage">Expired Drugs</a></li>
-                <li><a href="#receipts">Receipts to General Store</a></li>
-                <li><a href="#transer">Transfer from General Store</a></li>
+                <li><a href="#receipts">Receipts</a></li>
+                <li><a href="#transer">Transfer</a></li>
             </ul>
 
             <div id="queues">
-                
-				
                 ${ ui.includeFragment("inventoryapp", "stockBalance") }
             </div>
 
