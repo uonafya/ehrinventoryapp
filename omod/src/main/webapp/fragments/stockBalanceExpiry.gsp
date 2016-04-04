@@ -6,21 +6,33 @@
 
         //action when the drug category is selected
         jq("#categoryId").on("change", function () {
-            var categoryId = jq("#categoryId").val();
-            var drugName = jq("#drugName").val();
-            loadExpiredDrugs(1, categoryId, drugName);
-
+            fetchExpiryData();
         });
 
         jq("#drugName").on("blur", function () {
-            var categoryId = jq("#categoryId").val();
-            var drugName = jq("#drugName").val();
-//            TODO check fragment action for search functionality
-            loadExpiredDrugs(1, categoryId, drugName);
+            fetchExpiryData();
         });
+		
+		jq('#expirySearch').click(function(){
+			fetchExpiryData();
+		});
+		
+		jq('#drugName').keydown(function (e) {
+			var key = e.keyCode || e.which;
+			if ((key == 9 || key == 13) && jq(this).attr('id') != 'searchPhrase') {
+				fetchExpiryData();
+			}
+		}); 
 
 
     });//end of doc ready
+	
+	function fetchExpiryData(){
+		var categoryId = jq("#categoryId").val();
+		var drugName = jq("#drugName").val();
+		
+		loadExpiredDrugs(1, categoryId, drugName);
+	}
 
     function loadExpiredDrugs(currentPage, categoryId, drugName) {
         jq.getJSON('${ui.actionLink("inventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
@@ -104,7 +116,7 @@
 				<label for="drugName">&nbsp; &nbsp;Name:</label>
 				<input type="text" name="drugName" id="drugName" placeholder=" Drug Name"/>
 				
-				<a class="button task" href="#">
+				<a class="button task" id="expirySearch">
 					Search
 				</a>
 			</div>
