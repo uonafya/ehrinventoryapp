@@ -1,8 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Drug Stock"])
-	
 	ui.includeJavascript("billingui", "moment.js")
-	
     def props = [	"transaction.typeTransactionName",
 					"openingBalance",
 					"quantity",
@@ -25,11 +23,10 @@
                 } ).success(function (data) {
                     if (data.length === 0 && data != null) {
 						jq('#expiry-detail-results-table > tbody > tr').remove();
-                        jq().toastmessage('showNoticeToast', "No drug found!");
 						
 						var row = '<tr align="center">';
-						row += '<td>&nbsp;</td>';
-						row += '<td colspan="8">No Records Found</td>';
+						row += '<td>0</td>';
+						row += '<td colspan="7">No Records Found</td>';
 						row += '</tr>';
 						
 						tbody.append(row);
@@ -39,14 +36,6 @@
                 });
 
     });
-	
-	String.prototype.replaceAt=function(index, character) {
-		return this.substr(0, index) + character + this.substr(index+character.length);
-	}
-	
-	String.prototype.insertAt = function(idx, rem, str) {
-		return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
-	};
 
     function updateQueueTable(tests) {
         jq('#expiry-detail-results-table > tbody > tr').remove();
@@ -64,8 +53,6 @@
 			row += '<td>' + item.closingBalance + '</td>';
 			row += '<td>' + item.dateExpiry.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
 			row += '<td>' + item.receiptDate.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
-			
-           
 
             row += '</tr>';
             tbody.append(row);

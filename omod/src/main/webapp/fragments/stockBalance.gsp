@@ -14,7 +14,6 @@
 
             self.viewDetails = function(item){
                 window.location.replace("viewCurrentStockBalanceDetail.page?drugId="+item.drug.id +"&formulationId="+item.formulation.id);
-
             }
             self.stockItems(mappedStockItems);
         }
@@ -43,7 +42,6 @@
 	<div class="info-section">
 		<div class="info-header">
 			<i class="icon-folder-open"></i>
-
 			<h3>VIEW DRUG STOCK</h3>
 			
 			<div>
@@ -53,9 +51,7 @@
 				<select id="stockCategoryId" style="width: 200px;" name="categoryId">
 					<option value="">ALL CATEGORIES</option>
                     <% listCategory.each { %>
-						<option value="${it.id}" title="${it.name}">
-							${it.name}
-						</option>
+						<option value="${it.id}" title="${it.name}">${it.name}</option>
                     <% } %>
 				</select>
 				

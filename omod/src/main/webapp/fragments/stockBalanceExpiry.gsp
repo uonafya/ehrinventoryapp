@@ -1,9 +1,3 @@
-<%
-	ui.includeJavascript("billingui", "moment.js")
-	
-    def props = ["drug.name", "drug.category.name", "formulation.dozage", "currentQuantity", "reorderPoint", "action"]
-%>
-
 <script>
     jq(function () {
 
@@ -41,99 +35,87 @@
                     }
                 }).error(function () {
                     jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
-                    jq('#expiry-search-results-table > tbody > tr').remove();
-                    var tbody = jq('#expiry-search-results-table > tbody');
+                    jq('#expirylist > tbody > tr').remove();
+                    var tbody = jq('#expirylist > tbody');
                     var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
                     tbody.append(row);
                 });
     }
     //update the queue table
     function updateQueueTable(tests) {
-        jq('#expiry-search-results-table > tbody > tr').remove();
-        var tbody = jq('#expiry-search-results-table > tbody');
+        jq('#expirylist > tbody > tr').remove();
+        var tbody = jq('#expirylist > tbody');
 
         for (index in tests) {
             var row = '<tr>';
             var item = tests[index];
-            <% props.each {
-                if(it == props.last()){ %>
-                    var pageLinkEdit = emr.pageLink("inventoryapp", "viewStockBalanceDetail", {
-                        drugId: item.drug.id,
-                        formulationId: item.formulation.id,
-                        expiry: 1
-                    });
-                row += '<td> <a title="Detail all transactions of this drug" href="' + pageLinkEdit + '"><i class="icon-arrow-right small" ></i></a></td>';
-
-            <% } else {%>
-                row += '<td>' + item.${ it } + '</td>';
-            <% }
-              } %>
+			var pageLinkEdit = emr.pageLink("inventoryapp", "viewStockBalanceDetail", {
+				drugId: item.drug.id,
+				formulationId: item.formulation.id,
+				expiry: 1
+			});
+			
+			row += '<td>' + (1+parseInt(index)) + '</td>';
+			row += '<td><a href="' + pageLinkEdit + '">' + item.drug.name + '</a></td>';
+			row += '<td>' + item.drug.category.name + '</td>';
+			row += '<td>' + item.formulation.name+ ': '+ item.formulation.dozage + '</td>';
+			row += '<td>' + item.currentQuantity + '</td>';
+			row += '<td>' + item.reorderPoint + '</td>';
+			
+           
             row += '</tr>';
             tbody.append(row);
         }
     }
 </script>
 
-<div id="expiry-search-results" style="display: block; margin-top:3px;">
-    <div role="grid" class="dataTables_wrapper" id="expiry-search-results-table_wrapper">
-        <table id="expiry-search-results-table" class="dataTable" aria-describedby="expiry-search-results-table_info">
-            <thead>
-
-            <div>
-                <label for="categoryId">Drug Category</label>
-                <select name="categoryId" id="categoryId" style="width: 250px;">
-                    <option value=""></option>
-                    <% listCategory.each { %>
-                    <option value="${it.id}" title="${it.name}">
-                        ${it.name}
-                    </option>
-                    <% } %>
-                </select>
-
-                <label for="drugName">Drug Name</label>
-                <input type="text" name="drugName" id="drugName"/>
-
-            </div>
-            <br/>
-
-
-
-
-            <tr role="row">
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">Drug Name<span class="DataTables_sort_icon"></span>
-                    </div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">Category<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">Formulation<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">Current Qty<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">Reorder Point<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-                <th class="ui-state-default" role="columnheader">
-                    <div class="DataTables_sort_wrapper">action<span class="DataTables_sort_icon"></span></div>
-                </th>
-
-            </tr>
-            </thead>
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-            <tr align="center">
-                <td colspan="6">No Drugs found</td>
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
+<div class="dashboard clear">
+	<div class="info-section">
+		<div class="info-header">
+			<i class="icon-calendar"></i>
+			<h3>EXPIRED DRUGS</h3>
+			
+			
+			<div>
+				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
+				
+				<label for="categoryId">Category:</label>
+				<select name="categoryId" id="categoryId" style="width: 200px;">
+					<option value="">ALL CATEGORIES</option>
+					<% listCategory.each { %>
+						<option value="${it.id}" title="${it.name}">${it.name}</option>
+					<% } %>
+				</select>
+				
+				<label for="drugName">&nbsp; &nbsp;Name:</label>
+				<input type="text" name="drugName" id="drugName" placeholder=" Drug Name"/>
+				
+				<a class="button task" href="#">
+					Search
+				</a>
+			</div>
+			
+		</div>
+	</div>
 </div>
+
+
+<table id="expirylist">
+	<thead>
+		<th>#</th>
+		<th>DRUG NAME</th>
+		<th>CATEGORY</th>
+		<th>FORMULATION</th>
+		<th>QUANTITY</th>
+		<th>RE-ORDER</th>
+    </thead>
+	
+	<tbody role="alert" aria-live="polite" aria-relevant="all">
+	<tr align="center">
+		<td colspan="6">No Drugs found</td>
+	</tr>
+	</tbody>
+</table>
+
+
 

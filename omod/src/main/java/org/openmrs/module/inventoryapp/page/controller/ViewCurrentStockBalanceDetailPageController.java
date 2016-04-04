@@ -29,10 +29,8 @@ public class ViewCurrentStockBalanceDetailPageController {
         System.out.println(formulations.size());
 
         for (InventoryDrugFormulation idf : formulations){
-            System.out.println(idf.getId() +" "+ formulationId);
 
             if (idf.getId().intValue() == formulationId.intValue()){
-                System.out.println("Match");
                 pageModel.addAttribute("formulation",idf);
             }
         }

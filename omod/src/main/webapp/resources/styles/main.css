@@ -28,18 +28,23 @@ td a{
 	cursor: pointer;
 }
 
+#expirylist td:first-child, 
+#expirylist th:first-child,
 #stocklist td:first-child, 
-#stocklist th:first-child {  
+#stocklist th:first-child {
 	width: 15px;
 	text-align: center;
 }
+#expirylist th:nth-child(4),
 #stocklist th:nth-child(4) {  
-	width: 160px;
+	width: 180px;
 }
-#stocklist th:nth-child(5) {  
+#expirylist th:nth-child(5),
+#stocklist th:nth-child(5) {
 	width: 85px;
 }
-#stocklist th:last-child {  
+#expirylist th:last-child,
+#stocklist th:last-child {
 	width: 80px;
 }
 

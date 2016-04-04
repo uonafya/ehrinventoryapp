@@ -266,17 +266,7 @@
             </div>
 
             <div id="manage">
-                <div class="dashboard clear">
-                    <div class="info-section">
-                        <div class="info-header">
-                            <i class="icon-calendar"></i>
-
-                            <h3>Manage Expired Drugs</h3>
-                        </div>
-                    </div>
-                </div>
-                <div>${ui.includeFragment("inventoryapp", "stockBalanceExpiry")}
-                </div>
+				${ui.includeFragment("inventoryapp", "stockBalanceExpiry")}
             </div>
 
             <div id="receipts">
