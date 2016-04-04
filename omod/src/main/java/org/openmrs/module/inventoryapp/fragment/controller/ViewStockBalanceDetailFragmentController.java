@@ -48,6 +48,6 @@ public class ViewStockBalanceDetailFragmentController {
                 .listStoreDrugTransactionDetail(store.getId(), drugId,
                         formulationId, expiry);
 
-        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage","transaction.indents.store.name","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate");
+        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage", "transaction.typeTransactionName","transaction.indents.store.name","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate");
     }
 }

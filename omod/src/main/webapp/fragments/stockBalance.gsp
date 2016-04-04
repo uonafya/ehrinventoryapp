@@ -1,5 +1,6 @@
 <script>
     var pDataString;
+	var list;
     jq(function(){
         var pData = getStockBalance();
         pDataString = JSON.stringify(pData);
@@ -18,7 +19,7 @@
             self.stockItems(mappedStockItems);
         }
 
-        var list = new StockListView();
+        list = new StockListView();
         ko.applyBindings(list, jq("#stocklist")[0]);
     });
 	
@@ -79,17 +80,19 @@
     </thead>
 	
     <tbody data-bind="foreach: stockItems">
-		<td data-bind="text: \$index() + 1"></td>
-		<td>
-			<a data-bind="html: drug.name,click:\$parent.viewDetails"></a>
-		</td>
-		
-		<td data-bind="text: drug.category.name"></td>
-		<td>
-			<span data-bind="text: formulation.name"></span>: <span data-bind="text: formulation.dozage"></span>
-		</td>
-		
-		<td data-bind="text: currentQuantity"></td>
-		<td data-bind="text: drug.reorderQty"></td>
+		<tr class="" data-bind = "css: { 'below-qnty' : (drug.reorderQty > currentQuantity) }">
+			<td data-bind="text: \$index() + 1"></td>
+			<td>
+				<a data-bind="html: drug.name,click:\$parent.viewDetails"></a>
+			</td>
+			
+			<td data-bind="text: drug.category.name"></td>
+			<td>
+				<span data-bind="text: formulation.name"></span>: <span data-bind="text: formulation.dozage"></span>
+			</td>
+			
+			<td data-bind="text: currentQuantity"></td>
+			<td data-bind="text: drug.reorderQty"></td>
+		</tr>
     </tbody>
 </table>

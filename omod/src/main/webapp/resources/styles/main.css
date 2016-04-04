@@ -51,3 +51,10 @@ td a{
 .button.task, a.button.task {
     line-height: 0.8em!important;
 }
+.below-qnty{
+	background: #ffff00 none repeat scroll 0 0!important;
+	color: #f00!important;
+}
+.below-qnty a{
+	color: #f00!important;
+}

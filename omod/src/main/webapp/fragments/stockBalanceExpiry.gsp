@@ -1,6 +1,7 @@
 <script>
-    jq(function () {
-
+	var showNotification = false;
+    
+	jq(function () {
         loadExpiredDrugs();
 
         //action when the drug category is selected
@@ -23,23 +24,37 @@
 
     function loadExpiredDrugs(currentPage, categoryId, drugName) {
         jq.getJSON('${ui.actionLink("inventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
-                {
-                    currentPage: currentPage,
-                    categoryId: categoryId,
-                    drugName: drugName
-                }).success(function (data) {
-                    if (data.length === 0 && data != null) {
-                        jq().toastmessage('showNoticeToast', "No drug found!");
-                    } else {
-                        updateQueueTable(data);
-                    }
-                }).error(function () {
-                    jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
-                    jq('#expirylist > tbody > tr').remove();
-                    var tbody = jq('#expirylist > tbody');
-                    var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
-                    tbody.append(row);
-                });
+		{
+			currentPage: currentPage,
+			categoryId: categoryId,
+			drugName: drugName
+		}).success(function (data) {
+			if (data.length === 0 && data != null) {
+				if (showNotification){
+					jq().toastmessage('showErrorToast', "No records found");
+				}
+				
+				jq('#expirylist > tbody > tr').remove();
+				var tbody = jq('#expirylist > tbody');
+				var row = '<tr align="center"><td>&nbsp;</td><td colspan="5">No Drugs found</td></tr>';
+				tbody.append(row);
+			} else {
+				updateQueueTable(data);
+			}
+			showNotification = true;
+			
+		}).error(function () {
+			if (showNotification){
+				jq().toastmessage('showErrorToast', "No records found");
+			}
+			
+			showNotification = true;
+			
+			jq('#expirylist > tbody > tr').remove();
+			var tbody = jq('#expirylist > tbody');
+			var row = '<tr align="center"><td>&nbsp;</td><td colspan="5">No Drugs found</td></tr>';
+			tbody.append(row);
+		});
     }
     //update the queue table
     function updateQueueTable(tests) {
@@ -62,7 +77,6 @@
 			row += '<td>' + item.currentQuantity + '</td>';
 			row += '<td>' + item.reorderPoint + '</td>';
 			
-           
             row += '</tr>';
             tbody.append(row);
         }

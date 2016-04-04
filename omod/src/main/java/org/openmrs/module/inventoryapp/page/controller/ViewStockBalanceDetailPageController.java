@@ -29,8 +29,6 @@ public class ViewStockBalanceDetailPageController {
         InventoryDrug drug = inventoryService.getDrugById(drugId);
         Set<InventoryDrugFormulation> formulations = drug.getFormulations();
 
-        System.out.println(formulations.size());
-
         InventoryDrugFormulation formulation = inventoryService.getDrugFormulationById(formulationId);
         pageModel.addAttribute("formulation",formulation);
         pageModel.addAttribute("drug",drug);

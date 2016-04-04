@@ -136,7 +136,7 @@
 
             <li>
                 <i class="icon-chevron-right link"></i>
-                View Drug Stock
+                Current Drug Stock
             </li>
         </ul>
     </div>
@@ -144,7 +144,7 @@
 	<div class="patient-header new-patient-header">
 		<div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
-                <span>VIEW DRUG STOCK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                <span>VIEW CURRENT DRUG STOCK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
 		
@@ -157,7 +157,7 @@
 			<div>
 				<span>Drug Name:</span><b>${drug.name}</b><br/>
 				<span>Category:</span>${drug.category.name}<br/>
-				<span>Formulation:</span>${formulation.dozage}<br/>
+				<span>Formulation:</span>${formulation.name}: ${formulation.dozage}<br/>
 			</div>
 		</div>
 	</div>
