@@ -1,10 +1,21 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Expired Drug Stock"])
-    def props = ["drug.name","drug.category.name","formulation.dozage","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate"]
+	ui.includeJavascript("billingui", "moment.js")
+    def props = [	"drug.name",
+					"drug.category.name",
+					"formulation.dozage",
+					"drug.attribute",
+					"quantity",
+					"issueQuantity",
+					"currentQuantity",
+					"openingBalance",
+					"closingBalance",
+					"dateManufacture",
+					"dateExpiry",
+					"receiptDate"]
 
 %>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.js"></script>
 <script>
     jq(function (){
 

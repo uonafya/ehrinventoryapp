@@ -28,15 +28,8 @@ public class ViewCurrentStockBalanceDetailPageController {
 
         System.out.println(formulations.size());
 
-        for (InventoryDrugFormulation idf : formulations){
-
-            if (idf.getId().intValue() == formulationId.intValue()){
-                pageModel.addAttribute("formulation",idf);
-            }
-        }
-
+        InventoryDrugFormulation formulation = inventoryService.getDrugFormulationById(formulationId);
+        pageModel.addAttribute("formulation",formulation);
         pageModel.addAttribute("drug",drug);
-
     }
-
 }
