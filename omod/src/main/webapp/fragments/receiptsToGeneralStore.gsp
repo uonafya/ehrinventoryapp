@@ -51,28 +51,30 @@
 </script>
 
 <style>
-	td a{
-		text-transform:uppercase;
-	}
-	td:first-child {
-		width: 15px;
-		text-align: center;
-	}
-	th:nth-child(2) {  
-		width: 120px;
-	}
-	th:nth-child(4) {  
-		width: 200px;
-	}
-	th:last-child {
-		width: 180px;
-	}
+	
 </style>
 
+<div class="dashboard clear">
+	<div class="info-section">
+		<div class="info-header">
+			<i class="icon-list-ul"></i>
+            <h3>RECEIPT DRUGS</h3>
+			
+			<div>
+				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
+				
+				<label for="receiptName">Description</label>
+				<input type="text" id="receiptName" name="receiptName" placeholder="Receipt Name" class="searchFieldBlur" title="Receipt Name"/>
+				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'lastDayOfVisit', id: 'rcptFrom', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+
 <div>
-	<label for="receiptName">Description</label>
-	<input type="text" id="receiptName" name="receiptName" placeholder="Receipt Name" class="searchFieldBlur"
-		   title="Receipt Name"/>
+	
 	<label for="rFromDate">From</label>
 	<input type="text" id="rFromDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly"
 		   name="rFromDate"

@@ -26,35 +26,52 @@
 }
 td a{ 
 	cursor: pointer;
+	text-transform:uppercase;
 }
 
-#expirylist td:first-child, 
-#expirylist th:first-child,
-#stocklist td:first-child, 
-#stocklist th:first-child {
+td:first-child, 
+th:first-child {
 	width: 15px;
 	text-align: center;
 }
+
+#receiptslist th:nth-child(2) {  
+	width: 120px;
+}
+
 #expirylist th:nth-child(4),
 #stocklist th:nth-child(4) {  
 	width: 180px;
 }
+
+#receiptslist th:nth-child(4) {  
+	width: 200px;
+}
+
 #expirylist th:nth-child(5),
 #stocklist th:nth-child(5) {
 	width: 85px;
 }
+
 #expirylist th:last-child,
 #stocklist th:last-child {
 	width: 80px;
 }
 
+#receiptslist th:last-child {
+	width: 180px;
+}
+
 .button.task, a.button.task {
     line-height: 0.8em!important;
 }
+
 .below-qnty{
 	background: #ffff00 none repeat scroll 0 0!important;
 	color: #f00!important;
 }
+
 .below-qnty a{
 	color: #f00!important;
 }
+
