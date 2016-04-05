@@ -18,10 +18,34 @@
             }
             self.stockItems(mappedStockItems);
         }
+		
+		jq("#stockCategoryId").on("change", function () {
+            fetchExpiryData();
+        });
+
+        jq("#stockDrugName").on("blur", function () {
+            fetchExpiryData();
+        });
+		
+		jq('#stockSearch').click(function(){
+			fetchExpiryData();
+		});
+		
+		jq('#stockDrugName').keydown(function (e) {
+			var key = e.keyCode || e.which;
+			if ((key == 9 || key == 13) && jq(this).attr('id') != 'searchPhrase') {
+				fetchExpiryData();
+			}
+		}); 
 
         list = new StockListView();
         ko.applyBindings(list, jq("#stocklist")[0]);
     });
+	
+	function fetchExpiryData(){
+		//this is the fuction that gets the parameters and initialize the search procedure
+		jq().toastmessage('showErrorToast', "Functionality Not Linked up Yet.");
+	}
 	
     function getStockBalance() {
         var toReturn;
@@ -49,7 +73,7 @@
 				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
 				
 				<label for="stockCategoryId">Category: </label>
-				<select id="stockCategoryId" style="width: 200px;" name="categoryId">
+				<select id="stockCategoryId" style="width: 200px;" name="stockCategoryId">
 					<option value="">ALL CATEGORIES</option>
                     <% listCategory.each { %>
 						<option value="${it.id}" title="${it.name}">${it.name}</option>
@@ -59,7 +83,7 @@
 				<label for="stockDrugName">&nbsp; &nbsp;Name:</label>
 				<input id="stockDrugName" type="text" value="" name="stockDrugName" placeholder=" Drug Name">
 				
-				<a class="button task" href="#">
+				<a class="button task" id="stockSearch">
 					Search
 				</a>
 			</div>

@@ -271,16 +271,7 @@
             </div>
 
             <div id="receipts">
-                <div class="dashboard clear">
-                    <div class="info-section">
-                        <div class="info-header">
-                            <i class="icon-external-link"></i>
-                            <h3>Manage Receipt Drug</h3>
-                        </div>
-                    </div>
-                </div>
-                <div>  ${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
-                </div>
+				${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
             </div>
 
             <div id="transer">
