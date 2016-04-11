@@ -100,3 +100,5 @@
 		<td>N/A</td>
     </tbody>
 </table>
+
+<a href="addReceiptsToGeneralStore.page">Add Receipts</a>
