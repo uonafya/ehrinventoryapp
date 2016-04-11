@@ -136,12 +136,16 @@
 
     .add-on {
         color: #f26522;
-        float: right;
-        left: auto;
-        margin-left: -29px;
-        margin-top: 10px;
-        position: absolute;
+		float: right;
+		font-size: 8px !important;
+		left: auto;
+		margin-left: -29px;
+		margin-top: 4px !important;
+		position: absolute;
     }
+	.add-on i {
+        color: #009384!important;
+	}
 
     .chrome .add-on {
         margin-left: -31px;
@@ -223,6 +227,19 @@
     .ui-tabs-panel h2 {
         display: inline-block;
     }
+	
+	#rcptDate,
+	#rcptFrom{
+		float: 			none;
+		margin-bottom:	-9px;
+		margin-top: 	12px;
+		padding-right: 	0px;
+	}
+	
+	#rcptDate-display,
+	#rcptFrom-display {
+		width: 140px;
+	}
 	
 </style>
 

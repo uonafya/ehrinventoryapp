@@ -7,12 +7,10 @@
 	
     jq(function () {
         var receiptsData = getReceitsToGeneralStore();
-        receiptsDataString = JSON.stringify(receiptsData);
         function ReceiptsDataListView() {
             var self = this;
             // Editable data
             self.receiptsDataItems = ko.observableArray([]);
-            ;
             var mappedReceiptsDataItems = jQuery.map(receiptsData, function (item) {
                 return item;
             });
@@ -24,9 +22,29 @@
             self.receiptsDataItems(mappedReceiptsDataItems);
 
         }
+		
+		function updateTable(){
+			receiptsData = getReceitsToGeneralStore(jq('#receiptName').val().trim(), moment(jq('#rcptFrom-field').val()).format('DD/MM/YYYY'), moment(jq('#rcptDate-field').val()).format('DD/MM/YYYY'));
+			list.receiptsDataItems(receiptsData);
+		}
+
+		
+		jq('#receiptName').on('keyup',function(){
+			updateTable();
+		});
+		
+		jq('#rcptFrom').on('change',function(){
+			updateTable();
+		});
+		
+		jq('#rcptDate').on('change',function(){
+			console.log('Task');
+			updateTable();
+		});
 
         var list = new ReceiptsDataListView();
         ko.applyBindings(list, jq("#receiptslist")[0]);
+		//console.log(list.receiptsDataItems().);
     });
 	
     function getReceitsToGeneralStore(receiptName, fromDate, toDate) {
@@ -60,12 +78,13 @@
 			<i class="icon-list-ul"></i>
             <h3>RECEIPT DRUGS</h3>
 			
-			<div>
+			<div style="margin-top: -1px">
 				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
 				
 				<label for="receiptName">Description</label>
-				<input type="text" id="receiptName" name="receiptName" placeholder="Receipt Name" class="searchFieldBlur" title="Receipt Name"/>
-				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'lastDayOfVisit', id: 'rcptFrom', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
+				<input type="text" id="receiptName" name="receiptName" placeholder="Receipt Name" class="searchFieldBlur" title="Receipt Name" style="width: 160px"/>
+				<label>&nbsp;&nbsp;From&nbsp;</label>${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'rFromDate', id: 'rcptFrom', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
+				<label>&nbsp;&nbsp;To&nbsp;</label  >${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'toDate',    id: 'rcptDate',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
 			</div>
 			
 			
@@ -73,16 +92,8 @@
 	</div>
 </div>
 
-<div>
-	
-	<label for="rFromDate">From</label>
-	<input type="text" id="rFromDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly"
-		   name="rFromDate"
-		   title="Double Click to Clear" ondblclick="this.value = '';"/>
-	<label for="toDate">To</label>
-	<input type="text" id="toDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="toDate"
-		   title="Double Click to Clear" ondblclick="this.value = '';"/>
-</div>
+
+
 
 <table id="receiptslist">
     <thead>
