@@ -27,9 +27,12 @@ public class DetailedReceiptOfDrugPageController {
                     .getTransaction().getStore());
             model.addAttribute("date", transactionDetails.get(0)
                     .getTransaction().getCreatedOn());
+            model.addAttribute("drug", transactionDetails.get(0)
+                    .getDrug());
+            model.addAttribute("formulation", transactionDetails.get(0)
+                    .getFormulation());
         }
         model.addAttribute("transactionDetails", transactionDetails);
-
     }
 
 }

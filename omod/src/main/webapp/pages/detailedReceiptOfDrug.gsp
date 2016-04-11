@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Module"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Drug Receipt Details"])
 
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
@@ -20,11 +20,11 @@
             }
         }
     }
-</script>
-<script>
 
-    jQuery(document).ready(function () {
-         function print () {
+    jq(document).ready(function () {
+		console.log(jq('.exampler').html().replaceStrings());
+         
+		function print () {
             var printDiv = jQuery("#print").html();
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title>Information</title>');
@@ -38,9 +38,125 @@
             print().show();
         });
     });
+	
+	String.prototype.replaceStringx = function() {
+		var res = this.replace("[", "");
+		res=res.replace("]","");
+		return res;
+	}
+	
+	String.prototype.replaceStrings = function(search, replacement) {
+		var res = this.replace(/\\[/g, '');
+			res = this.replace(/]/g, '');
+		return res;
+	};
 
 
 </script>
+
+<style>
+	.new-patient-header .identifiers {
+		margin-top: 5px;
+	}
+	.name {
+		color: #f26522;
+	}
+	#inline-tabs{
+		background: #f9f9f9 none repeat scroll 0 0;
+	}
+	#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+		text-decoration: none;
+	}
+	#show-icon{
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+		display: inline-block;
+		float: right;
+		height: 50px;
+		margin-bottom: -40px;
+		margin-top: 10px;
+		width: 60px;
+	}
+	.exampler {
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-radius: 2px;
+		display: block;
+		margin: 65px 0 3px;
+		padding: 10px;
+		position: relative;
+	}
+	.exampler::after {
+		background: #f9f9f9 none repeat scroll 0 0;
+		border: 1px solid #ddd;
+		color: #969696;
+		content: "Drug Summary";
+		font-size: 12px;
+		font-weight: bold;
+		left: -1px;
+		padding: 5px 10px;
+		position: absolute;
+		top: -29px;
+	}
+	.exampler div {
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+		padding-left: 90px;
+		color: #363463;
+	}
+	.exampler div span{
+		color: #555;
+		float: left;
+		font-size: 0.9em;
+		text-transform: uppercase;
+		width: 120px;
+	}
+</style>
+
+<div class="container">
+	<div class="example">
+        <ul id="breadcrumbs">
+            <li>
+                <a href="${ui.pageLink('referenceapplication', 'home')}">
+					<i class="icon-home small"></i>
+				</a>
+            </li>
+			
+			<li>
+                <a href="${ui.pageLink('inventoryapp', 'main')}">
+					<i class="icon-chevron-right link"></i>Inventory
+				</a>
+            </li>
+
+            <li>
+                <i class="icon-chevron-right link"></i>
+                Drug Receipt Details
+            </li>
+        </ul>
+    </div>
+	
+	<div class="patient-header new-patient-header">
+		<div class="demographics">
+            <h1 class="name" style="border-bottom: 1px solid #ddd;">
+                <span>VIEW CURRENT DRUG STOCK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            </h1>
+        </div>
+		
+		<div id="show-icon">
+			&nbsp;
+		</div>
+		
+		<div class="exampler">
+			<div>
+				<span>Drug Name:</span><b>${drug.name}</b><br/>
+				<span>Category:</span>${drug.category.name}<br/>
+				<span>Formulation:</span>${transactionDetails.formulation.name}: ${transactionDetails.formulation.dozage}<br/>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+
+
 <div id="print">
 <table cellpadding="5" cellspacing="0" width="100%" id="queueList">
     <h>

@@ -14,7 +14,10 @@
             });
 
             self.viewDetails = function(item){
-                window.location.replace("viewCurrentStockBalanceDetail.page?drugId="+item.drug.id +"&formulationId="+item.formulation.id);
+				window.location.href = emr.pageLink("inventoryapp", "viewCurrentStockBalanceDetail", {
+					drugId: item.drug.id,
+					formulationId: item.formulation.id
+				});
             }
             self.stockItems(mappedStockItems);
         }

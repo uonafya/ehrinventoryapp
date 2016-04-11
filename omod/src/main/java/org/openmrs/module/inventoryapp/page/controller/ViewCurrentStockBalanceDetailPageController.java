@@ -9,7 +9,7 @@ import org.openmrs.module.inventory.InventoryService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Created by USER on 3/18/2016.
+ * Created by Stanlaus on 3/18/2016.
  */
 public class ViewCurrentStockBalanceDetailPageController {
     public void get(@RequestParam(value = "drugId", required = false) Integer drugId,

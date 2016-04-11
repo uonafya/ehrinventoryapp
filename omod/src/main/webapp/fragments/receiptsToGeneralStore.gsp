@@ -16,8 +16,9 @@
             });
 
             self.viewDetails = function (item) {
-                window.location.replace("detailedReceiptOfDrug.page?receiptId=" + item.id);
-
+                window.location.href = emr.pageLink("inventoryapp", "detailedReceiptOfDrug", {
+					receiptId: item.id
+				});
             }
             self.receiptsDataItems(mappedReceiptsDataItems);
 
@@ -92,9 +93,6 @@
 	</div>
 </div>
 
-
-
-
 <table id="receiptslist">
     <thead>
 		<th>#</th>
@@ -112,4 +110,7 @@
     </tbody>
 </table>
 
-<a href="addReceiptsToGeneralStore.page">Add Receipts</a>
+<div class="summary-div">
+	<a class="button task" href="addReceiptsToGeneralStore.page" style="float: right; margin-top: 5px;width: 160px; text-align: center; height: 20px; padding-top: 15px"><i class="icon-plus small"> </i>&nbsp;Add Receipts</a>
+</div>
+
