@@ -62,5 +62,10 @@
 	</messages>
 	<!-- /Internationalization -->
 
+	<privilege>
+		<name>App: inventoryapp</name>
+		<description>Able to access the inventory app</description>
+	</privilege>
+
 </module>
 
