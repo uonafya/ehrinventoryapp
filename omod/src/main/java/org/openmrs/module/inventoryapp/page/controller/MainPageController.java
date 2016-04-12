@@ -11,6 +11,8 @@ import org.openmrs.module.inventory.InventoryService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class MainPageController {
 
     }
 
-    public void get(PageModel pageModel, UiUtils uiUtils) {
+    public String get(PageModel pageModel, UiUtils uiUtils) {
         InventoryService inventoryService = Context.getService(InventoryService.class);
         List<InventoryDrugCategory> listCategory = inventoryService.listDrugCategory("", 0, 0);
         List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
@@ -43,14 +45,17 @@ public class MainPageController {
         InventoryStore mainStore = null;
         if (srl != null) {
             mainStore = inventoryService.getStoreById(srl.getStoreid());
+            List<InventoryStore> listStore = inventoryService.listStoreByMainStore(mainStore.getId(), false);
+
+            pageModel.addAttribute("listMainStoreStatus", listMainStoreStatus);
+            pageModel.put("listCategory", listCategory);
+            pageModel.addAttribute("listStore", listStore);
 
         }
-        List<InventoryStore> listStore = inventoryService.listStoreByMainStore(mainStore.getId(), false);
-
-        pageModel.addAttribute("listMainStoreStatus", listMainStoreStatus);
-        pageModel.put("listCategory", listCategory);
-        pageModel.addAttribute("listStore", listStore);
-
+        else{
+            return "redirect: index.htm";
+        }
+        return null;
     }
 
 
