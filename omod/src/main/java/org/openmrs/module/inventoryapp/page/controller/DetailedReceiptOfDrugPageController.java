@@ -5,6 +5,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.inventory.InventoryService;
+import org.openmrs.ui.framework.SimpleObject;
+import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,7 @@ import java.util.List;
 public class DetailedReceiptOfDrugPageController {
     public void get(
             @RequestParam(value = "receiptId", required = false) Integer receiptId,
-            PageModel model) {
+            PageModel model, UiUtils uiUtils) {
         InventoryService inventoryService = (InventoryService) Context
                 .getService(InventoryService.class);
         List<InventoryStoreDrugTransactionDetail> transactionDetails = inventoryService
@@ -32,7 +34,10 @@ public class DetailedReceiptOfDrugPageController {
             model.addAttribute("formulation", transactionDetails.get(0)
                     .getFormulation());
         }
-        model.addAttribute("transactionDetails", transactionDetails);
+
+        List<SimpleObject> simpleObjects = SimpleObject.fromCollection(transactionDetails, uiUtils, "quantity", "unitPrice", "costToPatient", "VAT", "batchNo", "companyName", "dateManufacture", "dateExpiry", "createdOn", "receiptFrom");
+
+        model.addAttribute("transactionDetails", SimpleObject.create("simpleObjects",simpleObjects).toJson());
     }
 
 }

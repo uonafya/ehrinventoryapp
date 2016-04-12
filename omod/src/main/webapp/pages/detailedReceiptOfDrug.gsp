@@ -22,8 +22,12 @@
     }
 
     jq(document).ready(function () {
-		console.log(jq('.exampler').html().replaceStrings());
-         
+		var simple = ${transactionDetails};
+		var simpleObjects = simple.simpleObjects;
+		
+		updateQueueTable(simpleObjects);
+		
+	
 		function print () {
             var printDiv = jQuery("#print").html();
             var printWindow = window.open('', '', 'height=400,width=800');
@@ -37,18 +41,54 @@
         jQuery("#printButton").on("click", function(e){
             print().show();
         });
+		
+		
     });
 	
-	String.prototype.replaceStringx = function() {
-		var res = this.replace("[", "");
-		res=res.replace("]","");
-		return res;
-	}
+	function updateQueueTable(dataRows) {
+        jq('#print-table > tbody > tr').remove();
+        var tbody = jq('#print-table > tbody');
+
+        for (index in dataRows) {
+            var row = '<tr>';
+            var item = dataRows[index];
+			
+			row += '<td>' + String(item.quantity).formatToAccounting(0) + '</td>';
+			row += '<td>' + String(item.unitPrice).formatToAccounting() + '</td>';
+			row += '<td>' + String(item.VAT).formatToAccounting() + '%</td>';
+			row += '<td>' + String(item.costToPatient).formatToAccounting() + '</td>';
+			
+			row += '<td>' + item.batchNo + '</td>';
+			row += '<td>' + item.companyName + '</td>';
+			row += '<td>' + item.dateManufacture.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ") + '</td>';
+			row += '<td>' + item.dateExpiry.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ") + '</td>';
+			
+			row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ") + '</td>';
+			row += '<td>' + item.receiptFrom + '</td>';
+
+            row += '</tr>';
+            tbody.append(row);
+        }
+    }
 	
-	String.prototype.replaceStrings = function(search, replacement) {
-		var res = this.replace(/\\[/g, '');
-			res = this.replace(/]/g, '');
-		return res;
+	String.prototype.formatToAccountings = function(deci) {
+		if (typeof deci === 'undefined'){
+			deci = 2;
+		}
+		
+		var dataFields = this;
+		
+		dataFields = parseFloat(dataFields).toFixed(deci);
+		dataFields += '';
+		
+		x = dataFields.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\\d+)(\\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '\$1' + ',' + '\$2');
+		}
+		return x1 + x2;
 	};
 
 
@@ -109,6 +149,46 @@
 		text-transform: uppercase;
 		width: 120px;
 	}
+	table{
+		font-size: 14px;
+	}
+	td:first-child{
+		width:30px;
+	}
+	td:nth-child(2),
+	td:nth-child(3),
+	td:nth-child(4){
+		width:45px;
+	}
+	td:nth-child(7),
+	td:nth-child(8),
+	td:nth-child(9){
+		width:80px;
+	}
+	
+	#footer{
+		height: 50px;
+		margin-top: 5px;
+	}
+	
+	#footer img{
+		float: left;
+		height: 20px;
+		margin-right: 5px;
+		margin-top: 7px;
+	}
+	
+	#footer span{
+		color: #777;
+		float: left;
+		font-size: 12px;
+		margin-top: 8px;
+	}
+	#footer button{
+		float: right;
+	}
+	
+	
 </style>
 
 <div class="container">
@@ -148,60 +228,40 @@
 			<div>
 				<span>Drug Name:</span><b>${drug.name}</b><br/>
 				<span>Category:</span>${drug.category.name}<br/>
-				<span>Formulation:</span>${transactionDetails.formulation.name}: ${transactionDetails.formulation.dozage}<br/>
+				<span>Formulation:</span>${formulation.name}-${formulation.dozage}<br/>
 			</div>
 		</div>
 	</div>
+</div>
 
+<div id="print" style="display: block; margin-top:3px;">
+	<table id="print-table" aria-describedby="expiry-detail-results-table_info">
+		<thead>
+			<tr align="center">
+				<th title="Quantity"			>QTY</th>
+				<th title="Unit Price"			>PRICE</th>
+				<th title="Institutional Cost"	>I.COST</th>
+				<th title="Cost To The Patient"	>COST</th>
+				<th title="Batch Number"		>BATCH#</th>
+				<th title="Company"				>COMPANY</th>
+				<th title="Date of Manufacture"	>MANUF</th>
+				<th title="Date of Manufacture"	>EXPIRY</th>
+				<th title="Receipt Date"		>DATE</th>
+				<th title="Receipt From"		>FROM</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr align="center">
+				<td colspan="10">No Drugs found</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="footer">
+	<img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg" />
+	<span>Place the mouse over the Titles to get the meaning in full</span>
 	
-</div>
-
-
-<div id="print">
-<table cellpadding="5" cellspacing="0" width="100%" id="queueList">
-    <h>
-        Receipt List
-
-    </h>
-    <tr align="center">
-        <th>category</th>
-        <th>name</th>
-        <th>formulation</th>
-        <th>receiptQuantity</th>
-        <th>Unit Price</th>
-        <th>Institutional Cost(%)</th>
-        <th>Cost To The Patient</th>
-         <th>batchNo</th>
-        <th>companyName</th>
-        <th>dateManufacture</th>
-        <th>dateExpiry</th>
-        <th>receiptDate</th>
-        <th>receiptFrom</th>
-    </tr>
-    <% if (transactionDetails!=null || transactionDetails!="") { %>
-    <% transactionDetails.each { pTransaction -> %>
-    <tr align="center" class=' ' >
-    <td>${pTransaction.drug.category.name}</td>
-    <td>${pTransaction.drug.name}</td>
-    <td>${pTransaction.formulation.name}-${pTransaction.formulation.dozage}</td>
-    <td>${pTransaction.quantity}</td>
-    <td>${pTransaction.unitPrice}</td>
-    <td>${pTransaction.costToPatient}</td>
-    <td>${pTransaction.costToPatient}</td>
-    <td>${pTransaction.batchNo}</td>
-    <td>${pTransaction.companyName}</td>
-    <td>${pTransaction.dateManufacture}</td>
-    <td>${pTransaction.dateExpiry}</td>
-    <td>${pTransaction.createdOn}</td>
-    <td>${pTransaction.receiptFrom}</td>
-    <% } %>
-    <% } else { %>
-    <tr align="center" >
-        <td colspan="9">No drug found</td>
-    </tr>
-    <% } %>
-</table>
-</div>
-<div>
-<button class="button" type="button" id="printButton">Print</button>
+	<button class="button task" type="button" id="printButton"><i class="icon-print small"> </i>Print</button>
 </div>
