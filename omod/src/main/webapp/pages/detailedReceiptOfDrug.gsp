@@ -11,22 +11,11 @@
 %>
 
 <script>
-    RECEIPT= {
-
-        detailReceiptDrug: function (receiptId) {
-            if (SESSION.checkSession()) {
-                url = "drugReceiptDetail.form?receiptId=" + receiptId + "&keepThis=false&TB_iframe=true&height=500&width=1000";
-                tb_show("Detail Receipt Drug....", url, false);
-            }
-        }
-    }
-
     jq(document).ready(function () {
 		var simple = ${transactionDetails};
 		var simpleObjects = simple.simpleObjects;
 		
 		updateQueueTable(simpleObjects);
-		
 	
 		function print () {
             var printDiv = jQuery("#print").html();
@@ -38,7 +27,7 @@
             printWindow.print();
         }
 
-        jQuery("#printButton").on("click", function(e){
+        jq("#printButton").on("click", function(e){
             print().show();
         });
 		
@@ -70,28 +59,6 @@
             tbody.append(row);
         }
     }
-	
-	String.prototype.formatToAccountings = function(deci) {
-		if (typeof deci === 'undefined'){
-			deci = 2;
-		}
-		
-		var dataFields = this;
-		
-		dataFields = parseFloat(dataFields).toFixed(deci);
-		dataFields += '';
-		
-		x = dataFields.split('.');
-		x1 = x[0];
-		x2 = x.length > 1 ? '.' + x[1] : '';
-		var rgx = /(\\d+)(\\d{3})/;
-		while (rgx.test(x1)) {
-			x1 = x1.replace(rgx, '\$1' + ',' + '\$2');
-		}
-		return x1 + x2;
-	};
-
-
 </script>
 
 <style>
@@ -175,7 +142,7 @@
 		float: left;
 		height: 20px;
 		margin-right: 5px;
-		margin-top: 7px;
+		margin-top: 6px;
 	}
 	
 	#footer span{
