@@ -10,6 +10,10 @@
 %>
 <head>
     <script>
+        var drugOrder = [];
+        var index=0;
+        var count = 0;
+
         jq(function () {
             jq("#tabs").tabs();
 
@@ -19,8 +23,6 @@
                 }
                 return dataToParse;
             }
-
-            var drugOrder = [];
 
             var adddrugdialog = emr.setupConfirmationDialog({
                 selector: '#addDrugDialog',
@@ -33,33 +35,39 @@
 					
                         var tbody = jq('#addDrugsTable').children('tbody');
                         var table = tbody.length ? tbody : jq('#addDrugsTable');
-                        var index = drugOrder.length;
-						
-                        table.append('<tr><td>'+ (index+1) +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-field").val()+'</td><td>'+jq("#dateOfExpiry-field").val()+'</td><td>'+jq("#receiptDate-field").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a class="remover" href=""><i class="icon-remove small" style="color:red"></i></a> <a class="remover" href=""><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+
+                        index = drugOrder.length ;
+                        count = index + 1;
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
-                                    drugCategoryId: 	jq("#drugCategory").children(":selected").attr("id"),
-                                    drugId: 			jq("#drugName").children(":selected").attr("id"),
-                                    drugFormulationId: 	jq("#drugFormulation").children(":selected").attr("id"),
-                                    quantity: 			jq("#drugDays").val(),
-                                    unitPrice: 			jq("#unitPrice").val(),
-                                    institutionalCost:	jq("#institutionalCost").val(),
-                                    costToThePatient:	jq("#costToThePatient").val(),
-                                    batchNo:			jq("#batchNo").val(),
-                                    companyName:		jq("#companyName").val(),
-                                    dateOfManufacture:	jq("#dateOfManufacture-field").val(),
-                                    dateOfExpiry:		jq("#dateOfExpiry-field").val(),
-                                    receiptDate:		jq("#receiptDate-field").val(),
-                                    receiptFrom:		jq("#receiptFrom").val()
+                                    rowId: index,
+                                    drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
+                                    drugCategoryName: jq("#drugCategory").children(":selected").val(),
+                                    drugId: jq("#drugName").children(":selected").attr("id"),
+                                    drugName: jq("#drugName").children(":selected").val(),
+                                    drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
+                                    drugFormulationName: jq("#drugFormulation").children(":selected").val(),
+                                    quantity: jq("#drugDays").val(),
+                                    unitPrice: jq("#unitPrice").val(),
+                                    institutionalCost:jq("#institutionalCost").val(),
+                                    costToThePatient:jq("#costToThePatient").val(),
+                                    batchNo:jq("#batchNo").val(),
+                                    companyName:jq("#companyName").val(),
+                                    dateOfManufacture:jq("#dateOfManufacture").val(),
+                                    dateOfExpiry:jq("#dateOfExpiry").val(),
+                                    receiptDate:jq("#receiptDate").val(),
+                                    receiptFrom:jq("#receiptFrom").val()
                                 }
                         );
-						
+                        console.log(drugOrder);
                         adddrugdialog.close();
                     },
                     cancel: function() {
                         adddrugdialog.close();
                     }
                 }
+
             });
 			
 			function page_verified(){
@@ -157,6 +165,8 @@
 				jq('#drugCategory').change();
 			}
 			
+
+
 
             jq("#addDrugsButton").on("click", function(e){
 				resets();
@@ -274,6 +284,29 @@
 			});
 
         });
+
+        function removerFunction(rowId) {
+            jq('#addDrugsTable > tbody > tr').remove();
+            var tbody = jq('#addDrugsTable > tbody');
+            var table = tbody.length ? tbody : jq('#addDrugsTable');
+            drugOrder = jq.grep(drugOrder, function (item, index) {
+                return (rowId !== index);
+            });
+
+           // jq('#' + rowId).remove();
+
+
+            jq.each(drugOrder, function (rowId, item) {
+                console.log(item);
+                tbody.append('<tr id="' + (rowId + 1) +'"><td>'+(rowId + 1) +'</td><td>'+ item.drugCategoryName +'</td><td>'+ item.drugName +
+                        '</td><td>'+ item.drugFormulationName +'</td><td>'+ item.quantity +
+                        '</td><td>'+ item.unitPrice +'</td><td>'+ item.institutionalCost +
+                        '</td><td>'+ item.costToThePatient +'</td><td>'+ item.batchNo +'</td><td>'+ item.companyName +'</td><td>'+
+                        item.dateOfManufacture +'</td><td>'+ item.dateOfExpiry +'</td><td>'+ item.receiptDate +'</td><td>'+ item.receiptFrom +
+                        '</td><td><a onclick="removerFunction(' + rowId +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
+                        '<a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+            });
+        }
     </script>
 
     <style>
