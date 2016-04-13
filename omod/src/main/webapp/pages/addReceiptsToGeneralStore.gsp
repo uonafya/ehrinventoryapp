@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Pharmacy Module"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Add Receipts"])
 
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
@@ -26,6 +26,11 @@
                 selector: '#addDrugDialog',
                 actions: {
                     confirm: function() {
+						if (!page_verified()){
+							jq().toastmessage('showErrorToast', 'Ensure fields marked in Red are filled properly');
+							return false;
+						}
+					
                         var tbody = jq('#addDrugsTable').children('tbody');
                         var table = tbody.length ? tbody : jq('#addDrugsTable');
                         var index = drugOrder.length + 1;
@@ -54,6 +59,50 @@
                     }
                 }
             });
+			
+			function page_verified(){
+				var error = 0;
+				
+				if (jq("#drugCategory").children(":selected").attr("id") == 0){
+					jq("#drugCategory").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#drugCategory").removeClass('red');
+				}
+				
+				if (jq("#drugName").children(":selected").attr("id") == 0){
+					jq("#drugName").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#drugName").removeClass('red');
+				}
+				
+				if (jq("#drugFormulation").children(":selected").attr("id") == 0){
+					jq("#drugFormulation").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#drugFormulation").removeClass('red');
+				}
+				
+				if (jq("#quantity").val() == ""){
+					jq("#quantity").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#quantity").removeClass('red');
+				}
+				
+				if (error == 0){
+					return true;
+				} else{
+					return false;				
+				}
+			}
+			
+			
 
             jq("#addDrugsButton").on("click", function(e){
                 adddrugdialog.show();
@@ -61,7 +110,12 @@
 
             jq("#drugCategory").on("change",function(e){
                 var categoryId = jq(this).children(":selected").attr("id");
-                var drugNameData ="";
+                var drugNameData = "<option id='0' name='0'>Select Drug</option>";
+				var drugFormulationData = "<option id='0'>Select Formulation</option>";
+				
+				jq('#drugName').empty();
+				jq('#drugFormulation').empty();
+				
                 jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "fetchDrugNames") }',{
                     categoryId:categoryId
                 })
@@ -85,6 +139,7 @@
                                 }
                             }
                             jq(drugNameData).appendTo("#drugName");
+                            jq(drugFormulationData).appendTo("#drugFormulation");
                         })
                         .error(function(xhr, status, err) {
                             alert('AJAX error ' + err);
@@ -93,7 +148,10 @@
 
             jq("#drugName").on("change",function(e){
                 var drugName = jq(this).children(":selected").attr("name");
-                var drugFormulationData ="";
+                var drugFormulationData = "<option id='0'>Select Formulation</option>";
+				
+				jq('#drugFormulation').empty();
+				
                 jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',{
                             drugName:drugName
                         })
@@ -139,6 +197,22 @@
                         })
 
             });
+			
+			jq("#quantity").keydown(function (e) {
+				// Allow: backspace, delete, tab, escape, enter and .
+				if (jq.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+					 // Allow: Ctrl+A, Command+A
+					(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+					 // Allow: home, end, left, right, down, up
+					(e.keyCode >= 35 && e.keyCode <= 40)) {
+						 // let it happen, don't do anything
+						 return;
+				}
+				// Ensure that it is a number and stop the keypress
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+					e.preventDefault();
+				}
+			});
 
         });
     </script>
@@ -146,6 +220,11 @@
     <style>
 		body {
 			margin-top: 20px;
+		}
+		
+		#modal-overlay{
+			background: #000 none repeat scroll 0 0;
+			opacity: 0.3!important;
 		}
 
 		.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
@@ -351,12 +430,18 @@
 		}
 		
 		table{
-			font-size: 12px;
+			font-size: 10px;
+		}
+		
+		.dialog li span{
+			color: #f00;
+			float: right;
+			margin-right: 10px;
 		}
 		
 		.dialog label{
 			display: inline-block;
-			width: 160px;
+			width: 180px;
 		}
 		.dialog select {
 			display: inline-block;
@@ -376,6 +461,9 @@
 		td a,
 		td a:hover{
 			text-decoration: none;
+		}
+		.red{
+			border: 1px solid #f00!important;
 		}
     </style>
 </head>
@@ -438,7 +526,7 @@
     </div>
 </div>
 
-<div id="addDrugDialog" class="dialog" style="display:none; width:460px">
+<div id="addDrugDialog" class="dialog" style="display:none; width:480px">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>
         <h3>ADD RECEIPTS</h3>
@@ -446,9 +534,9 @@
     <div class="dialog-content">
         <ul>
             <li>
-                <label for="listCategory">Drug Category</label>
+                <label for="listCategory">Drug Category<span>*</span></label>
                 <select name="drugCategory" id="drugCategory" >
-                    <option>Select Category</option>
+                    <option id="0">Select Category</option>
                     <% if (listCategory!=null || listCategory!="") { %>
                     <% listCategory.each { drugCategory -> %>
                         <option id="${drugCategory.id}">${drugCategory.name}</option>
@@ -457,20 +545,20 @@
                 </select>
             </li>
             <li>
-                <label for="drugName">Drug Name</label>
+                <label for="drugName">Drug Name<span>*</span></label>
                 <select name="drugName" id="drugName" >
-                    <option>Select Drug</option>
+                    <option id="0">Select Drug</option>
                 </select>
             </li>
             <li>
-                <label for="drugFormulation">Formulation</label>
+                <label for="drugFormulation">Formulation<span>*</span></label>
                 <select name="drugFormulation" id="drugFormulation" >
-                    <option>Select Formulation</option>
+                    <option id="0">Select Formulation</option>
                 </select>
             </li>
 
             <li>
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity<span>*</span></label>
                 <input name="quantity" id="quantity" type="text" >
             </li>
 
@@ -485,32 +573,32 @@
             </li>
 
             <li>
-                <label for="costToThePatient">Cost To The Patient</label>
+                <label for="costToThePatient">Cost To The Patient<span>*</span></label>
                 <input name="costToThePatient" id="costToThePatient" type="text" >
             </li>
 
             <li>
-                <label for="batchNo">Batch No.</label>
+                <label for="batchNo">Batch No.<span>*</span></label>
                 <input name="batchNo" id="batchNo" type="text" >
             </li>
 
             <li>
-                <label for="companyName">Company Name</label>
+                <label for="companyName">Company Name<span>*</span></label>
                 <input name="companyName" id="companyName" type="text" >
             </li>
 
             <li>
-                <label for="dateOfManufacture">Date of Manufacture</label>
+                <label for="dateOfManufacture">Date of Manufacture<span>*</span></label>
                 <input type="date" name="dateOfManufacture" id="dateOfManufacture" type="text" >
             </li>
 
             <li>
-                <label for="dateOfExpiry">Date of Expiry</label>
+                <label for="dateOfExpiry">Date of Expiry<span>*</span></label>
                 <input type="date" name="dateOfExpiry" id="dateOfExpiry" type="text" >
             </li>
 
             <li>
-                <label for="receiptDate">Receipt Date</label>
+                <label for="receiptDate">Receipt Date<span>*</span></label>
                 <input type="date" name="receiptDate" id="receiptDate" type="text" >
             </li>
 
