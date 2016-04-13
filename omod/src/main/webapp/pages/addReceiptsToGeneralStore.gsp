@@ -29,7 +29,7 @@
                         var tbody = jq('#addDrugsTable').children('tbody');
                         var table = tbody.length ? tbody : jq('#addDrugsTable');
                         var index = drugOrder.length + 1;
-                        table.append('<tr><td>'+ index +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td></tr>');
+                        table.append('<tr><td>'+ index +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a class="remover" href=""><i class="icon-remove small" style="color:red"></i></a> <a class="remover" href=""><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
                                     drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
@@ -144,209 +144,239 @@
     </script>
 
     <style>
-    body {
-        margin-top: 20px;
-    }
+		body {
+			margin-top: 20px;
+		}
 
-    .col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
-        color: #555;
-        text-align: left;
-    }
+		.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
+			color: #555;
+			text-align: left;
+		}
 
-    form input,
-    form select {
-        margin: 0px;
-        display: inline-block;
-        min-width: 50px;
-        padding: 2px 10px;
-        height: 32px !important;
-    }
+		form input,
+		form select {
+			margin: 0px;
+			display: inline-block;
+			min-width: 50px;
+			padding: 2px 10px;
+			height: 32px !important;
+		}
 
-    .info-header span {
-        cursor: pointer;
-        display: inline-block;
-        float: right;
-        margin-top: -2px;
-        padding-right: 5px;
-    }
+		.info-header span {
+			cursor: pointer;
+			display: inline-block;
+			float: right;
+			margin-top: -2px;
+			padding-right: 5px;
+		}
 
-    .dashboard .info-section {
-        margin: 2px 5px 5px;
-    }
+		.dashboard .info-section {
+			margin: 2px 5px 5px;
+		}
 
-    .toast-item {
-        background-color: #222;
-    }
+		.toast-item {
+			background-color: #222;
+		}
 
-    @media all and (max-width: 768px) {
-        .onerow {
-            margin: 0 0 100px;
-        }
-    }
+		@media all and (max-width: 768px) {
+			.onerow {
+				margin: 0 0 100px;
+			}
+		}
 
-    form .advanced {
-        background: #363463 none repeat scroll 0 0;
-        border-color: #dddddd;
-        border-style: solid;
-        border-width: 1px;
-        color: #fff;
-        cursor: pointer;
-        float: right;
-        padding: 6px 0;
-        text-align: center;
-        width: 27%;
-    }
+		form .advanced {
+			background: #363463 none repeat scroll 0 0;
+			border-color: #dddddd;
+			border-style: solid;
+			border-width: 1px;
+			color: #fff;
+			cursor: pointer;
+			float: right;
+			padding: 6px 0;
+			text-align: center;
+			width: 27%;
+		}
 
-    form .advanced i {
-        font-size: 22px;
-    }
+		form .advanced i {
+			font-size: 22px;
+		}
 
-    .col4 label {
-        width: 110px;
-        display: inline-block;
-    }
+		.col4 label {
+			width: 110px;
+			display: inline-block;
+		}
 
-    .col4 input[type=text] {
-        display: inline-block;
-        padding: 4px 10px;
-    }
+		.col4 input[type=text] {
+			display: inline-block;
+			padding: 4px 10px;
+		}
 
-    .col4 select {
-        padding: 4px 10px;
-    }
+		.col4 select {
+			padding: 4px 10px;
+		}
 
-    form select {
-        min-width: 50px;
-        display: inline-block;
-    }
+		form select {
+			min-width: 50px;
+			display: inline-block;
+		}
 
-    .identifiers span {
-        border-radius: 50px;
-        color: white;
-        display: inline;
-        font-size: 0.8em;
-        letter-spacing: 1px;
-        margin: 5px;
-    }
+		.identifiers span {
+			border-radius: 50px;
+			color: white;
+			display: inline;
+			font-size: 0.8em;
+			letter-spacing: 1px;
+			margin: 5px;
+		}
 
-    table.dataTable thead th, table.dataTable thead td {
-        padding: 5px 10px;
-    }
+		table.dataTable thead th, table.dataTable thead td {
+			padding: 5px 10px;
+		}
 
-    form input:focus {
-        border: 1px solid #00f !important;
-    }
+		form input:focus {
+			border: 1px solid #00f !important;
+		}
 
-    input[type="text"], select {
-        border: 1px solid #aaa;
-        border-radius: 2px !important;
-        box-shadow: none !important;
-        box-sizing: border-box !important;
-        height: 32px;
-    }
+		input[type="text"], select {
+			border: 1px solid #aaa;
+			border-radius: 2px !important;
+			box-shadow: none !important;
+			box-sizing: border-box !important;
+			height: 32px;
+			width: 250px;
+			padding: 5px 0 5px 10px;
+		}
 
-    .newdtp {
-        width: 166px;
-    }
+		.newdtp {
+			width: 166px;
+		}
 
-    #lastDayOfVisit label,
-    #referred-date label {
-        display: none;
-    }
+		#lastDayOfVisit label,
+		#referred-date label {
+			display: none;
+		}
 
-    #lastDayOfVisit input {
-        width: 160px;
-    }
+		#lastDayOfVisit input {
+			width: 160px;
+		}
 
-    .add-on {
-        color: #f26522;
-        float: right;
-        left: auto;
-        margin-left: -29px;
-        margin-top: 10px;
-        position: absolute;
-    }
+		.add-on {
+			color: #f26522;
+			float: right;
+			left: auto;
+			margin-left: -29px;
+			margin-top: 10px;
+			position: absolute;
+		}
 
-    .chrome .add-on {
-        margin-left: -31px;
-        margin-top: -27px !important;
-        position: relative !important;
-    }
+		.chrome .add-on {
+			margin-left: -31px;
+			margin-top: -27px !important;
+			position: relative !important;
+		}
 
-    #lastDayOfVisit-wrapper .add-on {
-        margin-top: 5px;
-    }
+		#lastDayOfVisit-wrapper .add-on {
+			margin-top: 5px;
+		}
 
-    .ui-widget-content a {
-        color: #007fff;
-    }
+		.ui-widget-content a {
+			color: #007fff;
+		}
 
-    #breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
-        text-decoration: none;
-    }
+		#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+			text-decoration: none;
+		}
 
-    .new-patient-header .identifiers {
-        margin-top: 5px;
-    }
+		.new-patient-header .identifiers {
+			margin-top: 5px;
+		}
 
-    .name {
-        color: #f26522;
-    }
+		.name {
+			color: #f26522;
+		}
 
-    #inline-tabs {
-        background: #f9f9f9 none repeat scroll 0 0;
-    }
+		#inline-tabs {
+			background: #f9f9f9 none repeat scroll 0 0;
+		}
 
-    .formfactor {
-        background: #f3f3f3 none repeat scroll 0 0;
-        border: 1px solid #ddd;
-        margin-bottom: 5px;
-        padding: 5px 10px;
-        text-align: left;
-        width: auto;
-    }
+		.formfactor {
+			background: #f3f3f3 none repeat scroll 0 0;
+			border: 1px solid #ddd;
+			margin-bottom: 5px;
+			padding: 5px 10px;
+			text-align: left;
+			width: auto;
+		}
 
-    .formfactor .lone-col {
-        display: inline-block;
-        margin-top: 5px;
-        overflow: hidden;
-        width: 100%;
-    }
+		.formfactor .lone-col {
+			display: inline-block;
+			margin-top: 5px;
+			overflow: hidden;
+			width: 100%;
+		}
 
-    .formfactor .first-col {
-        display: inline-block;
-        margin-top: 5px;
-        overflow: hidden;
-        width: 300px;
-    }
+		.formfactor .first-col {
+			display: inline-block;
+			margin-top: 5px;
+			overflow: hidden;
+			width: 300px;
+		}
 
-    .formfactor .second-col {
-        display: inline-block;
-        float: right;
-        margin-top: 5px;
-        overflow: hidden;
-        width: 600px;
-    }
+		.formfactor .second-col {
+			display: inline-block;
+			float: right;
+			margin-top: 5px;
+			overflow: hidden;
+			width: 600px;
+		}
 
-    .formfactor .lone-col input,
-    .formfactor .first-col input,
-    .formfactor .second-col input {
-        margin-top: 5px;
-        padding: 5px 15px;
-        width: 100%;
-    }
+		.formfactor .lone-col input,
+		.formfactor .first-col input,
+		.formfactor .second-col input {
+			margin-top: 5px;
+			padding: 5px 15px;
+			width: 100%;
+		}
 
-    .formfactor .lone-col label,
-    .formfactor .first-col label,
-    .formfactor .second-col label {
-        padding-left: 5px;
-        color: #363463;
-        cursor: pointer;
-    }
+		.formfactor .lone-col label,
+		.formfactor .first-col label,
+		.formfactor .second-col label {
+			padding-left: 5px;
+			color: #363463;
+			cursor: pointer;
+		}
 
-    .ui-tabs-panel h2 {
-        display: inline-block;
-    }
+		.ui-tabs-panel h2 {
+			display: inline-block;
+		}
+		
+		table{
+			font-size: 12px;
+		}
+		
+		.dialog label{
+			display: inline-block;
+			width: 160px;
+		}
+		.dialog select {
+			display: inline-block;
+			margin: 0;
+			padding: 2px 0 2px 5px;
+			width: 250px;
+		}
+		.dialog .dialog-content li {
+			margin-bottom: 2px;
+		}
+		.dialog .dialog-content {
+			padding: 5px 20px 0;
+		}
+		.dialog select option {
+			font-size: 1.0em;
+		}
+		td a,
+		td a:hover{
+			text-decoration: none;
+		}
     </style>
 </head>
 
@@ -376,65 +406,25 @@
         </div>
 
         <div>
-            <table id="addDrugsTable" class="dataTable">
+            <table id="addDrugsTable">
                 <thead>
-                <tr role="row">
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">S.No<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Drug Category<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Drug Name<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Formulation<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Quantity<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Unit Price<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Institutional Cost(%)<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Cost To The Patient<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">Batch No.<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">CN<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">DM<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">DE<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">RD<span class="DataTables_sort_icon"></span></div>
-                    </th>
-
-                    <th class="ui-state-default">
-                        <div class="DataTables_sort_wrapper">RF<span class="DataTables_sort_icon"></span></div>
-                    </th>
-                </tr>
+					<tr role="row">
+						<th title="Record ID"				>#</th>
+						<th title="Drug Category"			>CATEGORY</th>
+						<th title="Drug Name"				>NAME</th>
+						<th title="Formulation"				>FORMULATION</th>
+						<th title="Quantity"				>QNTY</th>
+						<th title="Unit Price"				>PRICE</th>
+						<th title="Institutional Cost(%)"	>I.COST</th>
+						<th title="Cost To The Patient"		>COST</th>
+						<th title="Batch Number"			>BATCH#</th>
+						<th title="Company Name"			>COMPANY</th>
+						<th title="Date of Manufacture"		>MANUF</th>
+						<th title="Expiry Date"				>EXPIRY</th>
+						<th title="Receipt Date"			>DATE</th>
+						<th title="Receipt From"			>FROM</th>
+						<th title="Task Actions"			>ACTIONS</th>
+					</tr>
                 </thead>
 
                 <tbody>
@@ -448,15 +438,15 @@
     </div>
 </div>
 
-<div id="addDrugDialog" class="dialog">
+<div id="addDrugDialog" class="dialog" style="display:none; width:460px">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>
-        <h3>Prescription</h3>
+        <h3>ADD RECEIPTS</h3>
     </div>
     <div class="dialog-content">
         <ul>
             <li>
-                <lable for="listCategory">Drug Category</lable>
+                <label for="listCategory">Drug Category</label>
                 <select name="drugCategory" id="drugCategory" >
                     <option>Select Category</option>
                     <% if (listCategory!=null || listCategory!="") { %>
@@ -473,7 +463,7 @@
                 </select>
             </li>
             <li>
-                <lable for="drugFormulation">Formulation</lable>
+                <label for="drugFormulation">Formulation</label>
                 <select name="drugFormulation" id="drugFormulation" >
                     <option>Select Formulation</option>
                 </select>
