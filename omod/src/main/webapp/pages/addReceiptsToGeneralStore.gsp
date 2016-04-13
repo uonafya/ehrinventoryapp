@@ -671,7 +671,7 @@
 			<img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg" />
 			<span>Place the mouse over the Titles to get the meaning in full</span>
 			
-            <input type="button" value="Submit" class="button confirm" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
+            <input type="button" value="Submit" class="button task" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
 			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
 		</div>
 
