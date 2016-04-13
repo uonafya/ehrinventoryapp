@@ -38,7 +38,7 @@
 
                         index = drugOrder.length ;
                         count = index + 1;
-                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
                                     rowId: index,
@@ -307,6 +307,20 @@
                         '<a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
             });
         }
+
+		function printSlip() {
+			var printDiv = jq("#addDrugsTablePrintable").html();
+			var printWindow = window.open('', '', 'height=400,width=800');
+			printWindow.document.write('<html><head><title>Patient Information</title>');
+			printWindow.document.write(printDiv);
+			printWindow.document.write('</body></html>');
+			printWindow.document.close();
+			printWindow.print();
+		}
+
+		function editorFunction(rowId) {
+			//editor logic
+		}
     </script>
 
     <style>
@@ -640,7 +654,7 @@
             </h1>
         </div>
 
-        <div>
+        <div id="addDrugsTablePrintable">
             <table id="addDrugsTable">
                 <thead>
 					<tr role="row">
@@ -673,6 +687,7 @@
 			
             <input type="button" value="Submit" class="button confirm" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
 			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
+			<input type="button" value="Print Slip" onclick="printSlip()" class="button confirm" name="printSlip" id="printSlip"/>
 		</div>
 
     </div>
