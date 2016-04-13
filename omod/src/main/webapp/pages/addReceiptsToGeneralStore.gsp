@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Add Receipts"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Manage Receipt Drugs"])
 
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
@@ -33,25 +33,27 @@
 					
                         var tbody = jq('#addDrugsTable').children('tbody');
                         var table = tbody.length ? tbody : jq('#addDrugsTable');
-                        var index = drugOrder.length + 1;
-                        table.append('<tr><td>'+ index +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a class="remover" href=""><i class="icon-remove small" style="color:red"></i></a> <a class="remover" href=""><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+                        var index = drugOrder.length;
+						
+                        table.append('<tr><td>'+ (index+1) +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-field").val()+'</td><td>'+jq("#dateOfExpiry-field").val()+'</td><td>'+jq("#receiptDate-field").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a class="remover" href=""><i class="icon-remove small" style="color:red"></i></a> <a class="remover" href=""><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
-                                    drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
-                                    drugId: jq("#drugName").children(":selected").attr("id"),
-                                    drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
-                                    quantity: jq("#drugDays").val(),
-                                    unitPrice: jq("#unitPrice").val(),
-                                    institutionalCost:jq("#institutionalCost").val(),
-                                    costToThePatient:jq("#costToThePatient").val(),
-                                    batchNo:jq("#batchNo").val(),
-                                    companyName:jq("#companyName").val(),
-                                    dateOfManufacture:jq("#dateOfManufacture").val(),
-                                    dateOfExpiry:jq("#dateOfExpiry").val(),
-                                    receiptDate:jq("#receiptDate").val(),
-                                    receiptFrom:jq("#receiptFrom").val()
+                                    drugCategoryId: 	jq("#drugCategory").children(":selected").attr("id"),
+                                    drugId: 			jq("#drugName").children(":selected").attr("id"),
+                                    drugFormulationId: 	jq("#drugFormulation").children(":selected").attr("id"),
+                                    quantity: 			jq("#drugDays").val(),
+                                    unitPrice: 			jq("#unitPrice").val(),
+                                    institutionalCost:	jq("#institutionalCost").val(),
+                                    costToThePatient:	jq("#costToThePatient").val(),
+                                    batchNo:			jq("#batchNo").val(),
+                                    companyName:		jq("#companyName").val(),
+                                    dateOfManufacture:	jq("#dateOfManufacture-field").val(),
+                                    dateOfExpiry:		jq("#dateOfExpiry-field").val(),
+                                    receiptDate:		jq("#receiptDate-field").val(),
+                                    receiptFrom:		jq("#receiptFrom").val()
                                 }
                         );
+						
                         adddrugdialog.close();
                     },
                     cancel: function() {
@@ -95,6 +97,54 @@
 					jq("#quantity").removeClass('red');
 				}
 				
+				if (jq("#costToThePatient").val() == ""){
+					jq("#costToThePatient").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#costToThePatient").removeClass('red');
+				}
+				
+				if (jq("#batchNo").val() == ""){
+					jq("#batchNo").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#batchNo").removeClass('red');
+				}
+				
+				if (jq("#companyName").val() == ""){
+					jq("#companyName").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#companyName").removeClass('red');
+				}
+				
+				if (jq("#dateOfManufacture-display").val() == ""){
+					jq("#dateOfManufacture-display").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#dateOfManufacture-display").removeClass('red');
+				}
+				
+				if (jq("#dateOfExpiry-display").val() == ""){
+					jq("#dateOfExpiry-display").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#dateOfExpiry-display").removeClass('red');
+				}
+				
+				if (jq("#receiptDate-display").val() == ""){
+					jq("#receiptDate-display").addClass('red');
+					error ++;
+				}
+				else {
+					jq("#receiptDate-display").removeClass('red');
+				}
+				
 				if (error == 0){
 					return true;
 				} else{
@@ -102,9 +152,14 @@
 				}
 			}
 			
+			function resets(){
+				jq('form')[0].reset();
+				jq('#drugCategory').change();
+			}
 			
 
             jq("#addDrugsButton").on("click", function(e){
+				resets();
                 adddrugdialog.show();
             });
 
@@ -118,32 +173,29 @@
 				
                 jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "fetchDrugNames") }',{
                     categoryId:categoryId
-                })
-                        .success(function(data) {
-
-                            for (var key in data) {
-                                if (data.hasOwnProperty(key)) {
-                                    var val = data[key];
-                                    for (var i in val) {
-                                        if (val.hasOwnProperty(i)) {
-                                            var j = val[i];
-                                            if(i=="id")
-                                            {
-                                                drugNameData=drugNameData + '<option id="'+j+'"';
-                                            }
-                                            else{
-                                                drugNameData=drugNameData+ 'name="' +j+ '">' + j+'</option>';
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            jq(drugNameData).appendTo("#drugName");
-                            jq(drugFormulationData).appendTo("#drugFormulation");
-                        })
-                        .error(function(xhr, status, err) {
-                            alert('AJAX error ' + err);
-                        });
+                }).success(function(data) {
+					for (var key in data) {
+						if (data.hasOwnProperty(key)) {
+							var val = data[key];
+							for (var i in val) {
+								if (val.hasOwnProperty(i)) {
+									var j = val[i];
+									if(i=="id")
+									{
+										drugNameData=drugNameData + '<option id="'+j+'"';
+									}
+									else{
+										drugNameData=drugNameData+ 'name="' +j+ '">' + j+'</option>';
+									}
+								}
+							}
+						}
+					}
+					jq(drugNameData).appendTo("#drugName");
+					jq(drugFormulationData).appendTo("#drugFormulation");
+				}).error(function(xhr, status, err) {
+					alert('AJAX error ' + err);
+				});
             });
 
             jq("#drugName").on("change",function(e){
@@ -160,15 +212,20 @@
                                 if (data.hasOwnProperty(key)) {
                                     var val = data[key];
                                     for (var i in val) {
+									var name,dosage;
                                         if (val.hasOwnProperty(i)) {
                                             var j = val[i];
                                             if(i=="id")
                                             {
                                                drugFormulationData=drugFormulationData + '<option id="'+j+'">';
                                             }
-                                            else{
-                                                drugFormulationData=drugFormulationData + j+'</option>';
-                                            }
+													else if (i == "name") {
+											   name = j;
+										   }
+										   else {
+											   dozage = j;
+											   drugFormulationData = drugFormulationData + (name + "-" + dozage) + '</option>';
+										   }
                                         }
                                     }
                                 }
@@ -181,36 +238,38 @@
             });
 
             jq("#addDrugsSubmitButton").click(function(event) {
-
                 drugOrder = JSON.stringify(drugOrder);
-
                 var addDrugsData = {
                     'drugOrder':drugOrder
                 };
 
                 jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }',addDrugsData)
-                        .success(function(data) {
-                            alert('ok');
-                        })
-                        .error(function(xhr, status, err) {
-                            alert('AJAX error ' + err);
-                        })
+				.success(function(data) {
+					alert('ok');
+				})
+				.error(function(xhr, status, err) {
+					alert('AJAX error ' + err);
+				})
 
-            });
+            });			
 			
-			jq("#quantity").keydown(function (e) {
-				// Allow: backspace, delete, tab, escape, enter and .
-				if (jq.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-					 // Allow: Ctrl+A, Command+A
-					(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
-					 // Allow: home, end, left, right, down, up
-					(e.keyCode >= 35 && e.keyCode <= 40)) {
-						 // let it happen, don't do anything
-						 return;
-				}
-				// Ensure that it is a number and stop the keypress
-				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-					e.preventDefault();
+			jq('input[type="text"]').keydown(function (e) {
+				var numberFields = ['quantity','unitPrice','institutionalCost','costToThePatient'];
+				
+				if (jq.inArray(String(jq(this).attr('id')), numberFields)>=0){
+					// Allow: backspace, delete, tab, escape, enter and .
+					if (jq.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+						 // Allow: Ctrl+A, Command+A
+						(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+						 // Allow: home, end, left, right, down, up
+						(e.keyCode >= 35 && e.keyCode <= 40)) {
+							 // let it happen, don't do anything
+							 return;
+					}
+					// Ensure that it is a number and stop the keypress
+					if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+						e.preventDefault();
+					}
 				}
 			});
 
@@ -312,10 +371,6 @@
 			padding: 5px 10px;
 		}
 
-		form input:focus {
-			border: 1px solid #00f !important;
-		}
-
 		input[type="text"], select {
 			border: 1px solid #aaa;
 			border-radius: 2px !important;
@@ -344,8 +399,9 @@
 			float: right;
 			left: auto;
 			margin-left: -29px;
-			margin-top: 10px;
+			margin-top: 2px;
 			position: absolute;
+			right: 25px;
 		}
 
 		.chrome .add-on {
@@ -429,11 +485,11 @@
 			display: inline-block;
 		}
 		
-		table{
-			font-size: 10px;
+		#addDrugsTable {
+			font-size: 9px;
 		}
 		
-		.dialog li span{
+		.dialog li label span{
 			color: #f00;
 			float: right;
 			margin-right: 10px;
@@ -464,6 +520,64 @@
 		}
 		.red{
 			border: 1px solid #f00!important;
+		}
+		
+		#dateOfExpiry label,
+		#receiptDate label,
+		#dateOfManufacture label{
+			display: none;
+		}
+		th:first-child{
+			width: 5px;
+		}
+		th:nth-child(4){
+			min-width: 75px;
+		}
+		th:nth-child(5),
+		th:nth-child(7){
+			min-width: 30px;
+		}
+		th:nth-child(6),
+		th:nth-child(8),
+		th:nth-child(11),
+		th:nth-child(12),
+		th:nth-child(13),
+		th:nth-child(14){
+			min-width: 30px;
+		}
+		th:nth-child(9){
+			min-width: 40px;
+		}
+		th:nth-child(10) {
+			min-width: 50px;
+		}
+		th:last-child{
+			width: 35px;
+		}
+		form input:focus, form select:focus, form textarea:focus, form ul.select:focus, .form input:focus, .form select:focus, .form textarea:focus, .form ul.select:focus{
+			outline: 2px none #007fff;
+			box-shadow: 0 0 2px 0 #888 !important;
+		}
+		#footer{
+			height: 50px;
+			margin-top: 5px;
+		}
+		
+		#footer img{
+			float: left;
+			height: 20px;
+			margin-right: 5px;
+			margin-top: 6px;
+		}
+		
+		#footer span{
+			color: #777;
+			float: left;
+			font-size: 12px;
+			margin-top: 8px;
+		}
+		#footer input{
+			float: right;
 		}
     </style>
 </head>
@@ -507,21 +621,26 @@
 						<th title="Cost To The Patient"		>COST</th>
 						<th title="Batch Number"			>BATCH#</th>
 						<th title="Company Name"			>COMPANY</th>
-						<th title="Date of Manufacture"		>MANUF</th>
+						<th title="Date of Manufacture"		>D.O.M</th>
 						<th title="Expiry Date"				>EXPIRY</th>
 						<th title="Receipt Date"			>DATE</th>
 						<th title="Receipt From"			>FROM</th>
-						<th title="Task Actions"			>ACTIONS</th>
+						<th title="Task Actions"			>&nbsp;</th>
 					</tr>
                 </thead>
 
                 <tbody>
                 </tbody>
             </table>
-
-            <input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton" style="margin-top:20px;">
-            <input type="button" value="Submit" class="button confirm" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-top:20px;">
         </div>
+		
+		<div id="footer">
+			<img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg" />
+			<span>Place the mouse over the Titles to get the meaning in full</span>
+			
+            <input type="button" value="Submit" class="button confirm" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
+			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
+		</div>
 
     </div>
 </div>
@@ -531,7 +650,7 @@
         <i class="icon-folder-open"></i>
         <h3>ADD RECEIPTS</h3>
     </div>
-    <div class="dialog-content">
+    <form class="dialog-content">
         <ul>
             <li>
                 <label for="listCategory">Drug Category<span>*</span></label>
@@ -589,17 +708,17 @@
 
             <li>
                 <label for="dateOfManufacture">Date of Manufacture<span>*</span></label>
-                <input type="date" name="dateOfManufacture" id="dateOfManufacture" type="text" >
+				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfManufacture',    id: 'dateOfManufacture',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
             </li>
 
             <li>
                 <label for="dateOfExpiry">Date of Expiry<span>*</span></label>
-                <input type="date" name="dateOfExpiry" id="dateOfExpiry" type="text" >
+				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfExpiry',    id: 'dateOfExpiry',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
             </li>
 
             <li>
                 <label for="receiptDate">Receipt Date<span>*</span></label>
-                <input type="date" name="receiptDate" id="receiptDate" type="text" >
+				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'receiptDate',    id: 'receiptDate',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
             </li>
 
             <li>
@@ -611,7 +730,7 @@
 
         <span class="button confirm right" > Confirm </span>
         <span class="button cancel"> Cancel </span>
-    </div>
+    </form>
 </div>
 
 </body>
