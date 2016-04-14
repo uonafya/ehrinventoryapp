@@ -24,6 +24,13 @@
 .info-header div label{
 	color: #f26522;
 }
+
+#receiptslist,
+#stocklist,
+#expirylist{
+	font-size: 14px;
+}
+
 td a{ 
 	cursor: pointer;
 	text-transform:uppercase;
@@ -54,7 +61,7 @@ th:first-child {
 
 #expirylist th:nth-child(5),
 #stocklist th:nth-child(5) {
-	width: 85px;
+	width: 75px;
 }
 
 #transferList th:nth-child(5) {
@@ -64,7 +71,7 @@ th:first-child {
 
 #expirylist th:last-child,
 #stocklist th:last-child {
-	width: 80px;
+	width: 75px;
 }
 
 #receiptslist th:last-child {
