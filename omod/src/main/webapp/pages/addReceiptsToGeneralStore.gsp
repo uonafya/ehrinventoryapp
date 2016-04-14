@@ -546,6 +546,7 @@
 		
 		#addDrugsTable {
 			font-size: 9px;
+			margin-top: 40px;
 		}
 		
 		.dialog li label span{
@@ -660,7 +661,7 @@
 
             <li>
                 <i class="icon-chevron-right link"></i>
-                Add Receipts
+                Receipts
             </li>
         </ul>
     </div>
@@ -668,7 +669,7 @@
     <div class="patient-header new-patient-header">
         <div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
-                <span>INVENTORY DASHBOARD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                <span>ADD RECEIPTS TO GENERAL STORE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
 
