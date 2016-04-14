@@ -280,7 +280,7 @@
                 <li><a href="#queues">Drug Stock</a></li>
                 <li><a href="#manage">Expired Drugs</a></li>
                 <li><a href="#receipts">Receipts</a></li>
-                <li><a href="#transer">Transfer</a></li>
+                <li><a href="#transers">Transfer</a></li>
             </ul>
 
             <div id="queues">
@@ -295,17 +295,8 @@
 				${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
             </div>
 
-            <div id="transer">
-                <div class="dashboard clear">
-                    <div class="info-section">
-                        <div class="info-header">
-                            <i class="icon-download-alt"></i>
-                            <h3>Manage Indent</h3>
-                        </div>
-                    </div>
-                </div>
-                <div>${ui.includeFragment("inventoryapp", "transferDrugFromGeneralStore")}
-                </div>
+            <div id="transers">
+                ${ui.includeFragment("inventoryapp", "transferDrugFromGeneralStore")}
             </div>
 
         </div>

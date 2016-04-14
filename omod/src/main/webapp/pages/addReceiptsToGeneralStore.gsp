@@ -625,10 +625,16 @@
                 <a href="${ui.pageLink('referenceapplication', 'home')}">
                     <i class="icon-home small"></i></a>
             </li>
+			
+			<li>
+                <a href="${ui.pageLink('inventoryapp', 'main')}">
+					<i class="icon-chevron-right link"></i>Inventory
+				</a>
+            </li>
 
             <li>
                 <i class="icon-chevron-right link"></i>
-                Inventory Module
+                Add Receipts
             </li>
         </ul>
     </div>

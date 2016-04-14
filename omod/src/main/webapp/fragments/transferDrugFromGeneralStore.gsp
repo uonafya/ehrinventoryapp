@@ -135,8 +135,25 @@
 
 </script>
 
-<table id="transferList">
-    <select name="storeId" id="storeId" class="searchFieldChange" title="Select Drug Store">
+<style>
+	fieldset {
+		margin: 0 0 2px;
+		padding: 5px;
+	}
+
+</style>
+
+<div class="dashboard clear">
+	<div class="info-section">
+		<div class="info-header">
+			<i class="icon-book"></i>
+			<h3>Manage Indent</h3>
+		</div>
+	</div>
+</div>
+
+<fieldset id="filters">
+ <select name="storeId" id="storeId" class="searchFieldChange" title="Select Drug Store">
         <option value>Select Store</option>
         <% listStore.each { %>
         <option value="${it.id}" title="${it.name}">
@@ -162,6 +179,11 @@
     <label for="toDate">To</label>
     <input type="text" id="toDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="toDate"
            title="Double Click to Clear" ondblclick="this.value = '';"/>
+
+</fieldset>
+
+<table id="transferList">
+   
     <thead>
     <th>S. No</th>
     <th>From Store</th>
