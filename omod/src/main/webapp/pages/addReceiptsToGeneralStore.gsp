@@ -38,7 +38,7 @@
 
                         index = drugOrder.length ;
                         count = index + 1;
-                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
                                     rowId: index,
@@ -286,27 +286,53 @@
         });
 
         function removerFunction(rowId) {
-            jq('#addDrugsTable > tbody > tr').remove();
-            var tbody = jq('#addDrugsTable > tbody');
-            var table = tbody.length ? tbody : jq('#addDrugsTable');
-            drugOrder = jq.grep(drugOrder, function (item, index) {
-                return (rowId !== index);
-            });
+			if (confirm("Are you sure about this?")) {
+				jq('#addDrugsTable > tbody > tr').remove();
+				var tbody = jq('#addDrugsTable > tbody');
+				var table = tbody.length ? tbody : jq('#addDrugsTable');
+				drugOrder = jq.grep(drugOrder, function (item, index) {
+					return (rowId !== index);
+				});
 
-           // jq('#' + rowId).remove();
+				// jq('#' + rowId).remove();
 
 
-            jq.each(drugOrder, function (rowId, item) {
-                console.log(item);
-                tbody.append('<tr id="' + (rowId + 1) +'"><td>'+(rowId + 1) +'</td><td>'+ item.drugCategoryName +'</td><td>'+ item.drugName +
-                        '</td><td>'+ item.drugFormulationName +'</td><td>'+ item.quantity +
-                        '</td><td>'+ item.unitPrice +'</td><td>'+ item.institutionalCost +
-                        '</td><td>'+ item.costToThePatient +'</td><td>'+ item.batchNo +'</td><td>'+ item.companyName +'</td><td>'+
-                        item.dateOfManufacture +'</td><td>'+ item.dateOfExpiry +'</td><td>'+ item.receiptDate +'</td><td>'+ item.receiptFrom +
-                        '</td><td><a onclick="removerFunction(' + rowId +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
-                        '<a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
-            });
+				jq.each(drugOrder, function (rowId, item) {
+					console.log(item);
+					tbody.append('<tr id="' + (rowId + 1) + '"><td>' + (rowId + 1) + '</td><td>' + item.drugCategoryName + '</td><td>' + item.drugName +
+							'</td><td>' + item.drugFormulationName + '</td><td>' + item.quantity +
+							'</td><td>' + item.unitPrice + '</td><td>' + item.institutionalCost +
+							'</td><td>' + item.costToThePatient + '</td><td>' + item.batchNo + '</td><td>' + item.companyName + '</td><td>' +
+							item.dateOfManufacture + '</td><td>' + item.dateOfExpiry + '</td><td>' + item.receiptDate + '</td><td>' + item.receiptFrom +
+							'</td><td><a onclick="removerFunction(' + rowId + ')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
+							'<a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+				});
+			}
+			else {
+					return false;
+				}
+
         }
+
+		function printSlip() {
+			var printDiv = jq("#addDrugsTablePrintable").html();
+			var printWindow = window.open('', '', 'height=400,width=800');
+			printWindow.document.write('<html><head><title>Patient Information</title>');
+			printWindow.document.write(printDiv);
+			printWindow.document.write('</body></html>');
+			printWindow.document.close();
+			printWindow.print();
+		}
+		function clearSlip() {
+			if (confirm("Are you sure about this?")) {
+			jq('#addDrugsTable > tbody > tr').remove();
+			} else {
+				return false;
+			}
+		}
+		function editorFunction(rowId) {
+			//editor logic
+		}
     </script>
 
     <style>
@@ -646,7 +672,7 @@
             </h1>
         </div>
 
-        <div>
+        <div id="addDrugsTablePrintable">
             <table id="addDrugsTable">
                 <thead>
 					<tr role="row">
@@ -679,6 +705,8 @@
 			
             <input type="button" value="Submit" class="button task" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
 			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
+			<input type="button" value="Clear Slip" onclick="clearSlip()" class="button cancel" name="clearSlip" id="clearSlip"/>
+			<input type="button" value="Print Slip" onclick="printSlip()" class="button confirm" name="printSlip" id="printSlip"/>
 		</div>
 
     </div>
