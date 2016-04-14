@@ -48,10 +48,19 @@ th:first-child {
 	width: 200px;
 }
 
+#transferList th:nth-child(4) {
+	width: 130px;
+}
+
 #expirylist th:nth-child(5),
 #stocklist th:nth-child(5) {
 	width: 85px;
 }
+
+#transferList th:nth-child(5) {
+	width: 140px;
+}
+
 
 #expirylist th:last-child,
 #stocklist th:last-child {
@@ -60,6 +69,10 @@ th:first-child {
 
 #receiptslist th:last-child {
 	width: 180px;
+}
+
+#transferList th:last-child {
+	width: 60px;
 }
 
 .button.task, a.button.task {

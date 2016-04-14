@@ -1,64 +1,29 @@
-<style>
-.dialog input {
-    display: block;
-    margin: 5px 0;
-    color: #363463;
-    padding: 5px 0 5px 10px;
-    background-color: #FFF;
-    border: 1px solid #DDD;
-    width: 100%;
-}
-
-.dialog select option {
-    font-size: 1em;
-}
-
-#modal-overlay {
-    background: #000 none repeat scroll 0 0;
-    opacity: 0.4 !important;
-}
-
-.dialog {
-    display: none;
-}
-
-</style>
 <script>
     var pDataString;
     jq(function () {
-
-
-        jQuery('.date-pick').datepicker({minDate: '-100y', dateFormat: 'dd/mm/yy'});
-        getIndentList();
 		
 		jq('#indentName').on('keyup paste',function(){
 			reloadList();
 		});
 
-        //action when the searchField change occurs
-        jq(".searchFieldChange").on("change", function () {
-            reloadList();
-
-        });
-
-        //action when the searchField blur occurs
-        jq(".searchFieldBlur").on("blur", function () {
+        jq('#fromDate-display, #toDate-display, .searchFieldChange').on("change", function () {
             reloadList();
         });
 
         function reloadList(){
-            var storeId = jq("#storeId").val();
-            var statusId = jq("#statusId").val();
-            var indentName = jq("#indentName").val();
-            var fromDate = jq("#fromDate").val();
-            var toDate=jq("#toDate").val();
+            var storeId 	= jq("#storeId").val();
+            var statusId 	= jq("#statusId").val();
+            var indentName 	= jq("#indentName").val();
+            var fromDate 	= moment(jq("#fromDate-field").val()).format('DD/MM/YYYY');
+            var toDate 		= moment(jq("#toDate-field").val()).format('DD/MM/YYYY');
+			
             getIndentList(storeId, statusId, indentName, fromDate, toDate);
         }
 
-
+        getIndentList();
     });//end of doc ready function
+	
     function detailDrugIndent(indentId) {
-//        prescriptionDialog.show();
         window.location.href = emr.pageLink("inventoryapp", "detailDrugIndent", {
             "indentId": indentId
         });
@@ -87,31 +52,31 @@
 
     function getIndentList(storeId, statusId, indentName, fromDate, toDate, viewIndent, indentId) {
         jq.getJSON('${ui.actionLink("inventoryapp", "transferDrugFromGeneralStore", "getIndentList")}',
-                {
-                    storeId: storeId,
-                    statusId: statusId,
-                    indentName: indentName,
-                    fromDate: fromDate,
-                    toDate: toDate,
-                    viewIndent: viewIndent,
-                    indentId: indentId
-                }).success(function (data) {
-                    if (data.length === 0 && data != null) {
-                        jq().toastmessage('showNoticeToast', "No drug found!");
-                        jq('#transferList > tbody > tr').remove();
-                        var tbody = jq('#transferList > tbody');
-                        var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
-                        tbody.append(row);
-                    } else {
-                        updateTransferList(data);
-                    }
-                }).error(function () {
-                    jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
-                    jq('#transferList > tbody > tr').remove();
-                    var tbody = jq('#transferList > tbody');
-                    var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
-                    tbody.append(row);
-                });
+		{
+			storeId: storeId,
+			statusId: statusId,
+			indentName: indentName,
+			fromDate: fromDate,
+			toDate: toDate,
+			viewIndent: viewIndent,
+			indentId: indentId
+		}).success(function (data) {
+			if (data.length === 0 && data != null) {
+				jq().toastmessage('showNoticeToast', "No drug found!");
+				jq('#transferList > tbody > tr').remove();
+				var tbody = jq('#transferList > tbody');
+				var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
+				tbody.append(row);
+			} else {
+				updateTransferList(data);
+			}
+		}).error(function () {
+			jq().toastmessage('showNoticeToast', "An Error Occured while Fetching List");
+			jq('#transferList > tbody > tr').remove();
+			var tbody = jq('#transferList > tbody');
+			var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
+			tbody.append(row);
+		});
     }
 
     //update the queue table
@@ -123,13 +88,13 @@
             var row = '<tr>';
             var item = tests[index];
             row += '<td>' + (++index) + '</td>';
-            row += '<td>' + item.store.name + '</td>';
             row += '<td><a href="#" title="Detail indent" onclick="detailDrugIndent(' + item.id + ');" ;>' + item.name + '</a></td>';
-            row += '<td>' + item.createdOn + '</td>';
+            row += '<td>' + item.store.name + '</td>';
+            row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
             var link = "";
             if (item.mainStoreStatus == 1) {
-                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process Indent</a>';
+                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process</a>';
             }
             row += '<td>' + link + '</td>';
             row += '</tr>';
@@ -140,11 +105,35 @@
 </script>
 
 <style>
+	.dialog input {
+		display: block;
+		margin: 5px 0;
+		color: #363463;
+		padding: 5px 0 5px 10px;
+		background-color: #FFF;
+		border: 1px solid #DDD;
+		width: 100%;
+	}
+
+	.dialog select option {
+		font-size: 1em;
+	}
+
+	#modal-overlay {
+		background: #000 none repeat scroll 0 0;
+		opacity: 0.4 !important;
+	}
+
+	.dialog {
+		display: none;
+	}
+	
 	fieldset {
 		background: #f3f3f3 none repeat scroll 0 0;
 		margin: 0 0 5px;
 		padding: 5px 0 5px 5px;
 	}
+	
 	fieldset label{
 		color: #f26522;
 		display: inline-block;
@@ -152,11 +141,26 @@
 		padding-left: 1%;
 		width: 23%;
 	}
+	
 	fieldset input{
 		width: 25%;
 	}
 	fieldset select{
 		width: 24%;
+	}
+	
+	#toDate label,
+	#fromDate label{
+		display: none;
+	}
+	
+	#toDate .add-on,
+	#fromDate .add-on {
+		font-size: 0.9em !important;
+		margin-top: 5px !important;
+	}
+	#transferList {
+		font-size: 14px;
 	}
 </style>
 
@@ -186,7 +190,7 @@
 <fieldset id="filters">
 	<label for="storeId" >Requesting Store</label>
 	<label for="statusId">Indent Status</label>
-	<label for="fromDate">From Date</label>
+	<label for="fromDate-display">From Date</label>
 	<label for="toDate" style="width: auto; padding-left: 17px;">To Date</label>
 	
 	<br/>
@@ -204,24 +208,20 @@
 			<option value="${it.id}" title="${it.name}">${it.name}</option>
         <% } %>
     </select>
-		   
-    <input type="text" id="fromDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="fromDate"
-           title="Double Click to Clear" ondblclick="this.value = '';"/>
-		   
-    <input type="text" id="toDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="toDate"
-           title="Double Click to Clear" ondblclick="this.value = '';"/>
-
+	
+	${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'fromDate', id: 'fromDate', label: '', useTime: false, defaultToday: false, class: ['searchFieldChange']])}
+	${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'toDate',   id: 'toDate',   label: '', useTime: false, defaultToday: false, class: ['searchFieldChange']])}
 </fieldset>
 
 <table id="transferList">
    
     <thead>
     <th>#</th>
-    <th>From Store</th>
-    <th>Indent Name</th>
-    <th>Created On</th>
-    <th>Status Indent</th>
-    <th>Action</th>
+    <th>INDENT NAME</th>
+    <th>FROM STORE</th>
+    <th>CREATED ON</th>
+    <th>STATUS</th>
+    <th>ACTION</th>
     </thead>
     <tbody role="alert" aria-live="polite" aria-relevant="all">
     <tr align="center">
