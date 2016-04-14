@@ -30,6 +30,10 @@
 
         jQuery('.date-pick').datepicker({minDate: '-100y', dateFormat: 'dd/mm/yy'});
         getIndentList();
+		
+		jq('#indentName').on('keyup paste',function(){
+			reloadList();
+		});
 
         //action when the searchField change occurs
         jq(".searchFieldChange").on("change", function () {
@@ -137,10 +141,23 @@
 
 <style>
 	fieldset {
-		margin: 0 0 2px;
-		padding: 5px;
+		background: #f3f3f3 none repeat scroll 0 0;
+		margin: 0 0 5px;
+		padding: 5px 0 5px 5px;
 	}
-
+	fieldset label{
+		color: #f26522;
+		display: inline-block;
+		margin: 5px 0;
+		padding-left: 1%;
+		width: 23%;
+	}
+	fieldset input{
+		width: 25%;
+	}
+	fieldset select{
+		width: 24%;
+	}
 </style>
 
 <div class="dashboard clear">
@@ -148,35 +165,49 @@
 		<div class="info-header">
 			<i class="icon-book"></i>
 			<h3>Manage Indent</h3>
+			
+			<div>
+				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
+				
+				
+				<label for="categoryId">Filter : </label>
+				
+				<input type="text" id="indentName" name="indentName" placeholder="Filter by Indent Name" title="Enter Indent Name" style="width: 492px; padding-left: 30px;"/>
+				<i class="icon-search" style="color: #aaa; float: right; position: absolute; font-size: 16px ! important; margin-left: -490px; margin-top: 4px;"></i>
+				
+				<a class="button task" id="expirySearch">
+					Search
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
 
 <fieldset id="filters">
- <select name="storeId" id="storeId" class="searchFieldChange" title="Select Drug Store">
-        <option value>Select Store</option>
-        <% listStore.each { %>
-        <option value="${it.id}" title="${it.name}">
-            ${it.name}
-        </option>
-        <% } %>
-    </select>
+	<label for="storeId" >Requesting Store</label>
+	<label for="statusId">Indent Status</label>
+	<label for="fromDate">From Date</label>
+	<label for="toDate" style="width: auto; padding-left: 17px;">To Date</label>
+	
+	<br/>
+
+	<select name="storeId" id="storeId" class="searchFieldChange" title="Select Drug Store">
+		<option value="">Select Store</option>
+		<% listStore.each { %>
+			<option value="${it.id}" title="${it.name}">${it.name}</option>
+		<% } %>
+	</select>
 
     <select name="statusId" id="statusId" class="searchFieldChange" title="Select Status">
-        <option value >Select Status</option>
+        <option value="">Select Status</option>
         <% listMainStoreStatus.each { %>
-        <option value="${it.id}" title="${it.name}">
-            ${it.name}
-        </option>
+			<option value="${it.id}" title="${it.name}">${it.name}</option>
         <% } %>
     </select>
-
-    <input type="text" id="indentName" name="indentName" placeholder="Drug Name" class="searchFieldBlur"
-           title="Enter Drug Name"/>
-    <label for="fromDate">From</label>
+		   
     <input type="text" id="fromDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="fromDate"
            title="Double Click to Clear" ondblclick="this.value = '';"/>
-    <label for="toDate">To</label>
+		   
     <input type="text" id="toDate" class="date-pick searchFieldChange searchFieldBlur" readonly="readonly" name="toDate"
            title="Double Click to Clear" ondblclick="this.value = '';"/>
 
@@ -185,7 +216,7 @@
 <table id="transferList">
    
     <thead>
-    <th>S. No</th>
+    <th>#</th>
     <th>From Store</th>
     <th>Indent Name</th>
     <th>Created On</th>
