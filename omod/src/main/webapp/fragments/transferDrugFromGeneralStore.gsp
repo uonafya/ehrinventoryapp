@@ -88,13 +88,7 @@
             var row = '<tr>';
             var item = tests[index];
             row += '<td>' + (++index) + '</td>';
-			
-			if (item.mainStoreStatus == 1) {
-				row += '<td style="text-transform: uppercase">' + item.name + '</td>';
-			} else{
-				row += '<td><a href="#" title="Detail indent" onclick="detailDrugIndent(' + item.id + ');" ;>' + item.name + '</a></td>';
-			}
-			
+			row += '<td><a href="#" title="Detail indent" onclick="detailDrugIndent(' + item.id + ');" ;>' + item.name + '</a></td>';
             row += '<td>' + item.store.name + '</td>';
             row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
