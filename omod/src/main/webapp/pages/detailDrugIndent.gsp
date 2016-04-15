@@ -230,7 +230,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 		
         <table id="nullsInn">
 			<thead>
-				<tr>
+				<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
 					<th>#</th>
 					<th>CATEGORY</th>
 					<th>DRUG NAME</th>
@@ -242,7 +242,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 
             <% if (listIndentDetail != null || listIndentDetail.size() > 0) { %>
             <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
-            <tr>
+            <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
                 <td>${varStatus + 1}</td>
                 <td>${indent.drug.category.name}</td>
                 <td>${indent.drug.name}</td>
@@ -278,7 +278,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 		
         <table id="nullsOut">
 			<thead>
-				<tr>
+				<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
 					<th>#</th>
 					<th>CATEGORY</th>
 					<th>DRUG NAME</th>
@@ -293,7 +293,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 
                 <% if (listIndentDetail != null && listIndentDetail.size() > 0) { %>
                     <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
-                        <tr>
+                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
                         <td>${varStatus+1}</td>
                         <td>${indent.drug.category.name}</td>
                         <td>${indent.drug.name}</td>
@@ -308,7 +308,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 
                                     <% if (count > 0) { %>
                                         </tr>
-                                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"} '>
+                                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
                                             <td></td>
                                             <td></td>
                                             <td></td>
