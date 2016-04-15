@@ -54,15 +54,6 @@ body {
     text-align: left;
 }
 
-form input,
-form select {
-    margin: 0px;
-    display: inline-block;
-    min-width: 50px;
-    padding: 2px 10px;
-    height: 32px !important;
-}
-
 .info-header span {
     cursor: pointer;
     display: inline-block;
@@ -85,42 +76,6 @@ form select {
     }
 }
 
-form .advanced {
-    background: #363463 none repeat scroll 0 0;
-    border-color: #dddddd;
-    border-style: solid;
-    border-width: 1px;
-    color: #fff;
-    cursor: pointer;
-    float: right;
-    padding: 6px 0;
-    text-align: center;
-    width: 27%;
-}
-
-form .advanced i {
-    font-size: 22px;
-}
-
-.col4 label {
-    width: 110px;
-    display: inline-block;
-}
-
-.col4 input[type=text] {
-    display: inline-block;
-    padding: 4px 10px;
-}
-
-.col4 select {
-    padding: 4px 10px;
-}
-
-form select {
-    min-width: 50px;
-    display: inline-block;
-}
-
 .identifiers span {
     border-radius: 50px;
     color: white;
@@ -128,10 +83,6 @@ form select {
     font-size: 0.8em;
     letter-spacing: 1px;
     margin: 5px;
-}
-
-table.dataTable thead th, table.dataTable thead td {
-    padding: 5px 10px;
 }
 
 input[type="text"], select {
@@ -142,39 +93,6 @@ input[type="text"], select {
     height: 32px;
     width: 250px;
     padding: 5px 0 5px 10px;
-}
-
-.newdtp {
-    width: 166px;
-}
-
-#lastDayOfVisit label,
-#referred-date label {
-    display: none;
-}
-
-#lastDayOfVisit input {
-    width: 160px;
-}
-
-.add-on {
-    color: #f26522;
-    float: right;
-    left: auto;
-    margin-left: -29px;
-    margin-top: 2px;
-    position: absolute;
-    right: 25px;
-}
-
-.chrome .add-on {
-    margin-left: -31px;
-    margin-top: -27px !important;
-    position: relative !important;
-}
-
-#lastDayOfVisit-wrapper .add-on {
-    margin-top: 5px;
 }
 
 .ui-widget-content a {
@@ -197,92 +115,6 @@ input[type="text"], select {
     background: #f9f9f9 none repeat scroll 0 0;
 }
 
-.formfactor {
-    background: #f3f3f3 none repeat scroll 0 0;
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-    padding: 5px 10px;
-    text-align: left;
-    width: auto;
-}
-
-.formfactor .lone-col {
-    display: inline-block;
-    margin-top: 5px;
-    overflow: hidden;
-    width: 100%;
-}
-
-.formfactor .first-col {
-    display: inline-block;
-    margin-top: 5px;
-    overflow: hidden;
-    width: 300px;
-}
-
-.formfactor .second-col {
-    display: inline-block;
-    float: right;
-    margin-top: 5px;
-    overflow: hidden;
-    width: 600px;
-}
-
-.formfactor .lone-col input,
-.formfactor .first-col input,
-.formfactor .second-col input {
-    margin-top: 5px;
-    padding: 5px 15px;
-    width: 100%;
-}
-
-.formfactor .lone-col label,
-.formfactor .first-col label,
-.formfactor .second-col label {
-    padding-left: 5px;
-    color: #363463;
-    cursor: pointer;
-}
-
-.ui-tabs-panel h2 {
-    display: inline-block;
-}
-
-#drugIndentList {
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-.dialog li label span {
-    color: #f00;
-    float: right;
-    margin-right: 10px;
-}
-
-.dialog label {
-    display: inline-block;
-    width: 180px;
-}
-
-.dialog select {
-    display: inline-block;
-    margin: 0;
-    padding: 2px 0 2px 5px;
-    width: 250px;
-}
-
-.dialog .dialog-content li {
-    margin-bottom: 2px;
-}
-
-.dialog .dialog-content {
-    padding: 5px 20px 0;
-}
-
-.dialog select option {
-    font-size: 1.0em;
-}
-
 td a,
 td a:hover {
     text-decoration: none;
@@ -292,32 +124,30 @@ td a:hover {
     border: 1px solid #f00 !important;
 }
 
-#dateOfExpiry label,
-#receiptDate label,
-#dateOfManufacture label {
-    display: none;
-}
-
 table th, table td {
     padding: 5px;
 }
 
-th:nth-child(4),
-th:nth-child(5) {
+#nullsOut{
+	font-size: 12px;
+    margin-top: 3px;
+}
+
+#nullsOut th:nth-child(5),
+#nullsOut th:nth-child(6) {
     width: 65px;
 }
 
-th:nth-child(6) {
+#nullsOut th:nth-child(7) {
     width: 75px;
 }
 
-th:nth-child(7) {
-    min-width: 30px;
+#nullsOut th:nth-child(8) {
+    width: 60px;
 }
 
-th:nth-child(8),
-th:last-child {
-    width: 35px;
+#nullsOut th:last-child {
+    width: 120px;
 }
 
 form input:focus, form select:focus, form textarea:focus, form ul.select:focus, .form input:focus, .form select:focus, .form textarea:focus, .form ul.select:focus {
@@ -398,15 +228,17 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 			<br/>
 		</div>
 		
-        <table border="1">
-            <tr>
-                <th>#</th>
-                <th>CATEGORY</th>
-                <th>DRUG NAME</th>
-                <th>FORMULATION</th>
-                <th>INDENT QNTY</th>
-                <th>TRANSFER QNTY</th>
-            </tr>
+        <table id="nullsInn">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>CATEGORY</th>
+					<th>DRUG NAME</th>
+					<th>FORMULATION</th>
+					<th>INDENT QNTY</th>
+					<th>TRANSFER QNTY</th>
+				</tr>
+			</thead>
 
             <% if (listIndentDetail != null || listIndentDetail.size() > 0) { %>
             <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
@@ -422,13 +254,16 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
             <% } %>
 
         </table>
-
-        <br/><br/><br/><br/><br/><br/>
-        <span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
-            style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
-        <br/><br/><br/><br/><br/><br/>
-        <span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
+		
+		<div class='hide'>
+			<br/><br/><br/><br/><br/><br/>
+			<span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
+				style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
+			<br/><br/><br/><br/><br/><br/>
+			<span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
+		</div>
     </div>
+	
     <% } else { %>
         <div class='hide'>
 			<br/>
@@ -440,22 +275,25 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 			<br/>
 			<br/>
 		</div>
-        <table border="1">
-            <tr>
-                <th>#</th>
-                <th>CATEGORY</th>
-                <th>DRUG NAME</th>
-                <th>FORMULATION</th>
-                <th>INDENT QNTY</th>
-                <th>BATCH#</th>
-                <th>EXPIRY</th>
-                <th>COMPANY</th>
-                <th>TRANSFER QNTY</th>
-            </tr>
+		
+        <table id="nullsOut">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>CATEGORY</th>
+					<th>DRUG NAME</th>
+					<th>FORMULATION</th>
+					<th>INDENT</th>
+					<th>TRANSFER</th>
+					<th>BATCH#</th>
+					<th>EXPIRY</th>
+					<th>COMPANY</th>
+				</tr>
+			</thead>
 
                 <% if (listIndentDetail != null && listIndentDetail.size() > 0) { %>
                     <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
-                        <tr align="center">
+                        <tr>
                         <td>${varStatus+1}</td>
                         <td>${indent.drug.category.name}</td>
                         <td>${indent.drug.name}</td>
@@ -470,23 +308,22 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 
                                     <% if (count > 0) { %>
                                         </tr>
-                                        <tr align="center"
-                                            class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"} '>
+                                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"} '>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>${trDetail.batchNo}</td>
-                                            <td>${trDetail.dateExpiry}</td>
-                                            <td>${trDetail.companyName}</td>
                                             <td>${trDetail.issueQuantity}</td>
+                                            <td>${trDetail.batchNo}</td>
+                                            <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
+                                            <td>${trDetail.companyName}</td>
                                         </tr>
                                     <% } else {%>
-                                        <td>${trDetail.batchNo}</td>
-                                        <td>${trDetail.dateExpiry}</td>
-                                        <td>${trDetail.companyName}</td>
                                         <td>${trDetail.issueQuantity}</td>
+                                        <td>${trDetail.batchNo}</td>
+                                        <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
+                                        <td>${trDetail.companyName}</td>
                                         </tr>
                                     <% } %>
 
@@ -495,22 +332,25 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
                             <% } %>
                         <% } %>
                         <% if (check == 0){ %>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
                             <td>0</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
                             </tr>
                         <% } %>
                     <% } %>
                 <% } %>
 
         </table>
+		
+		<div class='hide'>
+			<br/><br/><br/><br/><br/><br/>
+			<span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
+				style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
+			<br/><br/><br/><br/><br/><br/>
+			<span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
+		</div>
 
-        <br/><br/><br/><br/><br/><br/>
-        <span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
-            style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
-        <br/><br/><br/><br/><br/><br/>
-        <span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
     <% } %>
 </div>
 
