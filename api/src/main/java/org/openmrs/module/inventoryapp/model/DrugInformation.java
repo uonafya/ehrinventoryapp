@@ -112,10 +112,48 @@ public class DrugInformation {
         this.receiptDate = receiptDate;
     }
 
+
+
+    public int getRowId() {
+        return rowId;
+    }
+
+    public void setRowId(int rowId) {
+        this.rowId = rowId;
+    }
+
+
+    public String getDrugCategoryName() {
+        return drugCategoryName;
+    }
+
+    public void setDrugCategoryName(String drugCategoryName) {
+        this.drugCategoryName = drugCategoryName;
+    }
+
+    public String getDrugName() {
+        return drugName;
+    }
+
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    public String getDrugFormulationName() {
+        return drugFormulationName;
+    }
+
+    public void setDrugFormulationName(String drugFormulationName) {
+        this.drugFormulationName = drugFormulationName;
+    }
+
+
+
     private int drugCategoryId;
     private int drugId;
     private int drugFormulationId;
     private int quantity;
+    private int rowId;
     private String unitPrice;
     private String institutionalCost;
     private String costToThePatient;
@@ -125,4 +163,7 @@ public class DrugInformation {
     private String dateOfManufacture;
     private String dateOfExpiry;
     private String receiptDate;
+    private String drugCategoryName;
+    private String drugName;
+    private String drugFormulationName;
 }
