@@ -72,7 +72,9 @@ public class AddReceiptsToStoreFragmentController {
         return  list;
     }
 
-    public void saveReceipt( @RequestParam(value = "drugOrder", required = false) String drugOrder) throws ParseException {
+    public void saveReceipt( @RequestParam(value = "drugOrder", required = false) String drugOrder,
+                             @RequestParam(value = "description", required = false) String description
+                             ) throws ParseException {
 
         List<DrugInformation> drugInformationList = getPrescriptions(drugOrder);
         DrugInformation drugInformation = drugInformationList.get(0);
@@ -166,7 +168,6 @@ public class AddReceiptsToStoreFragmentController {
         StoreSingleton.getInstance().getHash().put(fowardParam, list);
 
 
-        String description = "";
 
         Date date = new Date();
         //	InventoryStore store = inventoryService.getStoreByCollectionRole(new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles()));;
