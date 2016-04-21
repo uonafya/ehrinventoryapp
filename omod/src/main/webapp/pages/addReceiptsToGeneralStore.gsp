@@ -11,6 +11,7 @@
 <head>
     <script>
         var drugOrder = [];
+		var receiptDescription = "";
         var index=0;
         var count = 0;
 
@@ -38,7 +39,7 @@
 
                         index = drugOrder.length ;
                         count = index + 1;
-                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture").val()+'</td><td>'+jq("#dateOfExpiry").val()+'</td><td>'+jq("#receiptDate").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-display").val()+'</td><td>'+jq("#dateOfExpiry-display").val()+'</td><td>'+jq("#receiptDate-display").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
                                     rowId: index,
@@ -55,9 +56,9 @@
                                     batchNo:jq("#batchNo").val(),
                                     companyName:jq("#companyName").val(),
                                     dateOfManufacture:jq("#dateOfManufacture").val(),
-                                    dateOfExpiry:jq("#dateOfExpiry").val(),
-                                    receiptDate:jq("#receiptDate").val(),
-                                    receiptFrom:jq("#receiptFrom").val()
+                                    dateOfExpiry:jq("#dateOfExpiry-field").val(),
+                                    receiptDate:jq("#receiptDate-field").val(),
+                                    receiptFrom:jq("#receiptFrom-field").val()
                                 }
                         );
                         console.log(drugOrder);
@@ -69,6 +70,35 @@
                 }
 
             });
+
+			var addDescriptionDialog = emr.setupConfirmationDialog({
+				selector: '#addDescriptionDialog',
+				actions: {
+					confirm: function() {
+						receiptDescription = jq("#addReceiptsDescription").val();
+
+						drugOrder = JSON.stringify(drugOrder);
+						var addDrugsData = {
+							'drugOrder':drugOrder,
+							'description' :receiptDescription
+						};
+
+						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }',addDrugsData)
+								.success(function(data) {
+									jq().toastmessage('showErrorToast', 'Receipt Saved Successfully');
+								})
+								.error(function(xhr, status, err) {
+									jq().toastmessage('showErrorToast', 'Some Error Occured');
+								});
+
+						adddrugdialog.close();
+					},
+					cancel: function() {
+						adddrugdialog.close();
+					}
+				}
+
+			});
 			
 			function page_verified(){
 				var error = 0;
@@ -247,21 +277,10 @@
                         });
             });
 
-            jq("#addDrugsSubmitButton").click(function(event) {
-                drugOrder = JSON.stringify(drugOrder);
-                var addDrugsData = {
-                    'drugOrder':drugOrder
-                };
+			jq("#addDrugsSubmitButton").click(function(event) {
+				addDescriptionDialog.show();
+			});
 
-                jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }',addDrugsData)
-				.success(function(data) {
-					alert('ok');
-				})
-				.error(function(xhr, status, err) {
-					alert('AJAX error ' + err);
-				})
-
-            });			
 			
 			jq('input[type="text"]').keydown(function (e) {
 				var numberFields = ['quantity','unitPrice','institutionalCost','costToThePatient'];
@@ -298,6 +317,7 @@
 
 
 				jq.each(drugOrder, function (rowId, item) {
+
 					console.log(item);
 					tbody.append('<tr id="' + (rowId + 1) + '"><td>' + (rowId + 1) + '</td><td>' + item.drugCategoryName + '</td><td>' + item.drugName +
 							'</td><td>' + item.drugFormulationName + '</td><td>' + item.quantity +
@@ -688,8 +708,8 @@
 						<th title="Batch Number"			>BATCH#</th>
 						<th title="Company Name"			>COMPANY</th>
 						<th title="Date of Manufacture"		>D.O.M</th>
-						<th title="Expiry Date"				>EXPIRY</th>
-						<th title="Receipt Date"			>DATE</th>
+						<th title="Expiry Date"				>D.O.E</th>
+						<th title="Receipt Date"			>R.D</th>
 						<th title="Receipt From"			>FROM</th>
 						<th title="Task Actions"			>&nbsp;</th>
 					</tr>
@@ -707,7 +727,7 @@
             <input type="button" value="Submit" class="button task" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
 			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
 			<input type="button" value="Clear Slip" onclick="clearSlip()" class="button cancel" name="clearSlip" id="clearSlip"/>
-			<input type="button" value="Print Slip" onclick="printSlip()" class="button confirm" name="printSlip" id="printSlip"/>
+			<input type="button" value="Print Slip" onclick="printSlip()" class="button task" name="printSlip" id="printSlip"/>
 		</div>
 
     </div>
@@ -799,6 +819,19 @@
         <span class="button confirm right" > Confirm </span>
         <span class="button cancel"> Cancel </span>
     </form>
+</div>
+
+<div id="addDescriptionDialog" class="dialog" style="display:none; width:480px">
+	<div class="dialog-header">
+		<i class="icon-folder-open"></i>
+		<h3>ADD Description</h3>
+	</div>
+	<form class="dialog-content">
+		<textarea id="addReceiptsDescription"></textarea>
+
+		<span class="button cancel"> Cancel </span>
+		<span class="button confirm right" > Submit </span>
+	</form>
 </div>
 
 </body>
