@@ -9,6 +9,7 @@ import org.openmrs.module.inventory.model.InventoryStoreDrugIndentDetail;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,11 +27,12 @@ public class DetailDrugIndentPageController {
         List<InventoryStoreDrugIndentDetail> listIndentDetail = inventoryService
                 .listStoreDrugIndentDetail(indentId);
         model.addAttribute("listIndentDetail", listIndentDetail);
+        List<InventoryStoreDrugTransactionDetail> listTransactionDetail= new ArrayList<InventoryStoreDrugTransactionDetail>();
         if (indent != null && indent.getTransaction() != null) {
-            List<InventoryStoreDrugTransactionDetail> listTransactionDetail = inventoryService
+             listTransactionDetail = inventoryService
                     .listTransactionDetail(indent.getTransaction().getId());
-            model.addAttribute("listTransactionDetail", listTransactionDetail);
         }
+        model.addAttribute("listTransactionDetail", listTransactionDetail);
         model.addAttribute("store",
                 !CollectionUtils.isEmpty(listIndentDetail) ? listIndentDetail
                         .get(0).getIndent().getStore() : null);

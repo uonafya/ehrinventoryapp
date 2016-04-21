@@ -128,8 +128,8 @@ table th, table td {
     padding: 5px;
 }
 
-#nullsOut{
-	font-size: 12px;
+#nullsOut {
+    font-size: 12px;
     margin-top: 3px;
 }
 
@@ -177,8 +177,9 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 #footer button {
     float: right;
 }
-.hide{
-	display: none;
+
+.hide {
+    display: none;
 }
 </style>
 
@@ -218,31 +219,31 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
     <% if (listTransactionDetail == null && listTransactionDetail.size() == 0) { %>
     <div style="margin: 10px auto; width: 981px; font-size: 1.0em;font-family:'Dot Matrix Normal',Arial,Helvetica,sans-serif;">
         <div class='hide'>
-			<br/>
-			<br/>
-			<center style="float:center;font-size: 2.2em">Indent From ${store.name}</center>
-			<br/>
-			<br/>
-			<span style="float:right;font-size: 1.7em">Date: ${date}</span>
-			<br/>
-			<br/>
-		</div>
-		
+            <br/>
+            <br/>
+            <center style="float:center;font-size: 2.2em">Indent From ${store.name}</center>
+            <br/>
+            <br/>
+            <span style="float:right;font-size: 1.7em">Date: ${date}</span>
+            <br/>
+            <br/>
+        </div>
+
         <table id="nullsInn">
-			<thead>
-				<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
-					<th>#</th>
-					<th>CATEGORY</th>
-					<th>DRUG NAME</th>
-					<th>FORMULATION</th>
-					<th>INDENT QNTY</th>
-					<th>TRANSFER QNTY</th>
-				</tr>
-			</thead>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>CATEGORY</th>
+                <th>DRUG NAME</th>
+                <th>FORMULATION</th>
+                <th>INDENT QNTY</th>
+                <th>TRANSFER QNTY</th>
+            </tr>
+            </thead>
 
             <% if (listIndentDetail != null || listIndentDetail.size() > 0) { %>
             <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
-            <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
+            <tr class='${varStatus % 2 == 0 ? "oddRow" : "evenRow"}'>
                 <td>${varStatus + 1}</td>
                 <td>${indent.drug.category.name}</td>
                 <td>${indent.drug.name}</td>
@@ -254,102 +255,102 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
             <% } %>
 
         </table>
-		
-		<div class='hide'>
-			<br/><br/><br/><br/><br/><br/>
-			<span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
-				style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
-			<br/><br/><br/><br/><br/><br/>
-			<span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
-		</div>
-    </div>
-	
-    <% } else { %>
+
         <div class='hide'>
-			<br/>
-			<br/>
-			<center style="float:center;font-size: 2.2em">Indent From ${store.name}</center>
-			<br/>
-			<br/>
-			<span style="float:right;font-size: 1.7em">Date: ${date}</span>
-			<br/>
-			<br/>
-		</div>
-		
-        <table id="nullsOut">
-			<thead>
-				<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
-					<th>#</th>
-					<th>CATEGORY</th>
-					<th>DRUG NAME</th>
-					<th>FORMULATION</th>
-					<th>INDENT</th>
-					<th>TRANSFER</th>
-					<th>BATCH#</th>
-					<th>EXPIRY</th>
-					<th>COMPANY</th>
-				</tr>
-			</thead>
+            <br/><br/><br/><br/><br/><br/>
+            <span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
+                style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
+            <br/><br/><br/><br/><br/><br/>
+            <span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
+        </div>
+    </div>
 
-                <% if (listIndentDetail != null && listIndentDetail.size() > 0) { %>
-                    <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
-                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
-                        <td>${varStatus+1}</td>
-                        <td>${indent.drug.category.name}</td>
-                        <td>${indent.drug.name}</td>
-                        <td>${indent.formulation.name}-${indent.formulation.dozage}</td>
-                        <td>${indent.quantity}</td>
+    <% } else { %>
+    <div class='hide'>
+        <br/>
+        <br/>
+        <center style="float:center;font-size: 2.2em">Indent From ${store.name}</center>
+        <br/>
+        <br/>
+        <span style="float:right;font-size: 1.7em">Date: ${date}</span>
+        <br/>
+        <br/>
+    </div>
 
-                        <% def count=0 %>
-                        <% def check=0 %>
-                        <% listTransactionDetail.each { trDetail ->  %>
-                            <% if (trDetail.drug.id == indent.drug.id && trDetail.formulation.id == indent.formulation.id) { %>
-                                <% check=1 %>
+    <table id="nullsOut">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>CATEGORY</th>
+            <th>DRUG NAME</th>
+            <th>FORMULATION</th>
+            <th>INDENT</th>
+            <th>TRANSFER</th>
+            <th>BATCH#</th>
+            <th>EXPIRY</th>
+            <th>COMPANY</th>
+        </tr>
+        </thead>
 
-                                    <% if (count > 0) { %>
-                                        </tr>
-                                        <tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow"}'>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>${trDetail.issueQuantity}</td>
-                                            <td>${trDetail.batchNo}</td>
-                                            <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
-                                            <td>${trDetail.companyName}</td>
-                                        </tr>
-                                    <% } else {%>
-                                        <td>${trDetail.issueQuantity}</td>
-                                        <td>${trDetail.batchNo}</td>
-                                        <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
-                                        <td>${trDetail.companyName}</td>
-                                        </tr>
-                                    <% } %>
+        <% if (listIndentDetail != null && listIndentDetail.size() > 0) { %>
+        <% listIndentDetail.eachWithIndex { indent, varStatus -> %>
+        <tr class='${varStatus % 2 == 0 ? "oddRow" : "evenRow"}'>
+            <td>${varStatus + 1}</td>
+            <td>${indent.drug.category.name}</td>
+            <td>${indent.drug.name}</td>
+            <td>${indent.formulation.name}-${indent.formulation.dozage}</td>
+            <td>${indent.quantity}</td>
+
+            <% def count = 0 %>
+            <% def check = 0 %>
+            <% listTransactionDetail.each { trDetail -> %>
+            <% if (trDetail.drug.id == indent.drug.id && trDetail.formulation.id == indent.formulation.id) { %>
+            <% check = 1 %>
+
+            <% if (count > 0) { %>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>${trDetail.issueQuantity}</td>
+            <td>${trDetail.batchNo}</td>
+            <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
+            <td>${trDetail.companyName}</td>
+        </tr>
+        <% } else { %>
+        <td>${trDetail.issueQuantity}</td>
+        <td>${trDetail.batchNo}</td>
+        <td>${ui.formatDatePretty(trDetail.dateExpiry)}</td>
+        <td>${trDetail.companyName}</td>
+    </tr>
+        <% } %>
 
 
-                                <% count=count + 1 %>
-                            <% } %>
-                        <% } %>
-                        <% if (check == 0){ %>
-                            <td>0</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            </tr>
-                        <% } %>
-                    <% } %>
-                <% } %>
+        <% count = count + 1 %>
+        <% } %>
+        <% } %>
+        <% if (check == 0) { %>
+        <td>0</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+    </tr>
+        <% } %>
+        <% } %>
+        <% } %>
 
-        </table>
-		
-		<div class='hide'>
-			<br/><br/><br/><br/><br/><br/>
-			<span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
-				style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
-			<br/><br/><br/><br/><br/><br/>
-			<span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
-		</div>
+    </table>
+
+    <div class='hide'>
+        <br/><br/><br/><br/><br/><br/>
+        <span style="float:left;font-size: 1.5em">Signature of sub-store/ Stamp</span><span
+            style="float:right;font-size: 1.5em">Signature of inventory clerk/ Stamp</span>
+        <br/><br/><br/><br/><br/><br/>
+        <span style="margin-left: 13em;font-size: 1.5em">Signature of Medical Superintendent/ Stamp</span>
+    </div>
 
     <% } %>
 </div>
