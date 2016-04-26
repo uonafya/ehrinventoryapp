@@ -79,13 +79,20 @@ public class AddReceiptsToStoreFragmentController {
         List<DrugInformation> drugInformationList = getPrescriptions(drugOrder);
         DrugInformation drugInformation = drugInformationList.get(0);
 
-        int formulation=drugInformation.getDrugFormulationId(), drugId=drugInformation.getDrugId(), quantity=drugInformation.getQuantity();
-        String  unitPriceStr=drugInformation.getUnitPrice(),costToPatientStr=drugInformation.getCostToThePatient(), batchNo=drugInformation.getBatchNo(),
-                 receiptFrom=drugInformation.getReceiptFrom(), dateManufacture=drugInformation.getDateOfManufacture(), dateExpiry=drugInformation.getDateOfExpiry(), receiptDate=drugInformation.getReceiptDate();
+        int formulation = drugInformation.getDrugFormulationId(); 
+        int drugId = drugInformation.getDrugId(); 
+        int quantity = drugInformation.getQuantity();
+        String unitPriceStr = drugInformation.getUnitPrice();
+        String costToPatientStr = drugInformation.getCostToThePatient();
+        String batchNo = drugInformation.getBatchNo();
+        String receiptFrom = drugInformation.getReceiptFrom();
+        String dateManufacture = drugInformation.getDateOfManufacture();
+        String dateExpiry = drugInformation.getDateOfExpiry();
+        String receiptDate = drugInformation.getReceiptDate();
 
 
         List<String> errors = new ArrayList<String>();
-        InventoryDrug drug=null;
+        InventoryDrug drug = null;
         InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
         List<InventoryDrugCategory> listCategory = inventoryService.findDrugCategory("");
         drug=inventoryService.getDrugById(drugId);
