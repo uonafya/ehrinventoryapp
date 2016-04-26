@@ -49,7 +49,7 @@
                                     drugName: jq("#drugName").children(":selected").val(),
                                     drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
                                     drugFormulationName: jq("#drugFormulation").children(":selected").val(),
-                                    quantity: jq("#drugDays").val(),
+                                    quantity: jq("#quantity").val(),
                                     unitPrice: jq("#unitPrice").val(),
                                     institutionalCost:jq("#institutionalCost").val(),
                                     costToThePatient:jq("#costToThePatient").val(),
@@ -61,7 +61,6 @@
                                     receiptFrom:jq("#receiptFrom-field").val()
                                 }
                         );
-                        console.log(drugOrder);
                         adddrugdialog.close();
                     },
                     cancel: function() {
@@ -85,7 +84,10 @@
 
 						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }',addDrugsData)
 								.success(function(data) {
-									jq().toastmessage('showErrorToast', 'Receipt Saved Successfully');
+									jq().toastmessage('showSuccessToast', 'Receipt Saved Successfully');
+									var receiptsLink = emr.pageLink("inventoryapp", "main");
+									receiptsLink = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
+									window.location = receiptsLink; 
 								})
 								.error(function(xhr, status, err) {
 									jq().toastmessage('showErrorToast', 'Some Error Occured');
