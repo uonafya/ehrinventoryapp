@@ -33,6 +33,10 @@
 							jq().toastmessage('showErrorToast', 'Ensure fields marked in Red are filled properly');
 							return false;
 						}
+
+						if(!compare_DOE_DOM_DOR(jq("#dateOfExpiry-field").val(),jq("#dateOfManufacture-field").val(),jq("#receiptDate-field").val())){
+							return false;
+						}
 					
                         var tbody = jq('#addDrugsTable').children('tbody');
                         var table = tbody.length ? tbody : jq('#addDrugsTable');
@@ -44,9 +48,9 @@
                                 {
                                     rowId: index,
                                     drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
-                                    drugCategoryName: jq("#drugCategory").children(":selected").val(),
-                                    drugId: jq("#drugName").children(":selected").attr("id"),
-                                    drugName: jq("#drugName").children(":selected").val(),
+									drugCategoryName: jq("#drugCategory").children(":selected").val(),
+                                    drugId: 0,
+                                    drugName: jq("#drugName").val(),
                                     drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
                                     drugFormulationName: jq("#drugFormulation").children(":selected").val(),
                                     quantity: jq("#quantity").val(),
@@ -55,12 +59,13 @@
                                     costToThePatient:jq("#costToThePatient").val(),
                                     batchNo:jq("#batchNo").val(),
                                     companyName:jq("#companyName").val(),
-                                    dateOfManufacture:jq("#dateOfManufacture").val(),
+                                    dateOfManufacture:jq("#dateOfManufacture-field").val(),
                                     dateOfExpiry:jq("#dateOfExpiry-field").val(),
                                     receiptDate:jq("#receiptDate-field").val(),
-                                    receiptFrom:jq("#receiptFrom-field").val()
+                                    receiptFrom:jq("#receiptFrom").val()
                                 }
                         );
+
                         adddrugdialog.close();
                     },
                     cancel: function() {
@@ -198,8 +203,6 @@
 			}
 			
 
-
-
             jq("#addDrugsButton").on("click", function(e){
 				resets();
                 adddrugdialog.show();
@@ -240,45 +243,52 @@
 				});
             });
 
-            jq("#drugName").on("change",function(e){
-                var drugName = jq(this).children(":selected").attr("name");
-                var drugFormulationData = "<option id='0'>Select Formulation</option>";
-				
-				jq('#drugFormulation').empty();
-				
-                jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',{
-                            drugName:drugName
-                        })
-                        .success(function(data) {
-                            for (var key in data) {
-                                if (data.hasOwnProperty(key)) {
-                                    var val = data[key];
-                                    for (var i in val) {
-									var name,dosage;
-                                        if (val.hasOwnProperty(i)) {
-                                            var j = val[i];
-                                            if(i=="id")
-                                            {
-                                               drugFormulationData=drugFormulationData + '<option id="'+j+'">';
-                                            }
-													else if (i == "name") {
-											   name = j;
-										   }
-										   else {
-											   dozage = j;
-											   drugFormulationData = drugFormulationData + (name + "-" + dozage) + '</option>';
-										   }
-                                        }
-                                    }
-                                }
-                            }
-                            jq(drugFormulationData).appendTo("#drugFormulation");
-                        })
-                        .error(function(xhr, status, err) {
-                            alert('AJAX error ' + err);
-                        });
-            });
-
+			//add drug autocomplete
+			jq("#drugName").on("focus.autocomplete", function () {
+				var selectedInput = this;
+				jq(this).autocomplete({
+					source: function( request, response ) {
+						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "searchDrugNames") }',
+								{
+									q: request.term
+								}
+						).success(function(data) {
+							var results = [];
+							for (var i in data) {
+								var result = { label: data[i].name, value: data[i]};
+								results.push(result);
+							}
+							response(results);
+						});
+					},
+					minLength: 3,
+					select: function( event, ui ) {
+						event.preventDefault();
+						jq(selectedInput).val(ui.item.label);
+					},
+					change: function (event, ui) {
+						event.preventDefault();
+						jq(selectedInput).val(ui.item.label);
+						var categoryId = ui.item.value.category.id;
+						jq("#drugCategory option[id=" +categoryId+"]").attr('selected','selected');
+						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',
+								{
+									"drugName": ui.item.label
+								}
+						).success(function(data) {
+							var formulations = jq.map(data, function (formulation) {
+								jq('#drugFormulation').append(jq('<option>').text(formulation.name +"-"+ formulation.dozage).attr('id', formulation.id));
+							});
+						});
+					},
+					open: function() {
+						jq( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+					},
+					close: function() {
+						jq( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+					}
+				});
+			});
 			jq("#addDrugsSubmitButton").click(function(event) {
 				addDescriptionDialog.show();
 			});
@@ -355,6 +365,39 @@
 		function editorFunction(rowId) {
 			//editor logic
 		}
+		function stringToDateConvert(stringDate)
+		{
+			var parts = stringDate.split('-');
+			return Date.parse(new Date(parts[0], parts[1]-1, parts[2]));
+		}
+
+		function compare_DOE_DOM_DOR(dateOfExpiryString, dateOfManufactureString, dateOfReceiptString){
+			console.log("Method has been called");
+			console.log("Date of Expiry");
+			console.log(dateOfExpiryString);
+			console.log(dateOfManufactureString);
+			console.log("Date of Receipt");
+			console.log(dateOfReceiptString);
+			dateOfManufacture = stringToDateConvert(dateOfManufactureString);
+			dateOfExpiry = stringToDateConvert(dateOfExpiryString);
+			dateOfReceipt = stringToDateConvert(dateOfReceiptString);
+
+			if(dateOfManufacture > dateOfExpiry){
+				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than date of expiry');
+				return false;
+			}
+			else if(dateOfReceipt > dateOfExpiry){
+				jq().toastmessage('showErrorToast', 'Please review receipt date is greater than date of expiry');
+				return false;
+			}
+			else if(dateOfManufacture > dateOfReceipt){
+				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than receipt date');
+				return false;
+			}else{
+				return true;
+			}
+		}
+
     </script>
 
     <style>
@@ -753,12 +796,11 @@
                     <% } %>
                 </select>
             </li>
-            <li>
-                <label for="drugName">Drug Name<span>*</span></label>
-                <select name="drugName" id="drugName" >
-                    <option id="0">Select Drug</option>
-                </select>
-            </li>
+			<li>
+				<label for="drugName">Drug Name<span>*</span></label>
+				<input type="text" name="drugName" id="drugName">
+			</li>
+
             <li>
                 <label for="drugFormulation">Formulation<span>*</span></label>
                 <select name="drugFormulation" id="drugFormulation" >
