@@ -93,6 +93,7 @@ public class AddReceiptsToStoreFragmentController {
         String drugName = drugInformation.getDrugName();
         int quantity = drugInformation.getQuantity();
         String unitPriceStr = drugInformation.getUnitPrice();
+        String VATStr = drugInformation.getVAT();
         String costToPatientStr = drugInformation.getCostToThePatient();
         String batchNo = drugInformation.getBatchNo();
         String receiptFrom = drugInformation.getReceiptFrom();
@@ -109,14 +110,17 @@ public class AddReceiptsToStoreFragmentController {
             errors.add("inventory.receiptDrug.drug.required");
         }
 
-        BigDecimal unitPrice = new BigDecimal(0);
 
+        BigDecimal unitPrice  = new BigDecimal(0);
+        BigDecimal vAT =new BigDecimal(0);
         BigDecimal costToPatient = NumberUtils.createBigDecimal(costToPatientStr);
         if (null != unitPriceStr && "" != unitPriceStr) {
             unitPrice = NumberUtils.createBigDecimal(unitPriceStr);
         }
-
-        if (!StringUtils.isBlank(dateManufacture)) {
+        if(null!=VATStr && ""!=VATStr){
+        	vAT =  NumberUtils.createBigDecimal(unitPriceStr);
+        }
+        if(!StringUtils.isBlank(dateManufacture)){
             DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
             Date dateManufac = dateFormatter.parse(dateManufacture);
@@ -141,6 +145,7 @@ public class AddReceiptsToStoreFragmentController {
         transactionDetail.setAttribute(drug.getAttributeName());
         transactionDetail.setReorderPoint(drug.getReorderQty());
         transactionDetail.setFormulation(inventoryService.getDrugFormulationById(formulation));
+        transactionDetail.setVAT(vAT);
         transactionDetail.setBatchNo(batchNo);
         transactionDetail.setCurrentQuantity(quantity);
         transactionDetail.setQuantity(quantity);

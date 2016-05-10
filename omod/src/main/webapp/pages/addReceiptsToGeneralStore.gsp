@@ -836,7 +836,7 @@
 
             <li>
                 <label for="institutionalCost">Institutional Cost(%)</label>
-                <input name="institutionalCost" id="institutionalCost" type="text" >
+                <input name="vAT" id="vAT" type="text" >
             </li>
 
             <li>
