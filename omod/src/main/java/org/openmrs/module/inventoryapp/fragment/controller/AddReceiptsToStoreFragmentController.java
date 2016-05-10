@@ -93,13 +93,14 @@ public class AddReceiptsToStoreFragmentController {
         String drugName = drugInformation.getDrugName();
         int quantity = drugInformation.getQuantity();
         String unitPriceStr = drugInformation.getUnitPrice();
-        String VATStr = drugInformation.getVAT();
         String costToPatientStr = drugInformation.getCostToThePatient();
+        String companyName = drugInformation.getCompanyName();
         String batchNo = drugInformation.getBatchNo();
         String receiptFrom = drugInformation.getReceiptFrom();
         String dateManufacture = drugInformation.getDateOfManufacture();
         String dateExpiry = drugInformation.getDateOfExpiry();
         String receiptDate = drugInformation.getReceiptDate();
+        String institutionalCost = drugInformation.getInstitutionalCost();
 
         List<String> errors = new ArrayList<String>();
         InventoryDrug drug = null;
@@ -112,13 +113,13 @@ public class AddReceiptsToStoreFragmentController {
 
 
         BigDecimal unitPrice  = new BigDecimal(0);
-        BigDecimal vAT =new BigDecimal(0);
+        BigDecimal VAT = new BigDecimal(0);
         BigDecimal costToPatient = NumberUtils.createBigDecimal(costToPatientStr);
+        if (null != institutionalCost && "" != institutionalCost) {
+            VAT = NumberUtils.createBigDecimal(institutionalCost);
+        }
         if (null != unitPriceStr && "" != unitPriceStr) {
             unitPrice = NumberUtils.createBigDecimal(unitPriceStr);
-        }
-        if(null!=VATStr && ""!=VATStr){
-        	vAT =  NumberUtils.createBigDecimal(unitPriceStr);
         }
         if(!StringUtils.isBlank(dateManufacture)){
             DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -145,8 +146,9 @@ public class AddReceiptsToStoreFragmentController {
         transactionDetail.setAttribute(drug.getAttributeName());
         transactionDetail.setReorderPoint(drug.getReorderQty());
         transactionDetail.setFormulation(inventoryService.getDrugFormulationById(formulation));
-        transactionDetail.setVAT(vAT);
+        transactionDetail.setVAT(VAT);
         transactionDetail.setBatchNo(batchNo);
+        transactionDetail.setCompanyName(companyName);
         transactionDetail.setCurrentQuantity(quantity);
         transactionDetail.setQuantity(quantity);
         transactionDetail.setUnitPrice(unitPrice);
