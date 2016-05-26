@@ -22,10 +22,10 @@
                 if (x != null && x != '') {
                     if (parseInt(x) > parseInt(value)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity indent!");
-                        item.transferQuantity(1);
+                        item.transferQuantity(value.toString());
                     } else if (parseInt(x) > parseInt(mainStoreValue)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity at hand!");
-                        item.transferQuantity(1);
+                        item.transferQuantity(mainStoreValue.toString());
                     }
                 }
             }
@@ -53,8 +53,8 @@
 
         function IndentItem(initialItem) {
             var self = this;
-            self.initialItem = ko.observable(initialItem);
-            self.transferQuantity = ko.observable(1);
+            self.initialItem = ko.observable(initialItem);			
+            self.transferQuantity = ko.observable(String(Math.min(initialItem.mainStoreTransfer, initialItem.quantity)));
 
             self.compFormulation = ko.computed(function () {
                 return initialItem.formulation.name + "-" + initialItem.formulation.dozage;
@@ -63,9 +63,6 @@
             self.isDisabled = ko.computed(function(){
                 return (self.initialItem().mainStoreTransfer <= 0) ;
             });
-
-
-
         }
 
         var list = new IndentListViewModel();
