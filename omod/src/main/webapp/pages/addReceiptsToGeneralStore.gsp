@@ -639,6 +639,11 @@
 		.dialog select option {
 			font-size: 1.0em;
 		}
+		.dialog textarea{
+			margin-bottom: 10px;
+			resize: none;
+			width: 95%;
+		}
 		td a,
 		td a:hover{
 			text-decoration: none;
@@ -887,6 +892,7 @@
 		<h3>ADD Description</h3>
 	</div>
 	<form class="dialog-content">
+		<label>RECEIPT DESCRIPTION</label>
 		<textarea id="addReceiptsDescription" resize: none; height: 70px; width: 418px; margin-bottom: 10px;></textarea>
 
 		<span class="button cancel"> Cancel </span>
