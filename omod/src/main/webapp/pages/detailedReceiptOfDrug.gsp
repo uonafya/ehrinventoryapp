@@ -5,9 +5,9 @@
     ui.includeCss("registration", "onepcssgrid.css")
 
     ui.includeJavascript("billingui", "moment.js")
+	ui.includeJavascript("billingui", "jq.print.js")
     ui.includeJavascript("billingui", "jquery.dataTables.min.js")
     ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
-    ui.includeJavascript("billingui", "jquery.PrintArea.js")
 %>
 
 <script>
@@ -16,22 +16,17 @@
 		var simpleObjects = simple.simpleObjects;
 
 		updateQueueTable(simpleObjects);
-	
-		function print () {
-            var printDiv = jQuery("#print").html();
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>Information</title>');
-            printWindow.document.write(printDiv);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
 
         jq("#printButton").on("click", function(e){
-            print().show();
-        });
-		
-		
+            jq("#print-section").print({
+				globalStyles: 	false,
+				mediaPrint: 	false,
+				stylesheet: 	'${ui.resourceLink("pharmacyapp", "styles/print-out.css")}',
+				iframe: 		false,
+				width: 			980,
+				height:			700
+			});
+        });		
     });
 	
 	function updateQueueTable(dataRows) {
@@ -154,6 +149,9 @@
 	#footer button{
 		float: right;
 	}
+	.print-only{
+		display: none;
+	}
 	
 	
 </style>
@@ -201,7 +199,34 @@
 	</div>
 </div>
 
-<div id="print" style="display: block; margin-top:3px;">
+<div id="print-section" style="display: block; margin-top:3px;">
+	<div class="print-only">
+		<center>
+			<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+			<h2>${userLocation}</h2>
+		</center>
+		
+		<div>
+			<label>
+				Drug Name:
+			</label>
+			<span>${drug.name}</span>
+			<br/>
+			
+			<label>
+				Category:
+			</label>
+			<span>${drug.category.name}</span>
+			<br/>
+			
+			<label>
+				Formulation:
+			</label>
+			<span>${formulation.name} ${formulation.dozage}</span>
+			<br/>				
+		</div>
+	</div>
+			
 	<table id="print-table" aria-describedby="expiry-detail-results-table_info">
 		<thead>
 			<tr align="center">
@@ -224,6 +249,11 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<div class='print-only' style="padding-top: 30px">
+        <span>Signature of sub-store/ Stamp</span>
+		<span style="float:right;">Signature of inventory clerk/ Stamp</span>
+    </div>
 </div>
 
 <div id="footer">

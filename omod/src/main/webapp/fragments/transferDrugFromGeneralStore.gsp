@@ -92,10 +92,12 @@
             row += '<td>' + item.store.name + '</td>';
             row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
-            var link = "";
+            
+			var link  = '<a href="#" title="Detail indent"  onclick="detailDrugIndent(' + item.id + ');"><i class="icon-bar-chart small"></i></a>';
             if (item.mainStoreStatus == 1) {
-                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process</a>';
+                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');"><i class="icon-cogs small"></i></a>';
             }
+			
             row += '<td>' + link + '</td>';
             row += '</tr>';
             tbody.append(row);

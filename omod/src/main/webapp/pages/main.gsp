@@ -280,6 +280,7 @@
                 <li><a href="#manage">Expired Drugs</a></li>
                 <li><a href="#receipts">Receipts</a></li>
                 <li><a href="#transers">Transfer</a></li>
+                <li><a href="#accounts">Issue to Account</a></li>
             </ul>
 
             <div id="queues">
@@ -297,6 +298,10 @@
             <div id="transers">
                 ${ui.includeFragment("inventoryapp", "transferDrugFromGeneralStore")}
             </div>
+			
+			<div id="accounts">
+			
+			</div>
 
         </div>
 

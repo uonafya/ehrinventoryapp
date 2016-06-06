@@ -224,6 +224,7 @@
 				<th>AVAILABLE</th>
 				<th>TRANSFER</th>
             </thead>
+			
             <tbody data-bind="foreach: indentItems ">
 				<td data-bind="text: (\$index() + 1),css:{'retired': isDisabled()}"></td>
 				<td data-bind="text: initialItem().drug.name,css:{'retired': isDisabled()}"></td>

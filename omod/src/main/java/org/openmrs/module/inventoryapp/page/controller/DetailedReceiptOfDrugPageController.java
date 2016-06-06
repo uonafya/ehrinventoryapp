@@ -38,6 +38,7 @@ public class DetailedReceiptOfDrugPageController {
         List<SimpleObject> simpleObjects = SimpleObject.fromCollection(transactionDetails, uiUtils, "quantity", "unitPrice", "costToPatient", "VAT", "batchNo", "companyName", "dateManufacture", "dateExpiry", "createdOn", "receiptFrom");
 
         model.addAttribute("transactionDetails", SimpleObject.create("simpleObjects",simpleObjects).toJson());
+        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
     }
 
 }

@@ -2,6 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "View Stock Details"])
 	ui.includeCss("inventoryapp", "views.css")
 	ui.includeJavascript("billingui", "moment.js")
+	ui.includeJavascript("billingui", "jq.print.js")
 %>
 
 <script>
@@ -58,8 +59,33 @@
             row += '</tr>';
             tbody.append(row);
         }
+		
+		jq('.cancel').click(function(){
+			var receiptsLink = emr.pageLink("inventoryapp", "main");
+			window.location = receiptsLink.substring(0, receiptsLink.length - 1)+'#manage';
+		});
+		
+		jq('.task').click(function(){
+			jq("#print-section").print({
+				globalStyles: 	false,
+				mediaPrint: 	false,
+				stylesheet: 	'${ui.resourceLink("pharmacyapp", "styles/print-out.css")}',
+				iframe: 		false,
+				width: 			980,
+				height:			700
+			});
+		});
     }
 </script>
+
+<style>
+	.button{
+		margin-top: 10px;
+	}
+	.print-only{
+		display: none;
+	}
+</style>
 
 <div class="clear"></div>
 
@@ -109,26 +135,68 @@
 
 <div id="expiry-detail-results" style="display: block; margin-top:3px;">
     <div role="grid" class="dataTables_wrapper" id="expiry-detail-results-table_wrapper">
-        <table id="expiry-detail-results-table" class="dataTable" aria-describedby="expiry-detail-results-table_info">
-            <thead>
-				<tr role="row">
-					<th>#</th>
-					<th>TRANSACTION</th>
-					<th>OPENING</th>
-					<th>ISSUED</th>
-					<th>RECEIVED</th>
-					<th>CLOSING</th>
-					<th>MANUFACTURED</th>
-					<th>EXPIRY DATE</th>
-				</tr>
-            </thead>
+		<div id="print-section">
+			<div class="print-only">
+				<center>
+					<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+					<h2>${userLocation}</h2>
+				</center>
+				
+				<div>
+					<label>
+						Drug Name:
+					</label>
+					<span>${drug.name}</span>
+					<br/>
+					
+					<label>
+						Category:
+					</label>
+					<span>${drug.category.name}</span>
+					<br/>
+					
+					<label>
+						Formulation:
+					</label>
+					<span>${formulation.name} ${formulation.dozage}</span>
+					<br/>				
+				</div>
+			</div>
+			
+			<table id="expiry-detail-results-table" class="dataTable" aria-describedby="expiry-detail-results-table_info">
+				<thead>
+					<tr role="row">
+						<th>#</th>
+						<th>TRANSACTION</th>
+						<th>OPENING</th>
+						<th>ISSUED</th>
+						<th>RECEIVED</th>
+						<th>CLOSING</th>
+						<th>MANUFACTURED</th>
+						<th>EXPIRY DATE</th>
+					</tr>
+				</thead>
 
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-				<tr align="center">
-					<td colspan="6">No Drugs found</td>
-				</tr>
-            </tbody>
-        </table>
+				<tbody role="alert" aria-live="polite" aria-relevant="all">
+					<tr align="center">
+						<td colspan="6">No Drugs found</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class='print-only' style="padding-top: 30px">
+				<span>Signature of sub-store/ Stamp</span>
+				<span style="float:right;">Signature of inventory clerk/ Stamp</span>
+			</div>	
+		</div>	
+		
+		<div>
+			<span class="button cancel">Cancel</span>
+			<span class="button task right">
+				<i class="icon-print small"></i>
+				Print
+			</span>		
+		</div>
 
     </div>
 </div>

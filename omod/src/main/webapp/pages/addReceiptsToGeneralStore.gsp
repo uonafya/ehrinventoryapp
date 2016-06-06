@@ -91,8 +91,7 @@
 								.success(function(data) {
 									jq().toastmessage('showSuccessToast', 'Receipt Saved Successfully');
 									var receiptsLink = emr.pageLink("inventoryapp", "main");
-									receiptsLink = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
-									window.location = receiptsLink; 
+									window.location = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
 								})
 								.error(function(xhr, status, err) {
 									jq().toastmessage('showErrorToast', 'Some Error Occured');

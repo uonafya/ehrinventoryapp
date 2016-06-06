@@ -349,7 +349,7 @@ public class MainStoreDrugProcessIndentPageController {
         inventoryService.saveStoreDrugIndent(indent);
         Map<String, Object> redirectParams = new HashMap<String, Object>();
         redirectParams.put("viewIndent", indentId);
-        return "redirect:" + uiUtils.pageLink("inventoryapp", "main", redirectParams);
+        return "redirect:" + uiUtils.pageLink("inventoryapp", "main", redirectParams)+"#transers";
 
     }
 }

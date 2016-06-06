@@ -16,20 +16,18 @@ public class ViewCurrentStockBalanceDetailPageController {
                     @RequestParam(value = "formulationId", required = false) Integer formulationId,
                     @RequestParam(value = "expiry", required = false) Integer expiry,
                     PageModel pageModel){
-        InventoryService inventoryService = (InventoryService) Context
-                .getService(InventoryService.class);
+        InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
 
-        pageModel.addAttribute("drugId",drugId);
         pageModel.addAttribute("formulationId",formulationId);
+        pageModel.addAttribute("drugId",drugId);
         pageModel.addAttribute("expiry",expiry);
 
         InventoryDrug drug = inventoryService.getDrugById(drugId);
         Set <InventoryDrugFormulation> formulations = drug.getFormulations();
 
-        System.out.println(formulations.size());
-
         InventoryDrugFormulation formulation = inventoryService.getDrugFormulationById(formulationId);
         pageModel.addAttribute("formulation",formulation);
         pageModel.addAttribute("drug",drug);
+        pageModel.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
     }
 }
