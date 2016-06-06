@@ -1,22 +1,9 @@
-/**
- * <p> File: org.openmrs.module.inventory.web.controller.substore.BillSingleton.java </p>
- * <p> Project: inventory-omod </p>
- * <p> Copyright (c) 2011 CHT Technologies. </p>
- * <p> All rights reserved. </p>
- * <p> Author: Nguyen manh chuyen </p>
- * <p> Update by: Nguyen manh chuyen </p>
- * <p> Version: $1.0 </p>
- * <p> Create date: Dec 28, 2010 10:11:47 PM </p>
- * <p> Update date: Dec 28, 2010 10:11:47 PM </p>
- **/
-
-package org.openmrs.module.inventoryapp.global;
+package org.openmrs.module.inventoryapp;
 
 import java.util.HashMap;
 
 /**
  * <p> Class: SubStoreSingleton </p>
- * <p> Package: org.openmrs.module.inventory.web.controller.substore </p>
  * <p> Author: Nguyen manh chuyen </p>
  * <p> Update by: Nguyen manh chuyen </p>
  * <p> Version: $1.0 </p>

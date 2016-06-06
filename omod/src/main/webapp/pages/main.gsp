@@ -228,6 +228,8 @@
         display: inline-block;
     }
 	
+	#acctDate,
+	#acctFrom,
 	#rcptDate,
 	#rcptFrom{
 		float: 			none;
@@ -236,6 +238,8 @@
 		padding-right: 	0px;
 	}
 	
+	#acctDate-display,
+	#acctFrom-display,
 	#rcptDate-display,
 	#rcptFrom-display {
 		width: 140px;
@@ -300,7 +304,7 @@
             </div>
 			
 			<div id="accounts">
-			
+				${ui.includeFragment("inventoryapp", "issueDrugAccountList")}
 			</div>
 
         </div>

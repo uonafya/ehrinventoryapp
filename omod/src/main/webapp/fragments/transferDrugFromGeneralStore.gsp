@@ -149,7 +149,7 @@
 	}
 	fieldset select{
 		width: 24%;
-	}
+	}	
 	
 	#toDate label,
 	#fromDate label{
