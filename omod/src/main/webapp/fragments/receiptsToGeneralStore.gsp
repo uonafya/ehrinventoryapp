@@ -39,7 +39,6 @@
 		});
 		
 		jq('#rcptDate').on('change',function(){
-			console.log('Task');
 			updateTable();
 		});
 
