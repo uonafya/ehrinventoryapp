@@ -67,16 +67,16 @@
 				</li>
 				
 				<li>
-					<a href="${ui.pageLink('pharmacyapp', 'dashboard')}">
+					<a href="${ui.pageLink('inventoryapp', 'main')}">
 						<i class="icon-chevron-right link"></i>
-						Pharmacy
+						Inventory
 					</a>
 				</li>
 				
 				<li>
-					<a href="${ui.pageLink('pharmacyapp', 'container', [rel:'issue-to-account'])}">
+					<a href="${ui.pageLink('inventoryapp', 'main')}#accounts">
 						<i class="icon-chevron-right link"></i>
-						Drug List
+						Issue to Account
 					</a>
 				</li>
 
