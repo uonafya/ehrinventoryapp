@@ -43,7 +43,7 @@
 			jq("#print-section").print({
 				globalStyles: 	false,
 				mediaPrint: 	false,
-				stylesheet: 	'${ui.resourceLink("pharmacyapp", "styles/print-out.css")}',
+				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			980,
 				height:			700
