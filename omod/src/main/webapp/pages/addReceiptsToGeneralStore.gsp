@@ -47,26 +47,43 @@
 
                         index = drugOrder.length ;
                         count = index + 1;
-                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-display").val()+'</td><td>'+jq("#dateOfExpiry-display").val()+'</td><td>'+jq("#receiptDate-display").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+						
+						var unitPrice 			= jq("#unitPrice").val();
+						var institutionalCost	= jq("#institutionalCost").val();
+						var receiptFrom 		= jq("#receiptFrom").val();
+						
+						if (unitPrice == ''){
+							unitPrice = 0;
+						}
+						
+						if (institutionalCost == ''){
+							institutionalCost = 0;
+						}
+						
+						if (receiptFrom == ''){
+							receiptFrom = 'N/A';
+						}
+						
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+unitPrice+'</td><td>'+receiptFrom+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-display").val()+'</td><td>'+jq("#dateOfExpiry-display").val()+'</td><td>'+jq("#receiptDate-display").val()+'</td><td>'+receiptFrom+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
-                                    rowId: index,
-                                    drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
-									drugCategoryName: jq("#drugCategory").children(":selected").val(),
-                                    drugId: 0,
-                                    drugName: jq("#drugName").val(),
-                                    drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
-                                    drugFormulationName: jq("#drugFormulation").children(":selected").val(),
-                                    quantity: jq("#quantity").val(),
-                                    unitPrice: jq("#unitPrice").val(),
-                                    institutionalCost:jq("#institutionalCost").val(),
-                                    costToThePatient:jq("#costToThePatient").val(),
-                                    batchNo:jq("#batchNo").val(),
-                                    companyName:jq("#companyName").val(),
-                                    dateOfManufacture:jq("#dateOfManufacture-field").val(),
-                                    dateOfExpiry:jq("#dateOfExpiry-field").val(),
-                                    receiptDate:jq("#receiptDate-field").val(),
-                                    receiptFrom:jq("#receiptFrom").val()
+                                    rowId: 					index,
+                                    drugCategoryId: 		jq("#drugCategory").children(":selected").attr("id"),
+									drugCategoryName: 		jq("#drugCategory").children(":selected").val(),
+                                    drugId: 				0,
+                                    drugName: 				jq("#drugName").val(),
+                                    drugFormulationId: 		jq("#drugFormulation").children(":selected").attr("id"),
+                                    drugFormulationName:	jq("#drugFormulation").children(":selected").val(),
+                                    quantity: 				jq("#quantity").val(),
+                                    unitPrice: 				unitPrice,
+                                    institutionalCost: 		institutionalCost,
+                                    costToThePatient:		jq("#costToThePatient").val(),
+                                    batchNo:				jq("#batchNo").val(),
+                                    companyName:			jq("#companyName").val(),
+                                    dateOfManufacture:		jq("#dateOfManufacture-field").val(),
+                                    dateOfExpiry: 			jq("#dateOfExpiry-field").val(),
+                                    receiptDate: 			jq("#receiptDate-field").val(),
+                                    receiptFrom: 			receiptFrom
                                 }
                         );
 
@@ -165,7 +182,7 @@
 					jq("#batchNo").removeClass('red');
 				}
 				
-				if (jq("#companyName").val() == ""){
+				if (jq("#companyName").val().trim() == ''){
 					jq("#companyName").addClass('red');
 					error ++;
 				}
