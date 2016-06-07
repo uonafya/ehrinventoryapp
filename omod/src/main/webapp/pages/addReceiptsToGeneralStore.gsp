@@ -88,8 +88,8 @@
 				actions: {
 					confirm: function() {
 						receiptDescription = jq("#addReceiptsDescription").val();
-
 						drugOrder = JSON.stringify(drugOrder);
+						
 						var addDrugsData = {
 							'drugOrder':drugOrder,
 							'description' :receiptDescription

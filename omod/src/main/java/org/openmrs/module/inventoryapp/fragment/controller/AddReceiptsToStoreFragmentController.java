@@ -3,6 +3,7 @@ package org.openmrs.module.inventoryapp.fragment.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.json.JSONArray;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.InventoryCommonService;
@@ -85,110 +86,111 @@ public class AddReceiptsToStoreFragmentController {
                             @RequestParam(value = "description", required = false) String description
     ) throws ParseException {
 
+        JSONArray drugArray = new JSONArray(drugOrder);
         List<DrugInformation> drugInformationList = getPrescriptions(drugOrder);
-        DrugInformation drugInformation = drugInformationList.get(0);
 
-        int formulation = drugInformation.getDrugFormulationId();
-        int drugId = drugInformation.getDrugId();
-        String drugName = drugInformation.getDrugName();
-        int quantity = drugInformation.getQuantity();
-        String unitPriceStr = drugInformation.getUnitPrice();
-        String costToPatientStr = drugInformation.getCostToThePatient();
-        String companyName = drugInformation.getCompanyName();
-        String batchNo = drugInformation.getBatchNo();
-        String receiptFrom = drugInformation.getReceiptFrom();
-        String dateManufacture = drugInformation.getDateOfManufacture();
-        String dateExpiry = drugInformation.getDateOfExpiry();
-        String receiptDate = drugInformation.getReceiptDate();
-        String institutionalCost = drugInformation.getInstitutionalCost();
+        for (int i = 0; i < drugArray.length(); i++) {
+            DrugInformation drugInformation = drugInformationList.get(i);
 
-        List<String> errors = new ArrayList<String>();
-        InventoryDrug drug = null;
-        List<InventoryDrugCategory> listCategory = inventoryService.findDrugCategory("");
-        drug = inventoryService.getDrugByName(drugName);
+            int formulation = drugInformation.getDrugFormulationId();
+            int drugId = drugInformation.getDrugId();
+            String drugName = drugInformation.getDrugName();
+            int quantity = drugInformation.getQuantity();
+            String unitPriceStr = drugInformation.getUnitPrice();
+            String costToPatientStr = drugInformation.getCostToThePatient();
+            String companyName = drugInformation.getCompanyName();
+            String batchNo = drugInformation.getBatchNo();
+            String receiptFrom = drugInformation.getReceiptFrom();
+            String dateManufacture = drugInformation.getDateOfManufacture();
+            String dateExpiry = drugInformation.getDateOfExpiry();
+            String receiptDate = drugInformation.getReceiptDate();
+            String institutionalCost = drugInformation.getInstitutionalCost();
 
-        if (drug == null) {
-            errors.add("inventory.receiptDrug.drug.required");
-        }
+            List<String> errors = new ArrayList<String>();
+            InventoryDrug drug = null;
+            List<InventoryDrugCategory> listCategory = inventoryService.findDrugCategory("");
+            drug = inventoryService.getDrugByName(drugName);
 
-
-        BigDecimal unitPrice  = new BigDecimal(0);
-        BigDecimal VAT = new BigDecimal(0);
-        BigDecimal costToPatient = NumberUtils.createBigDecimal(costToPatientStr);
-        if (null != institutionalCost && "" != institutionalCost) {
-            VAT = NumberUtils.createBigDecimal(institutionalCost);
-        }
-        if (null != unitPriceStr && "" != unitPriceStr) {
-            unitPrice = NumberUtils.createBigDecimal(unitPriceStr);
-        }
-        if(!StringUtils.isBlank(dateManufacture)){
-            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-
-            Date dateManufac = dateFormatter.parse(dateManufacture);
-            Date dateExpi = dateFormatter.parse(dateExpiry);
-            if (dateManufac.after(dateExpi)) {
-                errors.add("inventory.receiptDrug.manufacNeedLessThanExpiry");
+            if (drug == null) {
+                errors.add("inventory.receiptDrug.drug.required");
             }
-        }
-
-        InventoryDrugFormulation formulationO = inventoryService.getDrugFormulationById(formulation);
-        if (formulationO == null) {
-            errors.add("inventory.receiptDrug.formulation.required");
-        }
-        //InventoryDrug drug = inventoryService.getDrugById(drugId);
-
-        if (formulationO != null && drug != null && !drug.getFormulations().contains(formulationO)) {
-            errors.add("inventory.receiptDrug.formulation.notCorrect");
-        }
-
-        InventoryStoreDrugTransactionDetail transactionDetail = new InventoryStoreDrugTransactionDetail();
-        transactionDetail.setDrug(drug);
-        transactionDetail.setAttribute(drug.getAttributeName());
-        transactionDetail.setReorderPoint(drug.getReorderQty());
-        transactionDetail.setFormulation(inventoryService.getDrugFormulationById(formulation));
-        transactionDetail.setVAT(VAT);
-        transactionDetail.setBatchNo(batchNo);
-        transactionDetail.setCompanyName(companyName);
-        transactionDetail.setCurrentQuantity(quantity);
-        transactionDetail.setQuantity(quantity);
-        transactionDetail.setUnitPrice(unitPrice);
-        transactionDetail.setCostToPatient(costToPatient);
-        transactionDetail.setIssueQuantity(0);
-        transactionDetail.setCreatedOn(new Date());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            transactionDetail.setDateExpiry(formatter.parse(dateExpiry+" 23:59:59"));
-            transactionDetail.setDateManufacture(formatter.parse(dateManufacture + " 23:59:59"));
-            transactionDetail.setReceiptDate(formatter.parse(receiptDate + " 23:59:59"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
 
+            BigDecimal unitPrice  = new BigDecimal(0);
+            BigDecimal VAT = new BigDecimal(0);
+            BigDecimal costToPatient = NumberUtils.createBigDecimal(costToPatientStr);
+            if (null != institutionalCost && "" != institutionalCost) {
+                VAT = NumberUtils.createBigDecimal(institutionalCost);
+            }
+            if (null != unitPriceStr && "" != unitPriceStr) {
+                unitPrice = NumberUtils.createBigDecimal(unitPriceStr);
+            }
+            if(!StringUtils.isBlank(dateManufacture)){
+                DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        //Sagar Bele : Date - 22-01-2013 Issue Number 660 : [Inventory] Add receipt from field in Table and front end
-        transactionDetail.setReceiptFrom(receiptFrom);
+                Date dateManufac = dateFormatter.parse(dateManufacture);
+                Date dateExpi = dateFormatter.parse(dateExpiry);
+                if (dateManufac.after(dateExpi)) {
+                    errors.add("inventory.receiptDrug.manufacNeedLessThanExpiry");
+                }
+            }
+
+            InventoryDrugFormulation formulationO = inventoryService.getDrugFormulationById(formulation);
+            if (formulationO == null) {
+                errors.add("inventory.receiptDrug.formulation.required");
+            }
+            //InventoryDrug drug = inventoryService.getDrugById(drugId);
+
+            if (formulationO != null && drug != null && !drug.getFormulations().contains(formulationO)) {
+                errors.add("inventory.receiptDrug.formulation.notCorrect");
+            }
+
+            InventoryStoreDrugTransactionDetail transactionDetail = new InventoryStoreDrugTransactionDetail();
+            transactionDetail.setDrug(drug);
+            transactionDetail.setAttribute(drug.getAttributeName());
+            transactionDetail.setReorderPoint(drug.getReorderQty());
+            transactionDetail.setFormulation(inventoryService.getDrugFormulationById(formulation));
+            transactionDetail.setVAT(VAT);
+            transactionDetail.setBatchNo(batchNo);
+            transactionDetail.setCompanyName(companyName);
+            transactionDetail.setCurrentQuantity(quantity);
+            transactionDetail.setQuantity(quantity);
+            transactionDetail.setUnitPrice(unitPrice);
+            transactionDetail.setCostToPatient(costToPatient);
+            transactionDetail.setIssueQuantity(0);
+            transactionDetail.setCreatedOn(new Date());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                transactionDetail.setDateExpiry(formatter.parse(dateExpiry+" 23:59:59"));
+                transactionDetail.setDateManufacture(formatter.parse(dateManufacture + " 23:59:59"));
+                transactionDetail.setReceiptDate(formatter.parse(receiptDate + " 23:59:59"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //Sagar Bele : Date - 22-01-2013 Issue Number 660 : [Inventory] Add receipt from field in Table and front end
+            transactionDetail.setReceiptFrom(receiptFrom);
 
 		/*Money moneyUnitPrice = new Money(unitPrice);
 		Money totl = moneyUnitPrice.times(quantity);
 		totl = totl.plus(totl.times((double)VAT/100));
 		transactionDetail.setTotalPrice(totl.getAmount());*/
 
-        BigDecimal moneyUnitPrice = costToPatient.multiply(new BigDecimal(quantity));
-        //moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(VAT.divide(new BigDecimal(100))));
-        transactionDetail.setTotalPrice(moneyUnitPrice);
+            BigDecimal moneyUnitPrice = costToPatient.multiply(new BigDecimal(quantity));
+            //moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(VAT.divide(new BigDecimal(100))));
+            transactionDetail.setTotalPrice(moneyUnitPrice);
 
-        int userId = Context.getAuthenticatedUser().getId();
-        String fowardParam = "reipt_"+userId;
-        List<InventoryStoreDrugTransactionDetail> list = (List<InventoryStoreDrugTransactionDetail> )StoreSingleton.getInstance().getHash().get(fowardParam);
-        if(list == null){
-            list = new ArrayList<InventoryStoreDrugTransactionDetail>();
+            int userId = Context.getAuthenticatedUser().getId();
+            String fowardParam = "reipt_"+userId;
+            List<InventoryStoreDrugTransactionDetail> list = (List<InventoryStoreDrugTransactionDetail> )StoreSingleton.getInstance().getHash().get(fowardParam);
+            if(list == null){
+                list = new ArrayList<InventoryStoreDrugTransactionDetail>();
+            }
+            list.add(transactionDetail);
+            StoreSingleton.getInstance().getHash().put(fowardParam, list);
+
+            saveMoreReceiptInfo(description,list,fowardParam);
         }
-        list.add(transactionDetail);
-        StoreSingleton.getInstance().getHash().put(fowardParam, list);
-
-        saveMoreReceiptInfo(description,list,fowardParam);
-
     }
 
     public void saveMoreReceiptInfo(String description, List<InventoryStoreDrugTransactionDetail> list,String fowardParam) {
