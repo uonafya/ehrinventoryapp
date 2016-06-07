@@ -14,17 +14,21 @@
     jq(document).ready(function () {
 		var simple = ${transactionDetails};
 		var simpleObjects = simple.simpleObjects;
-
+		
 		updateQueueTable(simpleObjects);
 
         jq("#printButton").on("click", function(e){
+			var emrLink = emr.pageLink('inventoryapp','main');
+				emrLink = emrLink.substring(0, emrLink.length-1)+'#receipts'
+			
             jq("#print-section").print({
 				globalStyles: 	false,
 				mediaPrint: 	false,
-				stylesheet: 	'${ui.resourceLink("pharmacyapp", "styles/print-out.css")}',
+				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			980,
-				height:			700
+				height:			700,
+				redirectTo:		emrLink
 			});
         });		
     });
@@ -32,10 +36,16 @@
 	function updateQueueTable(dataRows) {
         jq('#print-table > tbody > tr').remove();
         var tbody = jq('#print-table > tbody');
+		var arrln = ${arrayLength};
 
         for (index in dataRows) {
             var row = '<tr>';
             var item = dataRows[index];
+			
+			if (parseInt(arrln) !== 1){
+				row += '<td>' + item.drug.name + '</td>';
+				row += '<td>' + item.formulation.name+' '+item.formulation.dozage + '</td>';
+			}
 			
 			row += '<td>' + String(item.quantity).formatToAccounting(0) + '</td>';
 			row += '<td>' + String(item.unitPrice).formatToAccounting() + '</td>';
@@ -104,6 +114,7 @@
 		padding-left: 90px;
 		color: #363463;
 	}
+	.exampler span span,
 	.exampler div span{
 		color: #555;
 		float: left;
@@ -111,22 +122,28 @@
 		text-transform: uppercase;
 		width: 120px;
 	}
-	table{
-		font-size: 14px;
-	}
-	td:first-child{
-		width:30px;
-	}
-	td:nth-child(2),
-	td:nth-child(3),
-	td:nth-child(4){
-		width:45px;
-	}
-	td:nth-child(7),
-	td:nth-child(8),
-	td:nth-child(9){
-		width:80px;
-	}
+	<% if (arrayLength == 1) {%>
+		table{
+			font-size: 14px;
+		}
+		td:first-child{
+			width:30px;
+		}
+		td:nth-child(2),
+		td:nth-child(3),
+		td:nth-child(4){
+			width:45px;
+		}
+		td:nth-child(7),
+		td:nth-child(8),
+		td:nth-child(9){
+			width:80px;
+		}
+	<% } else { %>
+		table{
+			font-size: 11px;
+		}
+	<% } %>
 	
 	#footer{
 		height: 50px;
@@ -178,6 +195,7 @@
         </ul>
     </div>
 	
+	
 	<div class="patient-header new-patient-header">
 		<div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
@@ -190,11 +208,25 @@
 		</div>
 		
 		<div class="exampler">
-			<div>
-				<span>Drug Name:</span><b>${drug.name}</b><br/>
-				<span>Category:</span>${drug.category.name}<br/>
-				<span>Formulation:</span>${formulation.name}-${formulation.dozage}<br/>
-			</div>
+			<% if (arrayLength == 1) {%>
+				<div style="display: inline-block;">
+					<span>Drug Name:</span><b>${drug.name}</b><br/>
+					<span>Category:</span>${drug.category.name}<br/>
+					<span>Formulation:</span>${formulation.name}-${formulation.dozage}<br/>
+				</div>
+				
+				<span style="display: inline-block; margin-left: 50px;">
+					<span>Date Created:</span><em>${ui.formatDatePretty(createdOn)}</em><br/>
+					<span>Receipt:</span><b>000${receiptId}</b><br/>
+					<span>Description:</span><b>${description}</b><br/>
+				</span>
+			<% } else { %>
+				<div>
+					<span>Date Created:</span><em>${ui.formatDatePretty(createdOn)}</em><br/>
+					<span>Receipt:</span><em>000${receiptId}</em><br/>
+					<span>Description:</span><b>${description}</b><br/>
+				</div>
+			<% } %>
 		</div>
 	</div>
 </div>
@@ -203,52 +235,107 @@
 	<div class="print-only">
 		<center>
 			<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
-			<h2>${userLocation}</h2>
+			<h2>${userLocation}<br/>RECEIPT TRANSACTION DETAILS</h2>
 		</center>
 		
 		<div>
-			<label>
-				Drug Name:
-			</label>
-			<span>${drug.name}</span>
-			<br/>
+			<% if (arrayLength == 1) {%>
+				<label>
+					Drug Name:
+				</label>
+				<span>${drug.name}</span>
+				<br/>
+				
+				<label>
+					Category:
+				</label>
+				<span>${drug.category.name}</span>
+				<br/>
+				
+				<label>
+					Formulation:
+				</label>
+				<span>${formulation.name} ${formulation.dozage}</span>
+				<br/>
+				
+				<span class="right">${createdOn}</span>
+				<label class="right">
+					Date Created:
+				</label>
+				<br/>
+			<% } else { %>
+				<label>
+					Date Created:
+				</label>
+				<span>${createdOn}</span>
+				<br/>
+				
+				<label>
+					Receipt:
+				</label>
+				<span>0000${receiptId}</span>
+				<br/>
+				
+				<label>
+					Description:
+				</label>
+				<span>${description}</span>
+				<br/>
+			<% } %>
 			
-			<label>
-				Category:
-			</label>
-			<span>${drug.category.name}</span>
-			<br/>
-			
-			<label>
-				Formulation:
-			</label>
-			<span>${formulation.name} ${formulation.dozage}</span>
-			<br/>				
 		</div>
 	</div>
+	
+	<% if (arrayLength == 1) {%>
+		<table id="print-table" aria-describedby="expiry-detail-results-table_info">
+			<thead>
+				<tr align="center">
+					<th title="Quantity"			>QTY</th>
+					<th title="Unit Price"			>PRICE</th>
+					<th title="Institutional Cost"	>I.COST</th>
+					<th title="Cost To The Patient"	>COST</th>
+					<th title="Batch Number"		>BATCH#</th>
+					<th title="Company"				>COMPANY</th>
+					<th title="Date of Manufacture"	>MANUF</th>
+					<th title="Date of Manufacture"	>EXPIRY</th>
+					<th title="Receipt Date"		>DATE</th>
+					<th title="Receipt From"		>FROM</th>
+				</tr>
+			</thead>
 			
-	<table id="print-table" aria-describedby="expiry-detail-results-table_info">
-		<thead>
-			<tr align="center">
-				<th title="Quantity"			>QTY</th>
-				<th title="Unit Price"			>PRICE</th>
-				<th title="Institutional Cost"	>I.COST</th>
-				<th title="Cost To The Patient"	>COST</th>
-				<th title="Batch Number"		>BATCH#</th>
-				<th title="Company"				>COMPANY</th>
-				<th title="Date of Manufacture"	>MANUF</th>
-				<th title="Date of Manufacture"	>EXPIRY</th>
-				<th title="Receipt Date"		>DATE</th>
-				<th title="Receipt From"		>FROM</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr align="center">
-				<td colspan="10">No Drugs found</td>
-			</tr>
-		</tbody>
-	</table>
+			<tbody>
+				<tr align="center">
+					<td colspan="10">No Drugs found</td>
+				</tr>
+			</tbody>
+		</table>	
+	<% } else { %>
+		<table id="print-table" aria-describedby="expiry-detail-results-table_info">
+			<thead>
+				<tr align="center">
+					<th title="Name"				>NAME</th>
+					<th title="Formulation"			>FORMULATION</th>
+					<th title="Quantity"			>QTY</th>
+					<th title="Unit Price"			>PRICE</th>
+					<th title="Institutional Cost"	>I.COST</th>
+					<th title="Cost To The Patient"	>COST</th>
+					<th title="Batch Number"		>BATCH#</th>
+					<th title="Company"				>COMPANY</th>
+					<th title="Date of Manufacture"	>MANUF</th>
+					<th title="Date of Manufacture"	>EXPIRY</th>
+					<th title="Receipt Date"		>DATE</th>
+					<th title="Receipt From"		>FROM</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr align="center">
+					<td colspan="10">No Drugs found</td>
+				</tr>
+			</tbody>
+		</table>	
+	<% } %>
+			
 	
 	<div class='print-only' style="padding-top: 30px">
         <span>Signature of sub-store/ Stamp</span>

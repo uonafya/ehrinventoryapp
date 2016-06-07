@@ -102,8 +102,9 @@ public class AddReceiptsToStoreFragmentController {
 
             int formulation = drugInformation.getDrugFormulationId();
             int drugId = drugInformation.getDrugId();
-            String drugName = drugInformation.getDrugName();
             int quantity = drugInformation.getQuantity();
+
+            String drugName = drugInformation.getDrugName();
             String unitPriceStr = drugInformation.getUnitPrice();
             String costToPatientStr = drugInformation.getCostToThePatient();
             String companyName = drugInformation.getCompanyName();
@@ -123,10 +124,10 @@ public class AddReceiptsToStoreFragmentController {
                 errors.add("inventory.receiptDrug.drug.required");
             }
 
-
             BigDecimal unitPrice  = new BigDecimal(0);
             BigDecimal VAT = new BigDecimal(0);
             BigDecimal costToPatient = NumberUtils.createBigDecimal(costToPatientStr);
+
             if (null != institutionalCost && "" != institutionalCost) {
                 VAT = NumberUtils.createBigDecimal(institutionalCost);
             }
@@ -154,6 +155,7 @@ public class AddReceiptsToStoreFragmentController {
             }
 
             InventoryStoreDrugTransactionDetail transactionDetail = new InventoryStoreDrugTransactionDetail();
+
             transactionDetail.setDrug(drug);
             transactionDetail.setAttribute(drug.getAttributeName());
             transactionDetail.setReorderPoint(drug.getReorderQty());
@@ -168,6 +170,7 @@ public class AddReceiptsToStoreFragmentController {
             transactionDetail.setIssueQuantity(0);
             transactionDetail.setCreatedOn(new Date());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
             try {
                 transactionDetail.setDateExpiry(formatter.parse(dateExpiry+" 23:59:59"));
                 transactionDetail.setDateManufacture(formatter.parse(dateManufacture + " 23:59:59"));
@@ -188,16 +191,11 @@ public class AddReceiptsToStoreFragmentController {
             //moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(VAT.divide(new BigDecimal(100))));
             transactionDetail.setTotalPrice(moneyUnitPrice);
 
-
-
-
-
             list.add(transactionDetail);
             StoreSingleton.getInstance().getHash().put(fowardParam, list);
-
         }
 
-        saveMoreReceiptInfo(description,list,fowardParam);
+        saveMoreReceiptInfo(description, list, fowardParam);
     }
 
     public void saveMoreReceiptInfo(String description, List<InventoryStoreDrugTransactionDetail> list,String fowardParam) {
