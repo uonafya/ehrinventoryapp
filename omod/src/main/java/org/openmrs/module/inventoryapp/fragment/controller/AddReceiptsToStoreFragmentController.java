@@ -89,6 +89,14 @@ public class AddReceiptsToStoreFragmentController {
         JSONArray drugArray = new JSONArray(drugOrder);
         List<DrugInformation> drugInformationList = getPrescriptions(drugOrder);
 
+        int userId = Context.getAuthenticatedUser().getId();
+        String fowardParam = "reipt_"+userId;
+
+        List<InventoryStoreDrugTransactionDetail> list = (List<InventoryStoreDrugTransactionDetail> )StoreSingleton.getInstance().getHash().get(fowardParam);
+        if(list == null){
+            list = new ArrayList<InventoryStoreDrugTransactionDetail>();
+        }
+
         for (int i = 0; i < drugArray.length(); i++) {
             DrugInformation drugInformation = drugInformationList.get(i);
 
@@ -171,26 +179,25 @@ public class AddReceiptsToStoreFragmentController {
             //Sagar Bele : Date - 22-01-2013 Issue Number 660 : [Inventory] Add receipt from field in Table and front end
             transactionDetail.setReceiptFrom(receiptFrom);
 
-		/*Money moneyUnitPrice = new Money(unitPrice);
-		Money totl = moneyUnitPrice.times(quantity);
-		totl = totl.plus(totl.times((double)VAT/100));
-		transactionDetail.setTotalPrice(totl.getAmount());*/
+            /*Money moneyUnitPrice = new Money(unitPrice);
+            Money totl = moneyUnitPrice.times(quantity);
+            totl = totl.plus(totl.times((double)VAT/100));
+            transactionDetail.setTotalPrice(totl.getAmount());*/
 
             BigDecimal moneyUnitPrice = costToPatient.multiply(new BigDecimal(quantity));
             //moneyUnitPrice = moneyUnitPrice.add(moneyUnitPrice.multiply(VAT.divide(new BigDecimal(100))));
             transactionDetail.setTotalPrice(moneyUnitPrice);
 
-            int userId = Context.getAuthenticatedUser().getId();
-            String fowardParam = "reipt_"+userId;
-            List<InventoryStoreDrugTransactionDetail> list = (List<InventoryStoreDrugTransactionDetail> )StoreSingleton.getInstance().getHash().get(fowardParam);
-            if(list == null){
-                list = new ArrayList<InventoryStoreDrugTransactionDetail>();
-            }
+
+
+
+
             list.add(transactionDetail);
             StoreSingleton.getInstance().getHash().put(fowardParam, list);
 
-            saveMoreReceiptInfo(description,list,fowardParam);
         }
+
+        saveMoreReceiptInfo(description,list,fowardParam);
     }
 
     public void saveMoreReceiptInfo(String description, List<InventoryStoreDrugTransactionDetail> list,String fowardParam) {
