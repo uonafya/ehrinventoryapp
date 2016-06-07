@@ -32,8 +32,9 @@
 				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			800,
-				height:			700
-			});			
+				height:			700,
+				redirectTo:		emr.pageLink('inventoryapp', 'main')
+			});
         });
 		
         jq("#returnToDrugList").on("click", function (e) {

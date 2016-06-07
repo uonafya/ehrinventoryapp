@@ -22,6 +22,10 @@
         });
 
         var addissuedialog = emr.setupConfirmationDialog({
+			dialogOpts: {
+				overlayClose: false,
+				close: true
+			},
             selector: '#addIssueDialog',
             actions: {
                 confirm: function () {
@@ -311,6 +315,10 @@
         }
 
         var addaccountforissueslipdialog = emr.setupConfirmationDialog({
+			dialogOpts: {
+				overlayClose: false,
+				close: true
+			},
             selector: '#addAccountForIssueSlip',
             actions: {
                 confirm: function () {
@@ -439,6 +447,10 @@
 	}
 	.print-only{
 		display: none;
+	}
+	#modal-overlay {
+		background: #000 none repeat scroll 0 0;
+		opacity: 0.4 !important;
 	}
 </style>
 

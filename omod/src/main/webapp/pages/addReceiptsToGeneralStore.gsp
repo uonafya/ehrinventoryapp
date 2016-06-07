@@ -26,6 +26,10 @@
             }
 
             var adddrugdialog = emr.setupConfirmationDialog({
+				dialogOpts: {
+					overlayClose: false,
+					close: true
+				},
                 selector: '#addDrugDialog',
                 actions: {
                     confirm: function() {
@@ -76,6 +80,10 @@
             });
 
 			var addDescriptionDialog = emr.setupConfirmationDialog({
+				dialogOpts: {
+					overlayClose: false,
+					close: true
+				},
 				selector: '#addDescriptionDialog',
 				actions: {
 					confirm: function() {
@@ -403,11 +411,6 @@
 		body {
 			margin-top: 20px;
 		}
-		
-		#modal-overlay{
-			background: #000 none repeat scroll 0 0;
-			opacity: 0.3!important;
-		}
 
 		.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
 			color: #555;
@@ -707,6 +710,10 @@
 		}
 		#footer .task{
 			float: right;
+		}
+		#modal-overlay {
+			background: #000 none repeat scroll 0 0;
+			opacity: 0.4 !important;
 		}
     </style>
 </head>

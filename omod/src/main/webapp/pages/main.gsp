@@ -243,10 +243,13 @@
 	#rcptDate-display,
 	#rcptFrom-display {
 		width: 140px;
-	}
-	
+	}	
 	.summary-div{
 		height: 50px;
+	}
+	#modal-overlay {
+		background: #000 none repeat scroll 0 0;
+		opacity: 0.4 !important;
 	}
 </style>
 
