@@ -26,7 +26,7 @@
 				mediaPrint: 	false,
 				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
-				width: 			980,
+				width: 			1020,
 				height:			700,
 				redirectTo:		emrLink
 			});
