@@ -11,7 +11,7 @@ import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.inventory.InventoryService;
 import org.openmrs.module.inventory.model.InventoryStoreDrug;
 import org.openmrs.module.inventory.util.DateUtils;
-import org.openmrs.module.inventoryapp.global.StoreSingleton;
+import org.openmrs.module.inventoryapp.StoreSingleton;
 import org.openmrs.module.inventoryapp.model.DrugInformation;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
