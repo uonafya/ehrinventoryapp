@@ -20,11 +20,13 @@
 			expiry: ${expiry},
 			"currentPage": 1
 		}).success(function (data) {
+			
 			if (data.length === 0 && data != null) {
 				jq('#expiry-detail-results-table > tbody > tr').remove();
+				var tbody = jq('#expiry-detail-results-table > tbody');
 				
 				var row = '<tr align="center">';
-				row += '<td>0</td>';
+				row += '<td></td>';
 				row += '<td colspan="7">No Records Found</td>';
 				row += '</tr>';
 				
@@ -50,6 +52,7 @@
 			});
 		});
     });
+
     function updateQueueTable(tests) {
         jq('#expiry-detail-results-table > tbody > tr').remove();
         var tbody = jq('#expiry-detail-results-table > tbody');

@@ -7,32 +7,27 @@
 
 <script>
     jq(function (){
-
-        jq.getJSON('${ui.actionLink("inventoryapp", "viewStockBalanceDetail", "viewStockBalanceDetail")}',
-                {
-                    drugId :${drugId},
-                    formulationId: ${formulationId},
-                    expiry: ${expiry},
-                    "currentPage": 1
-                } ).success(function (data) {
-                    if (data.length === 0 && data != null) {
-                        jq('#expiry-detail-results-table > tbody > tr').remove();
-						
-						var row = '<tr align="center">';
-						row += '<td>0</td>';
-						row += '<td colspan="7">No Records Found</td>';
-						row += '</tr>';
-						
-						tbody.append(row);
-                    } else {
-                        updateQueueTable(data)
-                    }
-                });
-
-    })
-
-</script>
-<script>
+        jq.getJSON('${ui.actionLink("inventoryapp", "viewStockBalanceDetail", "viewStockBalanceDetail")}', {
+			drugId :${drugId},
+			formulationId: ${formulationId},
+			expiry: ${expiry},
+			"currentPage": 1
+		}).success(function (data) {
+			if (data.length === 0 && data != null) {
+				jq('#expiry-detail-results-table > tbody > tr').remove();
+				
+				var row = '<tr align="center">';
+				row += '<td>0</td>';
+				row += '<td colspan="7">No Records Found</td>';
+				row += '</tr>';
+				
+				tbody.append(row);
+			} else {
+				updateQueueTable(data)
+			}
+		});
+    });
+	
     //update the queue table
     function updateQueueTable(tests) {
         jq('#expiry-detail-results-table > tbody > tr').remove();
@@ -46,6 +41,15 @@
 			if (item.drug.attribute == 1){
 				attr = 'A';
 			}
+			
+			var dateManufacture = item.dateManufacture;
+			
+			if (!dateManufacture){
+				dateManufacture = 'N/A';
+			}
+			else{
+				dateManufacture.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ");
+			}
             
 			row += '<td>' + (1+parseInt(index)) + '</td>';
 			row += '<td>' + item.transaction.typeTransactionName + '</td>';
@@ -53,7 +57,9 @@
 			row += '<td>' + item.issueQuantity + '</td>';
 			row += '<td>' + item.currentQuantity + '</td>';
 			row += '<td>' + item.closingBalance + '</td>';
-			row += '<td>' + item.dateManufacture.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
+			
+			
+			row += '<td>' + dateManufacture + '</td>';
 			row += '<td>' + item.dateExpiry.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
 
             row += '</tr>';
