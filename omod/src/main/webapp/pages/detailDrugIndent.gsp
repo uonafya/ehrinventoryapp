@@ -234,7 +234,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 			<label>
 				Indent From:
 			</label>
-			<span>${store.name}</span>
+			<span>${store?.name}</span>
 			<br/>
 			
 			<label>
@@ -262,9 +262,9 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 		<% listIndentDetail.eachWithIndex { indent, varStatus -> %>
 		<tr class='${varStatus % 2 == 0 ? "oddRow" : "evenRow"}'>
 			<td>${varStatus + 1}</td>
-			<td>${indent.drug.category.name}</td>
-			<td>${indent.drug.name}</td>
-			<td>${indent.formulation.name}-${indent.formulation.dozage}</td>
+			<td>${indent.drug.category?.name}</td>
+			<td>${indent.drug?.name}</td>
+			<td>${indent.formulation?.name}-${indent.formulation.dozage}</td>
 			<td>${indent.quantity}</td>
 			<td>${indent.mainStoreTransfer}</td>
 		</tr>
@@ -293,14 +293,14 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 			<% listIndentDetail.eachWithIndex { indent, varStatus -> %>
 				<tr>
 				<td>${varStatus+1}</td>
-				<td>${indent.drug.category.name}</td>
-				<td>${indent.drug.name}</td>
-				<td>${indent.formulation.name}-${indent.formulation.dozage}</td>
+				<td>${indent.drug.category?.name}</td>
+				<td>${indent.drug?.name}</td>
+				<td>${indent.formulation?.name}-${indent.formulation.dozage}</td>
 				<td>${indent.quantity}</td>
 
 				<% def count=0 %>
 				<% def check=0 %>
-				<% listTransactionDetail.each { trDetail, varIndex ->  %>
+				<% listTransactionDetail.eachWithIndex { trDetail, varIndex ->  %>
 					<% if (trDetail.drug.id == indent.drug.id && trDetail.formulation.id == indent.formulation.id) { %>
 						<% check=1 %>
 

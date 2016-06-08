@@ -56,7 +56,7 @@ public class StockBalanceExpiryFragmentController {
 
         }
 
-        List<SimpleObject> expiryDetails = null;
+        List<SimpleObject> expiryDetails = new ArrayList<SimpleObject>();
 
         // ghanshyam 7-august-2013 code review bug
         if (store != null) {
@@ -110,9 +110,10 @@ public class StockBalanceExpiryFragmentController {
             if (stockBalances != null) {
                 Collections.sort(stockBalances);
             }
+            expiryDetails = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.id","drug.name","drug.category.name", "formulation.id", "formulation.name", "formulation.dozage", "currentQuantity", "reorderPoint");
 
         }
-        expiryDetails = SimpleObject.fromCollection(stockBalances, uiUtils, "drug.id","drug.name","drug.category.name", "formulation.id", "formulation.name", "formulation.dozage", "currentQuantity", "reorderPoint");
+
         return  expiryDetails;
     }
 }
