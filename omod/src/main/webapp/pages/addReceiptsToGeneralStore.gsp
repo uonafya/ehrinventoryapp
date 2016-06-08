@@ -6,7 +6,7 @@
 
     ui.includeJavascript("billingui", "moment.js")
     ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+    ui.includeJavascript("billingui", "jq.browser.select.js")
 %>
 <head>
     <script>
@@ -548,9 +548,10 @@
 		}
 
 		.chrome .add-on {
-			margin-left: -31px;
-			margin-top: -27px !important;
-			position: relative !important;
+			margin-left:-31px;
+			margin-right:-15px;
+			margin-top:7px !important;
+			position:relative !important;
 		}
 
 		#lastDayOfVisit-wrapper .add-on {
