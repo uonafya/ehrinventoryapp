@@ -3,6 +3,7 @@
 %>
 
 <script>
+    var delayTransfer = false;
     jq(function () {
         var storeIndent = ${listDrugNeedProcess};
         var pStoreIndent = storeIndent.listDrugNeedProcess;
@@ -23,17 +24,25 @@
                     if (parseInt(x) > parseInt(value)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity indent!");
                         item.transferQuantity(value.toString());
+                        delayTransfer = true;
+
                     } else if (parseInt(x) > parseInt(mainStoreValue)) {
                         jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity at hand!");
                         item.transferQuantity(mainStoreValue.toString());
+                        delayTransfer = true;
+                    } else {
+                        delayTransfer = false;
                     }
                 }
             }
 
             self.transferIndent = function () {
-                if(jq("#transferIndent").hasClass("disabled")){
+                if (jq("#transferIndent").hasClass("disabled")) {
                     jq().toastmessage('showNoticeToast', "Transfer Not Allowed due to Insufficient Quantities!");
-                }else{
+                } else if (delayTransfer) {
+                    jq().toastmessage('showNoticeToast', "Transfer values were reset to indent quantities- cross-check before proceeding!");
+                    delayTransfer=false;
+                } else {
                     jq("#indentsForm").submit();
                 }
             }
@@ -53,15 +62,15 @@
 
         function IndentItem(initialItem) {
             var self = this;
-            self.initialItem = ko.observable(initialItem);			
+            self.initialItem = ko.observable(initialItem);
             self.transferQuantity = ko.observable(String(Math.min(initialItem.mainStoreTransfer, initialItem.quantity)));
 
             self.compFormulation = ko.computed(function () {
                 return initialItem.formulation.name + "-" + initialItem.formulation.dozage;
             });
 
-            self.isDisabled = ko.computed(function(){
-                return (self.initialItem().mainStoreTransfer <= 0) ;
+            self.isDisabled = ko.computed(function () {
+                return (self.initialItem().mainStoreTransfer <= 0);
             });
         }
 
@@ -72,117 +81,132 @@
 </script>
 
 <style>
-	.new-patient-header .identifiers {
-		margin-top: 5px;
-	}
-	.name {
-		color: #f26522;
-	}
-	#inline-tabs{
-		background: #f9f9f9 none repeat scroll 0 0;
-	}
-	#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
-		text-decoration: none;
-	}
-	#show-icon{
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
-		display: inline-block;
-		float: right;
-		height: 50px;
-		margin-bottom: -40px;
-		margin-top: 10px;
-		width: 60px;
-	}
-	.exampler {
-		background-color: #fff;
-		border: 1px solid #ddd;
-		border-radius: 2px;
-		display: block;
-		margin: 65px 0 3px;
-		padding: 10px;
-		position: relative;
-	}
-	.exampler::after {
-		background: #f9f9f9 none repeat scroll 0 0;
-		border: 1px solid #ddd;
-		color: #969696;
-		content: "Indent Summary";
-		font-size: 12px;
-		font-weight: bold;
-		left: -1px;
-		padding: 5px 10px;
-		position: absolute;
-		top: -29px;
-	}
-	.exampler div {
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/indent-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
-		padding-left: 90px;
-		color: #363463;
-	}
-	.exampler div span{
-		color: #555;
-		float: left;
-		font-size: 0.9em;
-		text-transform: uppercase;
-		width: 120px;
-	}
-	table{
-		font-size: 14px;
-	}
-	th:first-child{
-		width:5px;
-	}
-	th:nth-child(4){
-		width:80px;
-	}
-	th:nth-child(5){
-		width:80px;
-	}
-	th:last-child{
-		width:160px;
-	}
-	
-	#footer{
-		height: 50px;
-		margin-top: 5px;
-	}
-	
-	#footer img{
-		float: left;
-		height: 20px;
-		margin-right: 5px;
-		margin-top: 6px;
-	}
-	
-	#footer span{
-		color: #777;
-		float: left;
-		font-size: 12px;
-		margin-top: 8px;
-	}
-	#footer button{
-		float: right;
-	}
-	.retired {
-		text-decoration: line-through;
-		color: darkgrey;
-	}
+.new-patient-header .identifiers {
+    margin-top: 5px;
+}
+
+.name {
+    color: #f26522;
+}
+
+#inline-tabs {
+    background: #f9f9f9 none repeat scroll 0 0;
+}
+
+#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+    text-decoration: none;
+}
+
+#show-icon {
+    background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+    display: inline-block;
+    float: right;
+    height: 50px;
+    margin-bottom: -40px;
+    margin-top: 10px;
+    width: 60px;
+}
+
+.exampler {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    display: block;
+    margin: 65px 0 3px;
+    padding: 10px;
+    position: relative;
+}
+
+.exampler::after {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: #969696;
+    content: "Indent Summary";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 5px 10px;
+    position: absolute;
+    top: -29px;
+}
+
+.exampler div {
+    background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/indent-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+    padding-left: 90px;
+    color: #363463;
+}
+
+.exampler div span {
+    color: #555;
+    float: left;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    width: 120px;
+}
+
+table {
+    font-size: 14px;
+}
+
+th:first-child {
+    width: 5px;
+}
+
+th:nth-child(4) {
+    width: 80px;
+}
+
+th:nth-child(5) {
+    width: 80px;
+}
+
+th:last-child {
+    width: 160px;
+}
+
+#footer {
+    height: 50px;
+    margin-top: 5px;
+}
+
+#footer img {
+    float: left;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: 6px;
+}
+
+#footer span {
+    color: #777;
+    float: left;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+#footer button {
+    float: right;
+}
+
+.retired {
+    text-decoration: line-through;
+    color: darkgrey;
+}
 </style>
 
 
 <div class="container">
-	<div class="example">
+    <div class="example">
         <ul id="breadcrumbs">
             <li>
                 <a href="${ui.pageLink('referenceapplication', 'home')}">
-					<i class="icon-home small"></i>
-				</a>
+                    <i class="icon-home small"></i>
+                </a>
             </li>
-			
-			<li>
+
+            <li>
                 <a href="${ui.pageLink('inventoryapp', 'main')}">
-					<i class="icon-chevron-right link"></i>Inventory
-				</a>
+                    <i class="icon-chevron-right link"></i>Inventory
+                </a>
             </li>
 
             <li>
@@ -191,47 +215,47 @@
             </li>
         </ul>
     </div>
-	
-	<div class="patient-header new-patient-header">
-		<div class="demographics">
+
+    <div class="patient-header new-patient-header">
+        <div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
                 <span>PROCESS DRUG INDENT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
-		
-		<div id="show-icon">
-			&nbsp;
-		</div>
-		
-		<div class="exampler">
-			<div>
-				<span>Indent Name:</span><b>${indent.name}</b><br/>
-				<span>Created On:</span>${indent.createdOn}<br/>
-				<span>Source Store:</span>${indent.store.name}<br/>
-			</div>
-		</div>
-	</div>
+
+        <div id="show-icon">
+            &nbsp;
+        </div>
+
+        <div class="exampler">
+            <div>
+                <span>Indent Name:</span><b>${indent.name}</b><br/>
+                <span>Created On:</span>${indent.createdOn}<br/>
+                <span>Source Store:</span>${indent.store.name}<br/>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="indentlist" style="display: block; margin-top:3px;">
     <div method="post" class="box" id="formMainStoreProcessIndent">
         <table id="tableIndent">
             <thead>
-				<th>#</th>
-				<th>DRUG</th>
-				<th>FORMULATION</th>
-				<th>QUANTITY</th>
-				<th>AVAILABLE</th>
-				<th>TRANSFER</th>
+            <th>#</th>
+            <th>DRUG</th>
+            <th>FORMULATION</th>
+            <th>QUANTITY</th>
+            <th>AVAILABLE</th>
+            <th>TRANSFER</th>
             </thead>
-			
+
             <tbody data-bind="foreach: indentItems ">
-				<td data-bind="text: (\$index() + 1),css:{'retired': isDisabled()}"></td>
-				<td data-bind="text: initialItem().drug.name,css:{'retired': isDisabled()}"></td>
-				<td data-bind="text: compFormulation(),css:{'retired': isDisabled()}"></td>
-				<td data-bind="text: initialItem().quantity,css:{'retired': isDisabled()}"></td>
-				<td data-bind="text: initialItem().mainStoreTransfer,css:{'retired': isDisabled()}"></td>
-				<td><input data-bind="value: transferQuantity, event:{blur:\$root.viewDetails},disable: isDisabled()"/></td>
+            <td data-bind="text: (\$index() + 1),css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: initialItem().drug.name,css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: compFormulation(),css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: initialItem().quantity,css:{'retired': isDisabled()}"></td>
+            <td data-bind="text: initialItem().mainStoreTransfer,css:{'retired': isDisabled()}"></td>
+            <td><input data-bind="value: transferQuantity, event:{blur:\$root.viewDetails},disable: isDisabled()"/></td>
             </tbody>
 
         </table>
@@ -241,7 +265,8 @@
             <input type="hidden" id="refuse" name="refuse" value="">
             <textarea name="drugIntents" data-bind="value: ko.toJSON(\$root)" style="display:none;"></textarea>
 
-            <button id="transferIndent" data-bind="click:transferIndent, css: {'disabled':indentItems()[0].isDisabled} " class="confirm"
+            <button id="transferIndent" data-bind="click:transferIndent, css: {'disabled':indentItems()[0].isDisabled} "
+                    class="confirm"
                     style="float: right; margin-right: 2px;">Transfer</button>
             <button id="refuseIndent" data-bind="click: refuseIndent" class="cancel"
                     style="margin-left: 2px">Refuse Indent</button>
