@@ -37,6 +37,10 @@
     }
 
     var prescriptionDialog = emr.setupConfirmationDialog({
+		dialogOpts: {
+			overlayClose: false,
+			close: true
+		},
         selector: '#prescription-dialog',
         actions: {
             confirm: function () {
@@ -62,7 +66,7 @@
 			indentId: indentId
 		}).success(function (data) {
 			if (data.length === 0 && data != null) {
-				jq().toastmessage('showNoticeToast', "No drug found!");
+				jq().toastmessage('showNoticeToast', "No transfers found!");
 				jq('#transferList > tbody > tr').remove();
 				var tbody = jq('#transferList > tbody');
 				var row = '<tr align="center"><td colspan="6">No Drugs found</td></tr>';
@@ -92,10 +96,12 @@
             row += '<td>' + item.store.name + '</td>';
             row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
-            var link = "";
+            
+			var link  = '<a href="#" title="Detail indent"  onclick="detailDrugIndent(' + item.id + ');"><i class="icon-bar-chart small"></i></a>';
             if (item.mainStoreStatus == 1) {
-                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');" >Process</a>';
+                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');"><i class="icon-cogs small"></i></a>';
             }
+			
             row += '<td>' + link + '</td>';
             row += '</tr>';
             tbody.append(row);
@@ -147,7 +153,7 @@
 	}
 	fieldset select{
 		width: 24%;
-	}
+	}	
 	
 	#toDate label,
 	#fromDate label{

@@ -39,6 +39,7 @@ public class DetailDrugIndentPageController {
         model.addAttribute("date",
                 !CollectionUtils.isEmpty(listIndentDetail) ? listIndentDetail
                         .get(0).getIndent().getCreatedOn() : null);
+        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
 
     }
 

@@ -39,7 +39,6 @@ public class DrugInformation {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public String getUnitPrice() {
         return unitPrice;
     }
@@ -47,7 +46,12 @@ public class DrugInformation {
     public void setUnitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
     }
-
+    public String getVAT(){
+    	return VAT;
+    }
+    public void setVAT(String VAT){
+    	this.VAT = VAT;
+    }
     public String getInstitutionalCost() {
         return institutionalCost;
     }
@@ -166,4 +170,5 @@ public class DrugInformation {
     private String drugCategoryName;
     private String drugName;
     private String drugFormulationName;
+    private String VAT;
 }

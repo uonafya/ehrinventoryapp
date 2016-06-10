@@ -6,7 +6,7 @@
 
     ui.includeJavascript("billingui", "moment.js")
     ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+    ui.includeJavascript("billingui", "jq.browser.select.js")
 %>
 <head>
     <script>
@@ -26,11 +26,19 @@
             }
 
             var adddrugdialog = emr.setupConfirmationDialog({
+				dialogOpts: {
+					overlayClose: false,
+					close: true
+				},
                 selector: '#addDrugDialog',
                 actions: {
                     confirm: function() {
 						if (!page_verified()){
 							jq().toastmessage('showErrorToast', 'Ensure fields marked in Red are filled properly');
+							return false;
+						}
+
+						if(!compare_DOE_DOM_DOR(jq("#dateOfExpiry-field").val(),jq("#dateOfManufacture-field").val(),jq("#receiptDate-field").val())){
 							return false;
 						}
 					
@@ -39,28 +47,46 @@
 
                         index = drugOrder.length ;
                         count = index + 1;
-                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+jq("#unitPrice").val()+'</td><td>'+jq("#institutionalCost").val()+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-display").val()+'</td><td>'+jq("#dateOfExpiry-display").val()+'</td><td>'+jq("#receiptDate-display").val()+'</td><td>'+jq("#receiptFrom").val()+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+						
+						var unitPrice 			= jq("#unitPrice").val();
+						var institutionalCost	= jq("#institutionalCost").val();
+						var receiptFrom 		= jq("#receiptFrom").val();
+						
+						if (unitPrice == ''){
+							unitPrice = 0;
+						}
+						
+						if (institutionalCost == ''){
+							institutionalCost = 0;
+						}
+						
+						if (receiptFrom == ''){
+							receiptFrom = 'N/A';
+						}
+						
+                        table.append('<tr id="' + index +'"><td>'+ count +'</td><td>'+jq("#drugCategory").val()+'</td><td>'+jq("#drugName").val()+'</td><td>'+jq("#drugFormulation option:selected").text()+'</td><td>'+jq("#quantity").val()+'</td><td>'+unitPrice+'</td><td>'+institutionalCost+'</td><td>'+jq("#costToThePatient").val()+'</td><td>'+jq("#batchNo").val()+'</td><td>'+jq("#companyName").val()+'</td><td>'+jq("#dateOfManufacture-display").val()+'</td><td>'+jq("#dateOfExpiry-display").val()+'</td><td>'+jq("#receiptDate-display").val()+'</td><td>'+receiptFrom+'</td><td><a onclick="removerFunction(' + index +')" class="remover"><i class="icon-remove small" style="color:red"></i></a> <a onclick="editorFunction(' + index +')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                                 {
-                                    rowId: index,
-                                    drugCategoryId: jq("#drugCategory").children(":selected").attr("id"),
-                                    drugCategoryName: jq("#drugCategory").children(":selected").val(),
-                                    drugId: jq("#drugName").children(":selected").attr("id"),
-                                    drugName: jq("#drugName").children(":selected").val(),
-                                    drugFormulationId: jq("#drugFormulation").children(":selected").attr("id"),
-                                    drugFormulationName: jq("#drugFormulation").children(":selected").val(),
-                                    quantity: jq("#quantity").val(),
-                                    unitPrice: jq("#unitPrice").val(),
-                                    institutionalCost:jq("#institutionalCost").val(),
-                                    costToThePatient:jq("#costToThePatient").val(),
-                                    batchNo:jq("#batchNo").val(),
-                                    companyName:jq("#companyName").val(),
-                                    dateOfManufacture:jq("#dateOfManufacture").val(),
-                                    dateOfExpiry:jq("#dateOfExpiry-field").val(),
-                                    receiptDate:jq("#receiptDate-field").val(),
-                                    receiptFrom:jq("#receiptFrom-field").val()
+                                    rowId: 					index,
+                                    drugCategoryId: 		jq("#drugCategory").children(":selected").attr("id"),
+									drugCategoryName: 		jq("#drugCategory").children(":selected").val(),
+                                    drugId: 				0,
+                                    drugName: 				jq("#drugName").val(),
+                                    drugFormulationId: 		jq("#drugFormulation").children(":selected").attr("id"),
+                                    drugFormulationName:	jq("#drugFormulation").children(":selected").val(),
+                                    quantity: 				jq("#quantity").val(),
+                                    unitPrice: 				unitPrice,
+                                    institutionalCost: 		institutionalCost,
+                                    costToThePatient:		jq("#costToThePatient").val(),
+                                    batchNo:				jq("#batchNo").val(),
+                                    companyName:			jq("#companyName").val(),
+                                    dateOfManufacture:		jq("#dateOfManufacture-field").val(),
+                                    dateOfExpiry: 			jq("#dateOfExpiry-field").val(),
+                                    receiptDate: 			jq("#receiptDate-field").val(),
+                                    receiptFrom: 			receiptFrom
                                 }
                         );
+
                         adddrugdialog.close();
                     },
                     cancel: function() {
@@ -71,12 +97,16 @@
             });
 
 			var addDescriptionDialog = emr.setupConfirmationDialog({
+				dialogOpts: {
+					overlayClose: false,
+					close: true
+				},
 				selector: '#addDescriptionDialog',
 				actions: {
 					confirm: function() {
 						receiptDescription = jq("#addReceiptsDescription").val();
-
 						drugOrder = JSON.stringify(drugOrder);
+						
 						var addDrugsData = {
 							'drugOrder':drugOrder,
 							'description' :receiptDescription
@@ -86,8 +116,7 @@
 								.success(function(data) {
 									jq().toastmessage('showSuccessToast', 'Receipt Saved Successfully');
 									var receiptsLink = emr.pageLink("inventoryapp", "main");
-									receiptsLink = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
-									window.location = receiptsLink; 
+									window.location = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
 								})
 								.error(function(xhr, status, err) {
 									jq().toastmessage('showErrorToast', 'Some Error Occured');
@@ -153,7 +182,7 @@
 					jq("#batchNo").removeClass('red');
 				}
 				
-				if (jq("#companyName").val() == ""){
+				if (jq("#companyName").val().trim() == ''){
 					jq("#companyName").addClass('red');
 					error ++;
 				}
@@ -198,8 +227,6 @@
 			}
 			
 
-
-
             jq("#addDrugsButton").on("click", function(e){
 				resets();
                 adddrugdialog.show();
@@ -240,45 +267,52 @@
 				});
             });
 
-            jq("#drugName").on("change",function(e){
-                var drugName = jq(this).children(":selected").attr("name");
-                var drugFormulationData = "<option id='0'>Select Formulation</option>";
-				
-				jq('#drugFormulation').empty();
-				
-                jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',{
-                            drugName:drugName
-                        })
-                        .success(function(data) {
-                            for (var key in data) {
-                                if (data.hasOwnProperty(key)) {
-                                    var val = data[key];
-                                    for (var i in val) {
-									var name,dosage;
-                                        if (val.hasOwnProperty(i)) {
-                                            var j = val[i];
-                                            if(i=="id")
-                                            {
-                                               drugFormulationData=drugFormulationData + '<option id="'+j+'">';
-                                            }
-													else if (i == "name") {
-											   name = j;
-										   }
-										   else {
-											   dozage = j;
-											   drugFormulationData = drugFormulationData + (name + "-" + dozage) + '</option>';
-										   }
-                                        }
-                                    }
-                                }
-                            }
-                            jq(drugFormulationData).appendTo("#drugFormulation");
-                        })
-                        .error(function(xhr, status, err) {
-                            alert('AJAX error ' + err);
-                        });
-            });
-
+			//add drug autocomplete
+			jq("#drugName").on("focus.autocomplete", function () {
+				var selectedInput = this;
+				jq(this).autocomplete({
+					source: function( request, response ) {
+						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "searchDrugNames") }',
+								{
+									q: request.term
+								}
+						).success(function(data) {
+							var results = [];
+							for (var i in data) {
+								var result = { label: data[i].name, value: data[i]};
+								results.push(result);
+							}
+							response(results);
+						});
+					},
+					minLength: 3,
+					select: function( event, ui ) {
+						event.preventDefault();
+						jq(this).val(ui.item.label);
+					},
+					change: function (event, ui) {
+						event.preventDefault();
+						jq(this).val(ui.item.label);
+						var categoryId = ui.item.value.category.id;
+						jq("#drugCategory option[id=" +categoryId+"]").attr('selected','selected');
+						jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',
+								{
+									"drugName": ui.item.label
+								}
+						).success(function(data) {
+							var formulations = jq.map(data, function (formulation) {
+								jq('#drugFormulation').append(jq('<option>').text(formulation.name +"-"+ formulation.dozage).attr('id', formulation.id));
+							});
+						});
+					},
+					open: function() {
+						jq( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+					},
+					close: function() {
+						jq( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+					}
+				});
+			});
 			jq("#addDrugsSubmitButton").click(function(event) {
 				addDescriptionDialog.show();
 			});
@@ -355,16 +389,44 @@
 		function editorFunction(rowId) {
 			//editor logic
 		}
+		function stringToDateConvert(stringDate)
+		{
+			var parts = stringDate.split('-');
+			return Date.parse(new Date(parts[0], parts[1]-1, parts[2]));
+		}
+
+		function compare_DOE_DOM_DOR(dateOfExpiryString, dateOfManufactureString, dateOfReceiptString){
+			console.log("Method has been called");
+			console.log("Date of Expiry");
+			console.log(dateOfExpiryString);
+			console.log(dateOfManufactureString);
+			console.log("Date of Receipt");
+			console.log(dateOfReceiptString);
+			dateOfManufacture = stringToDateConvert(dateOfManufactureString);
+			dateOfExpiry = stringToDateConvert(dateOfExpiryString);
+			dateOfReceipt = stringToDateConvert(dateOfReceiptString);
+
+			if(dateOfManufacture > dateOfExpiry){
+				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than date of expiry');
+				return false;
+			}
+			else if(dateOfReceipt > dateOfExpiry){
+				jq().toastmessage('showErrorToast', 'Please review receipt date is greater than date of expiry');
+				return false;
+			}
+			else if(dateOfManufacture > dateOfReceipt){
+				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than receipt date');
+				return false;
+			}else{
+				return true;
+			}
+		}
+
     </script>
 
     <style>
 		body {
 			margin-top: 20px;
-		}
-		
-		#modal-overlay{
-			background: #000 none repeat scroll 0 0;
-			opacity: 0.3!important;
 		}
 
 		.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
@@ -486,9 +548,10 @@
 		}
 
 		.chrome .add-on {
-			margin-left: -31px;
-			margin-top: -27px !important;
-			position: relative !important;
+			margin-left:-31px;
+			margin-right:-15px;
+			margin-top:7px !important;
+			position:relative !important;
 		}
 
 		#lastDayOfVisit-wrapper .add-on {
@@ -596,6 +659,11 @@
 		.dialog select option {
 			font-size: 1.0em;
 		}
+		.dialog textarea{
+			margin-bottom: 10px;
+			resize: none;
+			width: 95%;
+		}
 		td a,
 		td a:hover{
 			text-decoration: none;
@@ -658,8 +726,12 @@
 			font-size: 12px;
 			margin-top: 8px;
 		}
-		#footer input{
+		#footer .task{
 			float: right;
+		}
+		#modal-overlay {
+			background: #000 none repeat scroll 0 0;
+			opacity: 0.4 !important;
 		}
     </style>
 </head>
@@ -693,7 +765,13 @@
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
                 <span>ADD RECEIPTS TO GENERAL STORE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
+			
         </div>
+		
+		<span class="button confirm right" id="addDrugsButton">
+			<i class="icon-plus-sign small"></i>
+			Add to Slip
+		</span>
 
         <div id="addDrugsTablePrintable">
             <table id="addDrugsTable">
@@ -726,10 +804,20 @@
 			<img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg" />
 			<span>Place the mouse over the Titles to get the meaning in full</span>
 			
-            <input type="button" value="Submit" class="button task" name="addDrugsSubmitButton" id="addDrugsSubmitButton" style="margin-right:0px;"/>
-			<input type="button" value="Add" class="button confirm" name="addDrugsButton" id="addDrugsButton"/>
-			<input type="button" value="Clear Slip" onclick="clearSlip()" class="button cancel" name="clearSlip" id="clearSlip"/>
-			<input type="button" value="Print Slip" onclick="printSlip()" class="button task" name="printSlip" id="printSlip"/>
+            <div class="button task" id="addDrugsSubmitButton">
+				<i class="icon-save small"></i>
+				Finish
+			</div>
+			
+			<div class="button task" onclick="printSlip()" id="printSlip" style="margin-right:5px;">
+				<i class="icon-print small"></i>
+				Print
+			</div>
+			
+			
+			<div class="button cancel" onclick="clearSlip()" id="clearSlip" style="margin-left:20px;">
+				Clear Slip
+			</div>
 		</div>
 
     </div>
@@ -753,12 +841,11 @@
                     <% } %>
                 </select>
             </li>
-            <li>
-                <label for="drugName">Drug Name<span>*</span></label>
-                <select name="drugName" id="drugName" >
-                    <option id="0">Select Drug</option>
-                </select>
-            </li>
+			<li>
+				<label for="drugName">Drug Name<span>*</span></label>
+				<input type="text" name="drugName" id="drugName">
+			</li>
+
             <li>
                 <label for="drugFormulation">Formulation<span>*</span></label>
                 <select name="drugFormulation" id="drugFormulation" >
@@ -829,10 +916,11 @@
 		<h3>ADD Description</h3>
 	</div>
 	<form class="dialog-content">
-		<textarea id="addReceiptsDescription"></textarea>
+		<label>RECEIPT DESCRIPTION</label>
+		<textarea id="addReceiptsDescription" resize: none; height: 70px; width: 418px; margin-bottom: 10px;></textarea>
 
 		<span class="button cancel"> Cancel </span>
-		<span class="button confirm right" > Submit </span>
+		<span class="button confirm right" style="margin-right: 0px"> Submit </span>
 	</form>
 </div>
 

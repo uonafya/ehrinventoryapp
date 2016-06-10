@@ -32,7 +32,7 @@ public class ViewStockBalanceDetailPageController {
         InventoryDrugFormulation formulation = inventoryService.getDrugFormulationById(formulationId);
         pageModel.addAttribute("formulation",formulation);
         pageModel.addAttribute("drug",drug);
-
+        pageModel.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
     }
 
 }

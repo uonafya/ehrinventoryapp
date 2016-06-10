@@ -228,6 +228,8 @@
         display: inline-block;
     }
 	
+	#acctDate,
+	#acctFrom,
 	#rcptDate,
 	#rcptFrom{
 		float: 			none;
@@ -236,15 +238,19 @@
 		padding-right: 	0px;
 	}
 	
+	#acctDate-display,
+	#acctFrom-display,
 	#rcptDate-display,
 	#rcptFrom-display {
 		width: 140px;
-	}
-	
+	}	
 	.summary-div{
 		height: 50px;
 	}
-	
+	#modal-overlay {
+		background: #000 none repeat scroll 0 0;
+		opacity: 0.4 !important;
+	}
 </style>
 
 <div class="clear"></div>
@@ -281,6 +287,7 @@
                 <li><a href="#manage">Expired Drugs</a></li>
                 <li><a href="#receipts">Receipts</a></li>
                 <li><a href="#transers">Transfer</a></li>
+                <li><a href="#accounts">Issue to Account</a></li>
             </ul>
 
             <div id="queues">
@@ -298,6 +305,10 @@
             <div id="transers">
                 ${ui.includeFragment("inventoryapp", "transferDrugFromGeneralStore")}
             </div>
+			
+			<div id="accounts">
+				${ui.includeFragment("inventoryapp", "issueDrugAccountList")}
+			</div>
 
         </div>
 
