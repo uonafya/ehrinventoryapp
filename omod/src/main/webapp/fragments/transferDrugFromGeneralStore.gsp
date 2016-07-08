@@ -97,9 +97,9 @@
             row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
             
-			var link  = '<a href="#" title="Detail indent"  onclick="detailDrugIndent(' + item.id + ');"><i class="icon-bar-chart small"></i></a>';
+			var link  = '<a href="#" title="Order Detail"  onclick="detailDrugIndent(' + item.id + ');"><i class="icon-bar-chart small"></i></a>';
             if (item.mainStoreStatus == 1) {
-                link += '<a href="#" title="Process Indent" onclick="processDrugIndent(' + item.id + ');"><i class="icon-cogs small"></i></a>';
+                link += '<a href="#" title="Process Order" onclick="processDrugIndent(' + item.id + ');"><i class="icon-cogs small"></i></a>';
             }
 			
             row += '<td>' + link + '</td>';
@@ -182,7 +182,7 @@
 				
 				<label for="categoryId">Filter : </label>
 				
-				<input type="text" id="indentName" name="indentName" placeholder="Filter by Indent Name" title="Enter Indent Name" style="width: 492px; padding-left: 30px;"/>
+				<input type="text" id="indentName" name="indentName" placeholder="Filter by Order Name" title="Enter Indent Name" style="width: 492px; padding-left: 30px;"/>
 				<i class="icon-search" style="color: #aaa; float: right; position: absolute; font-size: 16px ! important; margin-left: -490px; margin-top: 4px;"></i>
 				
 				<a class="button task" id="expirySearch">
