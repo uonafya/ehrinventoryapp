@@ -219,7 +219,7 @@ th:last-child {
     <div class="patient-header new-patient-header">
         <div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
-                <span>PROCESS DRUG INDENT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                <span>PROCESS DRUG ORDER &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
 
@@ -269,7 +269,7 @@ th:last-child {
                     class="confirm"
                     style="float: right; margin-right: 2px;">Transfer</button>
             <button id="refuseIndent" data-bind="click: refuseIndent" class="cancel"
-                    style="margin-left: 2px">Refuse Indent</button>
+                    style="margin-left: 2px">Refuse Order</button>
         </form>
 
     </div>
