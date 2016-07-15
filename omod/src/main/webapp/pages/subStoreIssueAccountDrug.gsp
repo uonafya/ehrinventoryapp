@@ -224,11 +224,15 @@
                     jq.map(response, function (val, i) {
                         issueList.addDrugToFormulationList(val, 0);
                     });
+					
                     if (issueList.listReceiptDrug().length === 0) {
                         jq("#issueDetails").show();
                     } else {
                         jq("#issueDetails").hide();
                     }
+					
+					addissuedialog.close();
+					addissuedialog.show();
                 },
                 error: function (xhr) {
                     alert("An Error occurred");

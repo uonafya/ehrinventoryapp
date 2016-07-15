@@ -313,6 +313,7 @@
 					}
 				});
 			});
+			
 			jq("#addDrugsSubmitButton").click(function(event) {
 				addDescriptionDialog.show();
 			});
