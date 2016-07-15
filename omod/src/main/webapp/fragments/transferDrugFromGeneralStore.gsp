@@ -174,7 +174,7 @@
 	<div class="info-section">
 		<div class="info-header">
 			<i class="icon-book"></i>
-			<h3>Manage Indent</h3>
+			<h3>Manage Orders</h3>
 			
 			<div>
 				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
