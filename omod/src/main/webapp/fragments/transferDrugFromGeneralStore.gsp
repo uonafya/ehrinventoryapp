@@ -92,7 +92,7 @@
             var row = '<tr>';
             var item = tests[index];
             row += '<td>' + (++index) + '</td>';
-			row += '<td><a href="#" title="Detail indent" onclick="detailDrugIndent(' + item.id + ');" ;>' + item.name + '</a></td>';
+			row += '<td><a href="#" title="Order Detail" onclick="detailDrugIndent(' + item.id + ');" ;>' + item.name + '</a></td>';
             row += '<td>' + item.store.name + '</td>';
             row += '<td>' + item.createdOn.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
             row += '<td>' + item.mainStoreStatusName + '</td>';
@@ -174,7 +174,7 @@
 	<div class="info-section">
 		<div class="info-header">
 			<i class="icon-book"></i>
-			<h3>Manage Indent</h3>
+			<h3>Manage Orders</h3>
 			
 			<div>
 				<i class="icon-filter" style="font-size: 26px!important; color: #5b57a6"></i>
@@ -182,7 +182,7 @@
 				
 				<label for="categoryId">Filter : </label>
 				
-				<input type="text" id="indentName" name="indentName" placeholder="Filter by Order Name" title="Enter Indent Name" style="width: 492px; padding-left: 30px;"/>
+				<input type="text" id="indentName" name="indentName" placeholder="Filter by Order Name" title="Enter Order Name" style="width: 492px; padding-left: 30px;"/>
 				<i class="icon-search" style="color: #aaa; float: right; position: absolute; font-size: 16px ! important; margin-left: -490px; margin-top: 4px;"></i>
 				
 				<a class="button task" id="expirySearch">
@@ -195,7 +195,7 @@
 
 <fieldset id="filters">
 	<label for="storeId" >Requesting Store</label>
-	<label for="statusId">Indent Status</label>
+	<label for="statusId">Order Status</label>
 	<label for="fromDate-display">From Date</label>
 	<label for="toDate" style="width: auto; padding-left: 17px;">To Date</label>
 	
@@ -223,7 +223,7 @@
    
     <thead>
     <th>#</th>
-    <th>INDENT NAME</th>
+    <th>ORDER NAME</th>
     <th>FROM STORE</th>
     <th>CREATED ON</th>
     <th>STATUS</th>
@@ -231,7 +231,7 @@
     </thead>
     <tbody role="alert" aria-live="polite" aria-relevant="all">
     <tr align="center">
-        <td colspan="6">No Indent found</td>
+        <td colspan="6">No Order found</td>
     </tr>
     </tbody>
 </table>

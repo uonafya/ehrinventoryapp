@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Process Indent "])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Process Order "])
 %>
 
 <script>
@@ -22,7 +22,7 @@
 
                 if (x != null && x != '') {
                     if (parseInt(x) > parseInt(value)) {
-                        jq().toastmessage('showNoticeToast', "Transfer quantity more than quantity indent!");
+                        jq().toastmessage('showNoticeToast', "Transfer quantity more than order quantity!");
                         item.transferQuantity(value.toString());
                         delayTransfer = true;
 
@@ -40,7 +40,7 @@
                 if (jq("#transferIndent").hasClass("disabled")) {
                     jq().toastmessage('showNoticeToast', "Transfer Not Allowed due to Insufficient Quantities!");
                 } else if (delayTransfer) {
-                    jq().toastmessage('showNoticeToast', "Transfer values were reset to indent quantities- cross-check before proceeding!");
+                    jq().toastmessage('showNoticeToast', "Transfer values were reset to Order quantities- cross-check before proceeding!");
                     delayTransfer=false;
                 } else {
                     jq("#indentsForm").submit();
@@ -121,7 +121,7 @@
     background: #f9f9f9 none repeat scroll 0 0;
     border: 1px solid #ddd;
     color: #969696;
-    content: "Indent Summary";
+    content: "Order Summary";
     font-size: 12px;
     font-weight: bold;
     left: -1px;
@@ -229,7 +229,7 @@ th:last-child {
 
         <div class="exampler">
             <div>
-                <span>Indent Name:</span><b>${indent.name}</b><br/>
+                <span>Order Name:</span><b>${indent.name}</b><br/>
                 <span>Created On:</span>${indent.createdOn}<br/>
                 <span>Source Store:</span>${indent.store.name}<br/>
             </div>

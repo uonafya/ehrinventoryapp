@@ -347,7 +347,7 @@
 						jq.getJSON('${ ui.actionLink("pharmacyapp", "issueDrugAccountList", "processIssueDrugAccount") }', addIssueDrugsData)
 						.success(function (data) {
 							jq().toastmessage('removeToast', savingMessage);
-							jq().toastmessage('showSuccessToast', "Save Indent Successful!");
+							jq().toastmessage('showSuccessToast', "Save Order Successful!");
 							
 							jq("#print-section").print({
 								globalStyles: 	false,
@@ -621,7 +621,7 @@
                     </li>
 
                     <div id="issueDetails" style="color: red;">
-                        This Drug is empty in your store please indent it!
+                        This Drug is empty in your store please order it!
                     </div>
 
                     <div id="issueDetailsList" data-bind="visible: \$root.listReceiptDrug().length > 0">
