@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Detailed Drug Indent"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Detailed Drug Order"])
     ui.includeCss("billingui", "jquery.dataTables.min.css")
     ui.includeCss("registration", "onepcssgrid.css")
 
@@ -14,7 +14,7 @@
         detailDrugIndent: function (indentId) {
             if (SESSION.checkSession()) {
                 url = "detailDrugIndent.form?indentId=" + indentId + "&keepThis=false&TB_iframe=true&height=500&width=1000";
-                tb_show("Detail Indent Drug....", url, false);
+                tb_show("Detail Drug Order....", url, false);
             }
         }
     }
@@ -217,7 +217,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
     <div class="patient-header new-patient-header">
         <div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
-                <span>DRUG INDENT DETAILS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                <span>DRUG ORDER DETAILS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
     </div>
@@ -232,13 +232,13 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 		
 		<div>
 			<label>
-				Indent From:
+				Order From:
 			</label>
 			<span>${store?.name}</span>
 			<br/>
 			
 			<label>
-				Indent Date:
+				Order Date:
 			</label>
 			<span>${date}</span>
 			<br/>
@@ -253,7 +253,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 			<th>CATEGORY</th>
 			<th>DRUG NAME</th>
 			<th>FORMULATION</th>
-			<th>INDENT QNTY</th>
+			<th>ORDER QNTY</th>
 			<th>TRANSFER QNTY</th>
 		</tr>
 		</thead>
@@ -281,7 +281,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 				<th>CATEGORY</th>
 				<th>DRUG NAME</th>
 				<th>FORMULATION</th>
-				<th>INDENT</th>
+				<th>ORDER</th>
 				<th>TRANSFER</th>
 				<th>BATCH#</th>
 				<th>EXPIRY</th>

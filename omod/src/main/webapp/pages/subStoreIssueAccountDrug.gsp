@@ -224,11 +224,15 @@
                     jq.map(response, function (val, i) {
                         issueList.addDrugToFormulationList(val, 0);
                     });
+					
                     if (issueList.listReceiptDrug().length === 0) {
                         jq("#issueDetails").show();
                     } else {
                         jq("#issueDetails").hide();
                     }
+					
+					addissuedialog.close();
+					addissuedialog.show();
                 },
                 error: function (xhr) {
                     alert("An Error occurred");
@@ -343,7 +347,7 @@
 						jq.getJSON('${ ui.actionLink("pharmacyapp", "issueDrugAccountList", "processIssueDrugAccount") }', addIssueDrugsData)
 						.success(function (data) {
 							jq().toastmessage('removeToast', savingMessage);
-							jq().toastmessage('showSuccessToast', "Save Indent Successful!");
+							jq().toastmessage('showSuccessToast', "Save Order Successful!");
 							
 							jq("#print-section").print({
 								globalStyles: 	false,
@@ -617,7 +621,7 @@
                     </li>
 
                     <div id="issueDetails" style="color: red;">
-                        This Drug is empty in your store please indent it!
+                        This Drug is empty in your store please order it!
                     </div>
 
                     <div id="issueDetailsList" data-bind="visible: \$root.listReceiptDrug().length > 0">
