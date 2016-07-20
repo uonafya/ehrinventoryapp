@@ -14,7 +14,20 @@
 <script>
 	jq(function () {
 		jq("#tabs").tabs();
-
+		
+		
+		jq('#inline-tabs li').click(function(){			
+			if (jq('#inline-tabs li.ui-tabs-active').attr('aria-controls') == 'receipts'){
+				jq('.add-receipts').show(100);
+			}
+			else{
+				jq('.add-receipts').hide(100);
+			}
+		}).click();
+		
+		jq('.add-receipts').click(function(){
+			window.location.href = (emr.pageLink('inventoryapp','addReceiptsToGeneralStore'));
+		});
 	});
 </script>
 
@@ -251,6 +264,19 @@
 		background: #000 none repeat scroll 0 0;
 		opacity: 0.4 !important;
 	}
+	
+	#inline-tabs li:nth-child(6){
+		float: right;
+		text-align: center;
+		font-weight: normal;
+	}
+	#inline-tabs li:nth-child(6) a.button{
+		height: 17px;
+		margin-top: -5px;
+		padding-top: 12px;
+		text-align: center;
+		width: auto;
+	}
 </style>
 
 <div class="clear"></div>
@@ -288,6 +314,13 @@
                 <li><a href="#receipts">Receipts</a></li>
                 <li><a href="#transers">Transfer</a></li>
                 <li><a href="#accounts">Issue to Account</a></li>
+				
+                <li>
+					<a class="button task add-receipts" style="display: none; color: #fff;">
+						<i class="icon-plus small"> </i>
+						Add Receipts
+					</a>
+				</li>
             </ul>
 
             <div id="queues">
@@ -309,7 +342,6 @@
 			<div id="accounts">
 				${ui.includeFragment("inventoryapp", "issueDrugAccountList")}
 			</div>
-
         </div>
 
     </div>
