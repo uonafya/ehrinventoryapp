@@ -38,7 +38,7 @@
 							return false;
 						}
 
-						if(!compare_DOE_DOM_DOR(jq("#dateOfExpiry-field").val(),jq("#dateOfManufacture-field").val(),jq("#receiptDate-field").val())){
+						if(!compare_DOE_DOM_DOR(jq("#dateOfExpiry-field").val(),jq("#receiptDate-field").val())){
 							return false;
 						}
 					
@@ -79,7 +79,6 @@
                                     institutionalCost: 		institutionalCost,
                                     costToThePatient:		jq("#costToThePatient").val(),
                                     batchNo:				jq("#batchNo").val(),
-                                    companyName:			jq("#companyName").val(),
                                     dateOfManufacture:		jq("#dateOfManufacture-field").val(),
                                     dateOfExpiry: 			jq("#dateOfExpiry-field").val(),
                                     receiptDate: 			jq("#receiptDate-field").val(),
@@ -359,8 +358,7 @@
 					tbody.append('<tr id="' + (rowId + 1) + '"><td>' + (rowId + 1) + '</td><td>' + item.drugCategoryName + '</td><td>' + item.drugName +
 							'</td><td>' + item.drugFormulationName + '</td><td>' + item.quantity +
 							'</td><td>' + item.unitPrice + '</td><td>' + item.institutionalCost +
-							'</td><td>' + item.costToThePatient + '</td><td>' + item.batchNo + '</td><td>' + item.companyName + '</td><td>' +
-							item.dateOfManufacture + '</td><td>' + item.dateOfExpiry + '</td><td>' + item.receiptDate + '</td><td>' + item.receiptFrom +
+							'</td><td>' + item.costToThePatient + '</td><td>' + item.batchNo + '</td><td>' + item.dateOfExpiry + '</td><td>' + item.receiptDate + '</td><td>' + item.receiptFrom +
 							'</td><td><a onclick="removerFunction(' + rowId + ')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
 							'<a class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
 				});
@@ -396,31 +394,31 @@
 			return Date.parse(new Date(parts[0], parts[1]-1, parts[2]));
 		}
 
-		function compare_DOE_DOM_DOR(dateOfExpiryString, dateOfManufactureString, dateOfReceiptString){
-			console.log("Method has been called");
-			console.log("Date of Expiry");
-			console.log(dateOfExpiryString);
-			console.log(dateOfManufactureString);
-			console.log("Date of Receipt");
-			console.log(dateOfReceiptString);
-			dateOfManufacture = stringToDateConvert(dateOfManufactureString);
-			dateOfExpiry = stringToDateConvert(dateOfExpiryString);
-			dateOfReceipt = stringToDateConvert(dateOfReceiptString);
-
-			if(dateOfManufacture > dateOfExpiry){
-				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than date of expiry');
-				return false;
-			}
-			else if(dateOfReceipt > dateOfExpiry){
+		 function compare_DOE_DOM_DOR(dateOfExpiryString, dateOfReceiptString){
+		// 	console.log("Method has been called");
+		console.log("Date of Expiry");
+		console.log(dateOfExpiryString);
+		// 	console.log(dateOfManufactureString);
+		console.log("Date of Receipt");
+		console.log(dateOfReceiptString);
+		// 	// dateOfManufacture = stringToDateConvert(dateOfManufactureString);
+		dateOfExpiry = stringToDateConvert(dateOfExpiryString);
+		dateOfReceipt = stringToDateConvert(dateOfReceiptString);
+		//
+		// 	if(dateOfManufacture > dateOfExpiry){
+		// 		jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than date of expiry');
+		// 		return false;
+		// 	}
+			 if(dateOfReceipt > dateOfExpiry){
 				jq().toastmessage('showErrorToast', 'Please review receipt date is greater than date of expiry');
-				return false;
+			return false;
 			}
 			else if(dateOfManufacture > dateOfReceipt){
-				jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than receipt date');
+			jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than receipt date');
 				return false;
 			}else{
-				return true;
-			}
+			return true;
+		 	}
 		}
 
     </script>
@@ -787,8 +785,6 @@
 						<th title="Institutional Cost(%)"	>I.COST</th>
 						<th title="Cost To The Patient"		>COST</th>
 						<th title="Batch Number"			>BATCH#</th>
-						<th title="Company Name"			>COMPANY</th>
-						<th title="Date of Manufacture"		>D.O.M</th>
 						<th title="Expiry Date"				>D.O.E</th>
 						<th title="Receipt Date"			>R.D</th>
 						<th title="Receipt From"			>FROM</th>
@@ -884,20 +880,20 @@
                 <input name="companyName" id="companyName" type="text" >
             </li>
 
-            <li>
-                <label for="dateOfManufacture">Date of Manufacture<span>*</span></label>
-				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfManufacture',    id: 'dateOfManufacture',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
-            </li>
+%{--          <li>--}%
+%{--                <label for="dateOfManufacture">Date of Manufacture<span>*</span></label>--}%
+%{--				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfManufacture',    id: 'dateOfManufacture',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}--}%
+%{--         </li>--}%
 
-            <li>
-                <label for="dateOfExpiry">Date of Expiry<span>*</span></label>
-				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfExpiry',    id: 'dateOfExpiry',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
-            </li>
+%{--            <li>--}%
+%{--                <label for="dateOfExpiry">Date of Expiry<span>*</span></label>--}%
+%{--				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfExpiry',    id: 'dateOfExpiry',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}--}%
+%{--            </li>--}%
 
-            <li>
-                <label for="receiptDate">Receipt Date<span>*</span></label>
-				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'receiptDate',    id: 'receiptDate',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
-            </li>
+%{--            <li>--}%
+%{--                <label for="receiptDate">Receipt Date<span>*</span></label>--}%
+%{--				${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'receiptDate',    id: 'receiptDate',   label: '', useTime: false, defaultToday: false, class: ['newdtp']])}--}%
+%{--            </li>--}%
 
             <li>
                 <label for="receiptFrom">Receipt From</label>
