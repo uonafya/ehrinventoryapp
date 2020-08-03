@@ -1,23 +1,27 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang.StringUtils;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.apache.commons.lang.math.NumberUtils;
 import org.json.JSONArray;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrug;
+import org.openmrs.module.ehrinventoryapp.StoreSingleton;
+import org.openmrs.module.ehrinventoryapp.model.DrugInformation;
 import org.openmrs.module.hospitalcore.InventoryCommonService;
-import org.openmrs.module.hospitalcore.model.*;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrugCategory;
+import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
+import org.openmrs.module.hospitalcore.model.InventoryStore;
+import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransaction;
+import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
+import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
 import org.openmrs.module.hospitalcore.util.ActionValue;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.model.InventoryStoreDrug;
-import org.openmrs.module.inventory.util.DateUtils;
-import org.openmrs.module.inventoryapp.StoreSingleton;
-import org.openmrs.module.inventoryapp.model.DrugInformation;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -29,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by franqq on 3/21/16.
+ *
  */
 public class AddReceiptsToStoreFragmentController {
     private InventoryService inventoryService;

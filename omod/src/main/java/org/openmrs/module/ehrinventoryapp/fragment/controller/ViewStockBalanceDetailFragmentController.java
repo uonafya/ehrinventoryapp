@@ -1,11 +1,11 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
-import org.openmrs.module.inventory.InventoryService;
+import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ngarivictor on 3/18/2016.
- */
-public class ViewCurrentStockBalanceDetailFragmentController {
+
+public class ViewStockBalanceDetailFragmentController {
     public void controller() {
 
     }
 
-    public List<SimpleObject> viewCurrentStockBalanceDetail(
+    public List<SimpleObject> viewStockBalanceDetail(
             @RequestParam(value = "drugId", required = false) Integer drugId,
             @RequestParam(value = "formulationId", required = false) Integer formulationId,
             @RequestParam(value = "expiry", required = false) Integer expiry,
@@ -48,6 +46,6 @@ public class ViewCurrentStockBalanceDetailFragmentController {
                 .listStoreDrugTransactionDetail(store.getId(), drugId,
                         formulationId, expiry);
 
-        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage","transaction.typeTransactionName","openingBalance","quantity","issueQuantity","closingBalance","dateExpiry","receiptDate");
+        return SimpleObject.fromCollection(listViewStockBalance,uiUtils,"drug.name","drug.category.name","formulation.dozage", "transaction.typeTransactionName","transaction.indents.store.name","drug.attribute","quantity","issueQuantity","currentQuantity","openingBalance","closingBalance","dateManufacture","dateExpiry","receiptDate");
     }
 }

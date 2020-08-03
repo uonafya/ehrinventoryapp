@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Role;
@@ -7,9 +7,9 @@ import org.openmrs.module.hospitalcore.model.InventoryDrugCategory;
 import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.util.PagingUtil;
-import org.openmrs.module.inventory.util.RequestUtil;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.util.PagingUtil;
+import org.openmrs.module.ehrinventory.util.RequestUtil;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * Created by ngarivictor on 3/11/2016.
+ *
  */
 public class StockBalanceExpiryFragmentController {
     public void controller() {

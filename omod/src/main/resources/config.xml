@@ -7,7 +7,7 @@
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
-	<author>francis</author>
+	<author>HealthIT</author>
 	<description>
 		${project.parent.description}
 	</description>
@@ -19,39 +19,23 @@
 	<!-- Required Modules -->
 	<require_modules>
 																											
-		<require_module version="3.3.1">
-			org.openmrs.module.uiframework
-		</require_module>
+		<require_module>org.openmrs.module.uiframework</require_module>
 																											
-		<require_module version="2.0.4">
-			org.openmrs.module.uilibrary
-		</require_module>
+		<require_module>org.openmrs.module.uilibrary</require_module>
 																											
-		<require_module version="1.5.3-SNAPSHOT">
-			org.openmrs.module.hospitalcore
-		</require_module>
+		<require_module>org.openmrs.module.hospitalcore</require_module>
 
-		<require_module version="2.0.12-SNAPSHOT">
-			org.openmrs.module.inventory
-		</require_module>
+		<require_module>org.openmrs.module.ehrinventory</require_module>
 
-		<require_module version="2.4">
-			org.openmrs.module.appframework
-		</require_module>
+		<require_module>org.openmrs.module.appframework</require_module>
 
-		<require_module version="1.4">
-			org.openmrs.module.appui
-		</require_module>
-
-		<require_module version="1.0.1">
-			org.openmrs.module.referenceapplication
-		</require_module>
+		<require_module>org.openmrs.module.appui</require_module>
 			
 	</require_modules>
 	<!-- / Required Modules -->
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.InventoryAppActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.EhrInventoryAppActivator</activator>
 	
 	
 	<!-- Maps hibernate file's, if present -->
@@ -76,7 +60,7 @@
 	<!-- /Internationalization -->
 
 	<privilege>
-		<name>App: inventoryapp</name>
+		<name>App: ehrinventoryapp</name>
 		<description>Able to access the inventory app</description>
 	</privilege>
 

@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.page.controller;
+package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
@@ -7,19 +7,14 @@ import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
 import org.openmrs.module.hospitalcore.util.Action;
 import org.openmrs.module.hospitalcore.util.ActionValue;
-import org.openmrs.module.inventory.InventoryService;
+import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Stanslaus Odhiambo
- *         Created on 3/16/2016.
- */
+
 public class MainPageController {
     /**
      * Default handler for get and post requests if none is provided

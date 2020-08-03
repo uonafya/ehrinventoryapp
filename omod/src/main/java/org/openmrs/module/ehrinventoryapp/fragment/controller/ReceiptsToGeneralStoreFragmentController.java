@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Role;
@@ -7,7 +7,7 @@ import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransaction;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
 import org.openmrs.module.hospitalcore.util.ActionValue;
-import org.openmrs.module.inventory.InventoryService;
+import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by qqnarf on 3/16/16.
+ *
  */
 public class ReceiptsToGeneralStoreFragmentController {
     public void controller() {
