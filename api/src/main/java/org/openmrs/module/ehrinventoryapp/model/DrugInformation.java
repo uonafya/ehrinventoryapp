@@ -1,7 +1,7 @@
-package org.openmrs.module.inventoryapp.model;
+package org.openmrs.module.ehrinventoryapp.model;
 
 /**
- * Created by qqnarf on 3/22/16.
+ *
  */
 public class DrugInformation {
 

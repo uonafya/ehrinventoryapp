@@ -109,7 +109,3 @@
     </tbody>
 </table>
 
-<div class="summary-div">
-	<a class="button task" href="addReceiptsToGeneralStore.page" style="float: right; margin-top: 5px;width: 160px; text-align: center; height: 20px; padding-top: 15px"><i class="icon-plus small"> </i>&nbsp;Add Receipts</a>
-</div>
-

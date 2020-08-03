@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.page.controller;
+package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.json.JSONArray;
@@ -7,25 +7,25 @@ import org.openmrs.Role;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.ActionValue;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.model.InventoryStoreDrug;
-import org.openmrs.module.inventory.model.InventoryStoreDrugIndentDetail;
-import org.openmrs.module.inventory.util.DateUtils;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrug;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrugIndentDetail;
+import org.openmrs.module.ehrinventory.util.DateUtils;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * @author Stanslaus Odhiambo
- *         Created  on 3/21/2016.
- */
 public class MainStoreDrugProcessIndentPageController {
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -94,7 +94,7 @@ public class MainStoreDrugProcessIndentPageController {
             return "mainStoreDrugProcessIndent";
         }
 
-        return "redirect:" + uiUtils.pageLink("inventoryapp", "transferDrugFromGeneralStore");
+        return "redirect:" + uiUtils.pageLink("ehrinventoryapp", "transferDrugFromGeneralStore");
 
     }
 
@@ -127,7 +127,7 @@ public class MainStoreDrugProcessIndentPageController {
 
                 }
             }
-            return "redirect:" + uiUtils.pageLink("inventoryapp", "main");
+            return "redirect:" + uiUtils.pageLink("ehrinventoryapp", "main");
         }
         //validate here
 
@@ -188,14 +188,14 @@ public class MainStoreDrugProcessIndentPageController {
                     if (t.getDrug().getId().equals(trDetail.getDrug().getId()) && t.getFormulation().getId().equals(trDetail.getFormulation().getId())) {
                         t.setMainStoreTransfer(trDetail.getCurrentQuantity());
                         if (temp > trDetail.getCurrentQuantity() || temp < 0) {
-                            errors.add("inventory.indent.error.quantity");
+                            errors.add("ehrinventory.indent.error.quantity");
                         }
                     }
 
 
                 }
             } else {
-                errors.add("inventory.indent.error.quantity");
+                errors.add("ehrinventory.indent.error.quantity");
             }
             if (temp > 0) {
                 passTransfer = false;
@@ -204,7 +204,7 @@ public class MainStoreDrugProcessIndentPageController {
         }
 
         if (passTransfer) {
-            errors.add("inventory.indent.error.transfer");
+            errors.add("ehrinventory.indent.error.transfer");
         }
 
         if (errors != null && errors.size() > 0) {
@@ -349,7 +349,7 @@ public class MainStoreDrugProcessIndentPageController {
         inventoryService.saveStoreDrugIndent(indent);
         Map<String, Object> redirectParams = new HashMap<String, Object>();
         redirectParams.put("viewIndent", indentId);
-        return "redirect:" + uiUtils.pageLink("inventoryapp", "main", redirectParams)+"#transers";
+        return "redirect:" + uiUtils.pageLink("ehrinventoryapp", "main", redirectParams)+"#transers";
 
     }
 }

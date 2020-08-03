@@ -1,21 +1,18 @@
-package org.openmrs.module.inventoryapp.page.controller;
+package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugIndent;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.model.InventoryStoreDrugIndentDetail;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrugIndentDetail;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author ngarivictor
- *         Created on 3/22/2016.
- */
+
 public class DetailDrugIndentPageController {
     public void get(
             @RequestParam(value = "indentId", required = false) Integer indentId,

@@ -3,14 +3,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>inventoryapp</artifactId>
-		<version>1.0.1</version>
+		<artifactId>ehrinventoryapp</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>inventoryapp-api</artifactId>
+	<artifactId>ehrinventoryapp-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Inventory App Module API</name>
-	<description>API project for InventoryApp</description>
+	<name>EHR Inventory App Module API</name>
+	<description>API project for EHR Inventory Application</description>
 
 	<dependencies>
 	

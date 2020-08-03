@@ -138,6 +138,7 @@
                 jq.getJSON('${ ui.actionLink("pharmacyapp", "addReceiptsToStore", "fetchDrugNames") }', {
                     categoryId: categoryId
                 }).success(function (data) {
+                    drugNameData = drugNameData + '<option value="">Select Drug Name</option>';                    
                     jQuery("#issueDrugKey").hide();
                     jQuery("#issueDrugSelection").show();
                     for (var key in data) {
@@ -160,6 +161,7 @@
                     jq(drugNameData).appendTo("#issueDrugName");
                     jq('#issueDrugName').change();
                 }).error(function (xhr, status, err) {
+                    jq('<option value="">Select Drug Name</option>').appendTo("#issueDrugName");                    
                     jq().toastmessage('showErrorToast', "AJAX error!" + err);
                 });
             }
@@ -605,11 +607,11 @@
                             <label for="issueSearchPhrase">Drug Name</label>
                             <input id="issueSearchPhrase" name="issueSearchPhrase"/>
                         </div>
-
                         <div id="issueDrugSelection">
                             <label for="issueDrugName">Drug Name</label>
                             <select name="issueDrugName" id="issueDrugName">
-                                <option value="0">Select Drug</option>
+                                <option value="0">Select Drug Name</option>
+                            
                             </select>
                         </div>
                     </li>
@@ -621,7 +623,7 @@
                     </li>
 
                     <div id="issueDetails" style="color: red;">
-                        This Drug is empty in your store please order it!
+                    This Drug is empty in your store please order it!
                     </div>
 
                     <div id="issueDetailsList" data-bind="visible: \$root.listReceiptDrug().length > 0">
