@@ -3,21 +3,21 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>inventoryapp</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Inventory App Module</name>
-	<description>Inventory App</description>
-	<url>https://wiki.openmrs.org/display/docs/Inventory+App+Module+Module</url>
+	<description>Inventory App Module</description>
+	<url>https://healthit.uonbi.ac.ke/</url>
 	
 	<developers>
 		<developer>
-			<name>francis</name>
+			<name>HealthIT</name>
 		</developer>
 	</developers>
 	
 	<organization>
-		<name>OpenMRS</name>
-		<url>http://openmrs.org</url>
+		<name>HealthIT</name>
+		<url>https://healthit.uonbi.ac.ke/</url>
 	</organization>
 
 	<scm>
