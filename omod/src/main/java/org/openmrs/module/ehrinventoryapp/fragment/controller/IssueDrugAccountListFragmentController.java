@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -10,13 +10,13 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.ActionValue;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.model.InventoryStoreDrugAccount;
-import org.openmrs.module.inventory.model.InventoryStoreDrugAccountDetail;
-import org.openmrs.module.inventory.util.DateUtils;
-import org.openmrs.module.inventory.util.PagingUtil;
-import org.openmrs.module.inventory.util.RequestUtil;
-import org.openmrs.module.inventoryapp.StoreSingleton;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccount;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccountDetail;
+import org.openmrs.module.ehrinventory.util.DateUtils;
+import org.openmrs.module.ehrinventory.util.PagingUtil;
+import org.openmrs.module.ehrinventory.util.RequestUtil;
+import org.openmrs.module.ehrinventoryapp.StoreSingleton;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,11 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 
-
-/**
- * @author Dennys Henry
- *         Created on 06/06/2016.
- */
 public class IssueDrugAccountListFragmentController {
     public void controller() {
 

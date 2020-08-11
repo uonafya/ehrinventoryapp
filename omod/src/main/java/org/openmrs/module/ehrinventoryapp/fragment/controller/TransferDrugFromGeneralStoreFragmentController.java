@@ -1,4 +1,4 @@
-package org.openmrs.module.inventoryapp.fragment.controller;
+package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Role;
@@ -6,9 +6,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugIndent;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.util.PagingUtil;
-import org.openmrs.module.inventory.util.RequestUtil;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.util.PagingUtil;
+import org.openmrs.module.ehrinventory.util.RequestUtil;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * @author Stanslaus Odhiambo
- *         Created on 3/17/2016.
- *         This class handles the Ajax requests for the display of drug transfers from the main store to the pharmacy app
+ *
  */
 
 

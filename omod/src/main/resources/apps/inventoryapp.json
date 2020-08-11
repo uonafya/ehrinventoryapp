@@ -1,6 +1,6 @@
 [
   {
-    "id": "inventoryapp.inventoryapp",        // unique id for this app, unique across all apps, typically starts with your module id
+    "id": "ehrinventoryapp.ehrinventoryapp",        // unique id for this app, unique across all apps, typically starts with your module id
     "description": "App for viewing Inventory",        // plain text or a message code (not displayed to end-users)
     "extensions": [
       {

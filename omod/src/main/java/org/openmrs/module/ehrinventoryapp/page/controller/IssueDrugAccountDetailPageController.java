@@ -1,10 +1,10 @@
-package org.openmrs.module.inventoryapp.page.controller;
+package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.inventory.InventoryService;
-import org.openmrs.module.inventory.model.InventoryStoreDrugAccountDetail;
+import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccountDetail;
 
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
-
-/**
- * Created by Dennys Henry
- * on 06/06/2016.
- */
 
 public class IssueDrugAccountDetailPageController {
 

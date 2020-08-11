@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.inventoryapp;
+package org.openmrs.module.ehrinventoryapp;
 
 
 import org.apache.commons.logging.Log; 
@@ -21,7 +21,7 @@ import org.openmrs.module.ModuleActivator;
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class InventoryAppActivator implements ModuleActivator {
+public class EhrInventoryAppActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
 		
@@ -29,42 +29,42 @@ public class InventoryAppActivator implements ModuleActivator {
 	 * @see ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
-		log.info("Refreshing Inventory App Module");
+		log.info("Refreshing  EHR Inventory App Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
-		log.info("Inventory App Module refreshed");
+		log.info("EHR Inventory App Module refreshed");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStart()
 	 */
 	public void willStart() {
-		log.info("Starting Inventory App Module");
+		log.info("Starting EHR Inventory App Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		log.info("Inventory App Module started");
+		log.info("EHR Inventory App Module started");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("Stopping Inventory App Module");
+		log.info("Stopping IEHR nventory App Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
-		log.info("Inventory App Module stopped");
+		log.info("EHR Inventory App Module stopped");
 	}
 		
 }

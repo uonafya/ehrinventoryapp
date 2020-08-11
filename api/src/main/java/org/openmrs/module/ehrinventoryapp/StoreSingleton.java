@@ -1,15 +1,7 @@
-package org.openmrs.module.inventoryapp;
+package org.openmrs.module.ehrinventoryapp;
 
 import java.util.HashMap;
 
-/**
- * <p> Class: SubStoreSingleton </p>
- * <p> Author: Nguyen manh chuyen </p>
- * <p> Update by: Nguyen manh chuyen </p>
- * <p> Version: $1.0 </p>
- * <p> Create date: Dec 28, 2010 10:11:47 PM </p>
- * <p> Update date: Dec 28, 2010 10:11:47 PM </p>
- **/
 public class StoreSingleton {
     private static StoreSingleton instance = null;
     public static final StoreSingleton getInstance(){
