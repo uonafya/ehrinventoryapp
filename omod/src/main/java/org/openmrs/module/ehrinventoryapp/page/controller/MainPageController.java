@@ -2,12 +2,14 @@ package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryDrugCategory;
 import org.openmrs.module.hospitalcore.model.InventoryStore;
 import org.openmrs.module.hospitalcore.model.InventoryStoreRoleRelation;
 import org.openmrs.module.hospitalcore.util.Action;
 import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@AppPage(EhrInventoryAppConstants.APP_EHRINVENTORY_APP)
 public class MainPageController {
     /**
      * Default handler for get and post requests if none is provided

@@ -18,19 +18,13 @@
 	
 	<!-- Required Modules -->
 	<require_modules>
-																											
-		<require_module>org.openmrs.module.uiframework</require_module>
-																											
-		<require_module>org.openmrs.module.uilibrary</require_module>
-																											
-		<require_module>org.openmrs.module.hospitalcore</require_module>
-
-		<require_module>org.openmrs.module.ehrinventory</require_module>
-
-		<require_module>org.openmrs.module.appframework</require_module>
-
-		<require_module>org.openmrs.module.appui</require_module>
-			
+		<require_module version="${kenyaemrVersion}">org.openmrs.module.kenyaemr</require_module>
+		<require_module version="$hospitalcoreVersion">org.openmrs.module.hospitalcore</require_module>
+		<require_module version="${uiframeworkVersion}">org.openmrs.module.uiframework</require_module>
+		<require_module version="${uilibraryVersion}">org.openmrs.module.uilibrary</require_module>
+		<require_module version="${appuiVersion}">org.openmrs.module.appui</require_module>
+		<require_module version="${inventoryVersion}"> org.openmrs.module.ehrinventory</require_module>
+		<require_module version="${appframeworkVersion}">org.openmrs.module.appframework</require_module>
 	</require_modules>
 	<!-- / Required Modules -->
 	
@@ -58,11 +52,6 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
-
-	<privilege>
-		<name>App: ehrinventoryapp</name>
-		<description>Able to access the inventory app</description>
-	</privilege>
 
 </module>
 

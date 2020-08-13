@@ -57,7 +57,7 @@ public class EhrInventoryAppActivator implements ModuleActivator {
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("Stopping IEHR nventory App Module");
+		log.info("Stopping EHR Inventory App Module");
 	}
 	
 	/**

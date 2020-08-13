@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 
-	<artifactId>inventoryapp</artifactId>
+	<artifactId>ehrinventoryapp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Inventory App Module</name>
@@ -36,9 +36,26 @@
 	
 	<properties>
 		<openMRSVersion>1.12.0</openMRSVersion>
+		<appframeworkVersion>2.9</appframeworkVersion>
+		<calculationVersion>1.0</calculationVersion>
+		<htmlformentryVersion>2.3</htmlformentryVersion>
+		<htmlwidgetsVersion>1.6.6</htmlwidgetsVersion>
+		<hospitalcoreVersion>1.0.0-SNAPSHOT</hospitalcoreVersion>
+		<idgenVersion>2.6</idgenVersion>
+		<metadatadeployVersion>1.2</metadatadeployVersion>
+		<metadatasharingVersion>1.1.8</metadatasharingVersion>
+		<reportingVersion>0.9.8.1</reportingVersion>
+		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
+		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<kenyacoreVersion>2.4.1</kenyacoreVersion>
-		<kenyauiVersion>2.1.2-SNAPSHOT</kenyauiVersion>
+		<kenyauiVersion>2.1.1</kenyauiVersion>
 		<kenyaemrVersion>17.0.3</kenyaemrVersion>
+		<jodaTimeVersion>2.9.1</jodaTimeVersion>
+		<webservices.restVersion>2.1</webservices.restVersion>
+		<logicVersion>0.5.2</logicVersion>
+		<uilibraryVersion>2.0.4</uilibraryVersion>
+		<inventoryVersion>1.0.0-SNAPSHOT</inventoryVersion>
+		<appuiVersion>1.8.0</appuiVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -66,7 +83,7 @@
 												
 				<artifactId>uiframework-api</artifactId>
 																								
-				<version>3.3.1</version>
+				<version>${uiframeworkVersion}</version>
 												
 				<scope>provided</scope>
 				
@@ -78,7 +95,7 @@
 												
 				<artifactId>uilibrary-api</artifactId>
 																								
-				<version>2.0.4</version>
+				<version>${uilibraryVersion}</version>
 												
 				<scope>provided</scope>
 				
@@ -90,7 +107,7 @@
 
 				<artifactId>appframework-api</artifactId>
 
-				<version>2.4</version>
+				<version>${appframeworkVersion}</version>
 
 				<scope>provided</scope>
 
@@ -102,7 +119,7 @@
 
 				<artifactId>appui-omod</artifactId>
 
-				<version>1.4</version>
+				<version>${appuiVersion}</version>
 
 				<scope>provided</scope>
 
@@ -126,7 +143,7 @@
 												
 				<artifactId>hospitalcore-api</artifactId>
 																								
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${hospitalcoreVersion}</version>
 												
 				<scope>provided</scope>
 				
@@ -135,7 +152,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>ehrinventory-api</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${inventoryVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
