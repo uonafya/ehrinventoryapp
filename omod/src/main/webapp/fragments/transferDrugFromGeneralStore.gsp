@@ -24,19 +24,19 @@
     });//end of doc ready function
 	
     function detailDrugIndent(indentId) {
-        window.location.href = emr.pageLink("inventoryapp", "detailDrugIndent", {
+        window.location.href = ui.pageLink("ehrinventoryapp", "detailDrugIndent", {
             "indentId": indentId
         });
 
     }
 
     function processDrugIndent(indentId) {
-        window.location.href = emr.pageLink("inventoryapp", "mainStoreDrugProcessIndent", {
+        window.location.href = ui.pageLink("ehrinventoryapp", "mainStoreDrugProcessIndent", {
             "indentId": indentId
         });
     }
 
-    var prescriptionDialog = emr.setupConfirmationDialog({
+    var prescriptionDialog =ui.setupConfirmationDialog({
 		dialogOpts: {
 			overlayClose: false,
 			close: true
@@ -55,7 +55,7 @@
 
 
     function getIndentList(storeId, statusId, indentName, fromDate, toDate, viewIndent, indentId) {
-        jq.getJSON('${ui.actionLink("inventoryapp", "transferDrugFromGeneralStore", "getIndentList")}',
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "transferDrugFromGeneralStore", "getIndentList")}',
 		{
 			storeId: storeId,
 			statusId: statusId,

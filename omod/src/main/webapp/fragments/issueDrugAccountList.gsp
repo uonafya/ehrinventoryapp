@@ -1,12 +1,12 @@
 <%
-	ui.includeJavascript("billingui", "moment.js")
+	ui.includeJavascript("ehrcashier", "moment.js")
 %>
 
 <script>
     jq(function () {
         var date = jq("#acctFrom-field").val();
 		
-        jq.getJSON('${ui.actionLink("inventoryapp", "IssueDrugAccountList", "fetchList")}',{
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "IssueDrugAccountList", "fetchList")}',{
 			"date": moment(date).format('DD/MM/YYYY'),
 			"currentPage": 1
 		}).success(function (data) {
@@ -17,7 +17,7 @@
 		});
 		
 		jq('#issue-button').click(function(){
-			window.location.href = emr.pageLink("inventoryapp", "subStoreIssueAccountDrug");
+			window.location.href = ui.pageLink("ehrinventoryapp", "subStoreIssueAccountDrug");
 		});		
 
         jq("#acctFrom-display, #acctDate-display").on("change", function () {
@@ -61,13 +61,13 @@
     }
 
     function accountDetail(id) {
-        window.location.href = emr.pageLink("inventoryapp", "issueDrugAccountDetail", {
+        window.location.href = ui.pageLink("ehrinventoryapp", "issueDrugAccountDetail", {
             "issueId": id
         });
     }
 	
     function getAccountList(issueName, acctFrom, acctDate) {
-        jq.getJSON('${ui.actionLink("inventoryapp", "issueDrugAccountList", "fetchList")}',{
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "issueDrugAccountList", "fetchList")}',{
 			issueName:	issueName,			
 			fromDate: 	acctFrom,
 			toDate: 	acctDate,

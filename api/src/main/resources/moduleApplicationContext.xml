@@ -20,7 +20,7 @@
 	<!-- Add here beans related to the API context -->
 
 	<bean id="ehrinventoryapp.ehrinventoryapp" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="ehrinventoryapp.ehrinventory" />
+		<constructor-arg value="ehrinventoryapp.ehrinventoryapp" />
 		<constructor-arg value="Inventory" />
 		<constructor-arg value="ehrinventoryapp/main.page" />
 		<constructor-arg value="ehrinventoryapp:apps/inventory.png" />

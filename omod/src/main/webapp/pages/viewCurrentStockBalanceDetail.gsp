@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Drug Stock"])
-	ui.includeJavascript("billingui", "moment.js")
-	ui.includeJavascript("billingui", "jq.print.js")
+	ui.includeJavascript("ehrcashier", "moment.js")
+	ui.includeJavascript("ehrcashier", "jq.print.js")
 	
     def props = [	"transaction.typeTransactionName",
 					"openingBalance",
@@ -14,7 +14,7 @@
 
 <script>
     jq(function (){
-        jq.getJSON('${ui.actionLink("inventoryapp", "viewCurrentStockBalanceDetail", "viewCurrentStockBalanceDetail")}', {
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "viewCurrentStockBalanceDetail", "viewCurrentStockBalanceDetail")}', {
 			drugId :${drugId},
 			formulationId: ${formulationId},
 			expiry: ${expiry},
@@ -37,7 +37,7 @@
 		});
 		
 		jq('.cancel').click(function(){
-			var receiptsLink = emr.pageLink("inventoryapp", "main");
+			var receiptsLink = ui.pageLink("ehrinventoryapp", "main");
 			window.location = receiptsLink.substring(0, receiptsLink.length - 1);
 		});
 		
@@ -45,7 +45,7 @@
 			jq("#print-section").print({
 				globalStyles: 	false,
 				mediaPrint: 	false,
-				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
+				stylesheet: 	'${ui.resourceLink("ehrinventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			980,
 				height:			700
@@ -88,7 +88,7 @@
 		text-decoration: none;
 	}
 	#show-icon{
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
 		display: inline-block;
 		float: right;
 		height: 50px;
@@ -118,7 +118,7 @@
 		top: -29px;
 	}
 	.exampler div {
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
 		padding-left: 90px;
 		color: #363463;
 	}
@@ -149,7 +149,7 @@
             </li>
 			
 			<li>
-                <a href="${ui.pageLink('inventoryapp', 'main')}">
+                <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
 					<i class="icon-chevron-right link"></i>Inventory
 				</a>
             </li>
@@ -190,7 +190,7 @@
 		<div id="print-section">
 			<div class="print-only">
 				<center>
-					<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+					<img width="100" height="100" align="center" title="Integrated EHR" alt="EHRS" src="${ui.resourceLink('ehrcashier', 'images/kenya_logo.bmp')}">
 					<h2>${userLocation}</h2>
 				</center>
 				

@@ -15,7 +15,7 @@
             });
 
             self.viewDetails = function(item){
-				window.location.href = emr.pageLink("inventoryapp", "viewCurrentStockBalanceDetail", {
+				window.location.href = ui.pageLink("ehrinventoryapp", "viewCurrentStockBalanceDetail", {
 					drugId: item.drug.id,
 					formulationId: item.formulation.id
 				});
@@ -54,7 +54,7 @@
     function getStockBalance(categoryId,drugName) {
         jQuery.ajax({
             type: "GET",
-            url: '${ui.actionLink("inventoryapp", "stockBalance", "fetchStockBalance")}',
+            url: '${ui.actionLink("ehrinventoryapp", "stockBalance", "fetchStockBalance")}',
             dataType: "json",
             global: false,
             async: false,

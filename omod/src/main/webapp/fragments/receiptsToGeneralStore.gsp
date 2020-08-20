@@ -1,5 +1,5 @@
 <%
-	ui.includeJavascript("billingui", "moment.js")
+	ui.includeJavascript("ehrcashier", "moment.js")
 %>
 
 <script>
@@ -16,7 +16,7 @@
             });
 
             self.viewDetails = function (item) {
-                window.location.href = emr.pageLink("inventoryapp", "detailedReceiptOfDrug", {
+                window.location.href = ui.pageLink("ehrinventoryapp", "detailedReceiptOfDrug", {
 					receiptId: item.id
 				});
             }
@@ -51,7 +51,7 @@
         var toReturn;
         jQuery.ajax({
             type: "GET",
-            url: '${ui.actionLink("inventoryapp", "receiptsToGeneralStore", "fetchReceiptsToGeneralStore")}',
+            url: '${ui.actionLink("ehrinventoryapp", "receiptsToGeneralStore", "fetchReceiptsToGeneralStore")}',
             dataType: "json",
             global: false,
             async: false,

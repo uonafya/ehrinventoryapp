@@ -22,7 +22,7 @@ public class EhrInventoryAppMetadata extends AbstractMetadataBundle {
 
     public static final class _Role {
 
-        public static final String APPLICATION_EHRINVENTORYAPP_MODULE = "Access Inventroy App";
+        public static final String APPLICATION_EHRINVENTORYAPP_MODULE = "Access Inventory App";
     }
 
     /**

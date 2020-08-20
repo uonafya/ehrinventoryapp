@@ -1,13 +1,13 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Drug Receipt Details"])
 
-    ui.includeCss("billingui", "jquery.dataTables.min.css")
-    ui.includeCss("registration", "onepcssgrid.css")
+    ui.includeCss("ehrcashier", "jquery.dataTables.min.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
 
-    ui.includeJavascript("billingui", "moment.js")
-	ui.includeJavascript("billingui", "jq.print.js")
-    ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
+	ui.includeJavascript("ehrcashier", "jq.print.js")
+    ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrcashier", "jq.browser.select.js")
 %>
 
 <script>
@@ -18,13 +18,13 @@
 		updateQueueTable(simpleObjects);
 
         jq("#printButton").on("click", function(e){
-			var emrLink = emr.pageLink('inventoryapp','main');
+			var emrLink = ui.pageLink('ehrinventoryapp','main');
 				emrLink = emrLink.substring(0, emrLink.length-1)+'#receipts'
 			
             jq("#print-section").print({
 				globalStyles: 	false,
 				mediaPrint: 	false,
-				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
+				stylesheet: 	'${ui.resourceLink("ehrinventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			1020,
 				height:			700,

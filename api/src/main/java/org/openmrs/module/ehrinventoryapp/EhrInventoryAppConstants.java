@@ -7,5 +7,5 @@ public class EhrInventoryAppConstants {
      */
     public static final String MODULE_ID = "ehrinventoryapp";
 
-    public static final String APP_EHRINVENTORY_APP = MODULE_ID + ".ehrinventory";
+    public static final String APP_EHRINVENTORY_APP = MODULE_ID + ".ehrinventoryapp";
 }

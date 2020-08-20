@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Add Account Drug"])
     ui.includeCss("pharmacyapp", "container.css")
-	ui.includeJavascript("billingui", "jq.print.js")
+	ui.includeJavascript("ehrcashier", "jq.print.js")
 %>
 <script>
     var processCounts = 0;
@@ -21,7 +21,7 @@
             addissuedialog.show();
         });
 
-        var addissuedialog = emr.setupConfirmationDialog({
+        var addissuedialog = ui.setupConfirmationDialog({
 			dialogOpts: {
 				overlayClose: false,
 				close: true
@@ -292,7 +292,7 @@
             };
 
             self.returnToList = function () {
-                window.location.href = emr.pageLink("pharmacyapp", "container", {
+                window.location.href = ui.pageLink("pharmacyapp", "container", {
                     "rel": "issue-to-account"
                 });
             };
@@ -320,7 +320,7 @@
             });
         }
 
-        var addaccountforissueslipdialog = emr.setupConfirmationDialog({
+        var addaccountforissueslipdialog = ui.setupConfirmationDialog({
 			dialogOpts: {
 				overlayClose: false,
 				close: true
@@ -354,13 +354,13 @@
 							jq("#print-section").print({
 								globalStyles: 	false,
 								mediaPrint: 	false,
-								stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
+								stylesheet: 	'${ui.resourceLink("ehrinventoryapp", "styles/print-out.css")}',
 								iframe: 		false,
 								width: 			980,
 								height:			700
 							});
 							
-							var emrLink = emr.pageLink("inventoryapp", "main");
+							var emrLink = ui.pageLink("ehrinventoryapp", "main");
 							window.location.href = emrLink.substring(0, emrLink.length-1)+'#accounts'
 
 						})

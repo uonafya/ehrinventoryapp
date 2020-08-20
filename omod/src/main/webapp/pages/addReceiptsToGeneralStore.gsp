@@ -1,12 +1,12 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Manage Receipt Drugs"])
 
-    ui.includeCss("billingui", "jquery.dataTables.min.css")
-    ui.includeCss("registration", "onepcssgrid.css")
+    ui.includeCss("ehrcashier", "jquery.dataTables.min.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
 
-    ui.includeJavascript("billingui", "moment.js")
-    ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("billingui", "jq.browser.select.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
+    ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrcashier", "jq.browser.select.js")
 %>
 <head>
     <script>
@@ -25,7 +25,7 @@
                 return dataToParse;
             }
 
-            var adddrugdialog = emr.setupConfirmationDialog({
+            var adddrugdialog = ui.setupConfirmationDialog({
                 dialogOpts: {
                     overlayClose: false,
                     close: true
@@ -100,7 +100,7 @@
 
             });
 
-            var addDescriptionDialog = emr.setupConfirmationDialog({
+            var addDescriptionDialog = ui.setupConfirmationDialog({
                 dialogOpts: {
                     overlayClose: false,
                     close: true
@@ -119,7 +119,7 @@
                         jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }', addDrugsData)
                             .success(function (data) {
                                 jq().toastmessage('showSuccessToast', 'Receipt Saved Successfully');
-                                var receiptsLink = emr.pageLink("inventoryapp", "main");
+                                var receiptsLink = ui.pageLink("inventoryapp", "main");
                                 window.location = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
                             })
                             .error(function (xhr, status, err) {

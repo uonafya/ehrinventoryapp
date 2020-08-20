@@ -1,14 +1,14 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Dashboard"])
 
-    ui.includeCss("billingui", "jquery.dataTables.min.css")
-    ui.includeCss("registration", "onepcssgrid.css")
-    ui.includeCss("inventoryapp", "main.css")
+    ui.includeCss("ehrcashier", "jquery.dataTables.min.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
+    ui.includeCss("ehrinventoryapp", "main.css")
 	
-	ui.includeJavascript("patientdashboardapp", "knockout-3.4.0.js")
-    ui.includeJavascript("billingui", "moment.js")
-    ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+	ui.includeJavascript("ehrcashier", "knockout-3.4.0.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
+    ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrcashier", "jq.browser.select.js")
 %>
 
 <script>
@@ -26,7 +26,7 @@
 		}).click();
 		
 		jq('.add-receipts').click(function(){
-			window.location.href = (emr.pageLink('inventoryapp','addReceiptsToGeneralStore'));
+			window.location.href = (ui.pageLink('ehrinventoryapp','addReceiptsToGeneralStore'));
 		});
 	});
 </script>
@@ -282,19 +282,6 @@
 <div class="clear"></div>
 
 <div class="container">
-    <div class="example">
-        <ul id="breadcrumbs">
-            <li>
-                <a href="${ui.pageLink('referenceapplication', 'home')}">
-                    <i class="icon-home small"></i></a>
-            </li>
-
-            <li>
-                <i class="icon-chevron-right link"></i>
-                Inventory
-            </li>
-        </ul>
-    </div>
 
     <div class="patient-header new-patient-header">
         <div class="demographics">
@@ -324,23 +311,23 @@
             </ul>
 
             <div id="queues">
-                ${ ui.includeFragment("inventoryapp", "stockBalance") }
+                ${ ui.includeFragment("ehrinventoryapp", "stockBalance") }
             </div>
 
             <div id="manage">
-				${ui.includeFragment("inventoryapp", "stockBalanceExpiry")}
+				${ui.includeFragment("ehrinventoryapp", "stockBalanceExpiry")}
             </div>
 
             <div id="receipts">
-				${ ui.includeFragment("inventoryapp", "receiptsToGeneralStore") }
+				${ ui.includeFragment("ehrinventoryapp", "receiptsToGeneralStore") }
             </div>
 
             <div id="transers">
-                ${ui.includeFragment("inventoryapp", "transferDrugFromGeneralStore")}
+                ${ui.includeFragment("ehrinventoryapp", "transferDrugFromGeneralStore")}
             </div>
 			
 			<div id="accounts">
-				${ui.includeFragment("inventoryapp", "issueDrugAccountList")}
+				${ui.includeFragment("ehrinventoryapp", "issueDrugAccountList")}
 			</div>
         </div>
 

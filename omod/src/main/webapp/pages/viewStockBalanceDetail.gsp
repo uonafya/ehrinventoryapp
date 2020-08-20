@@ -1,13 +1,13 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Stock Details"])
-	ui.includeCss("inventoryapp", "views.css")
-	ui.includeJavascript("billingui", "moment.js")
-	ui.includeJavascript("billingui", "jq.print.js")
+	ui.includeCss("ehrinventoryapp", "views.css")
+	ui.includeJavascript("ehrcashier", "moment.js")
+	ui.includeJavascript("ehrcashier", "jq.print.js")
 %>
 
 <script>
     jq(function (){
-        jq.getJSON('${ui.actionLink("inventoryapp", "viewStockBalanceDetail", "viewStockBalanceDetail")}', {
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "viewStockBalanceDetail", "viewStockBalanceDetail")}', {
 			drugId :${drugId},
 			formulationId: ${formulationId},
 			expiry: ${expiry},
@@ -67,7 +67,7 @@
         }
 		
 		jq('.cancel').click(function(){
-			var receiptsLink = emr.pageLink("inventoryapp", "main");
+			var receiptsLink =ui.pageLink("ehrinventoryapp", "main");
 			window.location = receiptsLink.substring(0, receiptsLink.length - 1)+'#manage';
 		});
 		
@@ -105,7 +105,7 @@
             </li>
 			
 			<li>
-                <a href="${ui.pageLink('inventoryapp', 'main')}">
+                <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
 					<i class="icon-chevron-right link"></i>Inventory
 				</a>
             </li>
@@ -144,7 +144,7 @@
 		<div id="print-section">
 			<div class="print-only">
 				<center>
-					<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+					<img width="100" height="100" align="center" title="EHRS" alt="EHRS" src="${ui.resourceLink('ehrcashier', 'images/kenya_logo.bmp')}">
 					<h2>${userLocation}</h2>
 				</center>
 				

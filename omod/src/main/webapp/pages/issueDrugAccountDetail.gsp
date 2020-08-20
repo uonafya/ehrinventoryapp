@@ -1,15 +1,15 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "View Drug List Items"])
-    ui.includeCss("billingui", "jquery.dataTables.min.css")
+    ui.includeCss("ehrcashier", "jquery.dataTables.min.css")
 	
-    ui.includeCss("registration", "onepcssgrid.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
     ui.includeCss("pharmacyapp", "container.css")
 
-    ui.includeJavascript("billingui", "moment.js")
-    ui.includeJavascript("billingui", "jq.print.js")
-    ui.includeJavascript("billingui", "jquery.dataTables.min.js")
-    ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
-    ui.includeJavascript("billingui", "jquery.PrintArea.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
+    ui.includeJavascript("ehrcashier", "jq.print.js")
+    ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrcashier", "jq.browser.select.js")
+    ui.includeJavascript("ehrcashier", "jquery.PrintArea.js")
 %>
 
 <script>
@@ -29,16 +29,16 @@
             jq("#print").print({
 				globalStyles: 	false,
 				mediaPrint: 	false,
-				stylesheet: 	'${ui.resourceLink("inventoryapp", "styles/print-out.css")}',
+				stylesheet: 	'${ui.resourceLink("ehrinventoryapp", "styles/print-out.css")}',
 				iframe: 		false,
 				width: 			800,
 				height:			700,
-				redirectTo:		emr.pageLink('inventoryapp', 'main')
+				redirectTo:		ui.pageLink('ehrinventoryapp', 'main')
 			});
         });
 		
         jq("#returnToDrugList").on("click", function (e) {
-			var emrLink = emr.pageLink("inventoryapp", "main");
+			var emrLink = ui.pageLink("ehrinventoryapp", "main");
             window.location.href = emrLink.substring(0, emrLink.length -1)+'#accounts'
         });
     });

@@ -76,7 +76,7 @@
         for (index in tests) {
             var row = '<tr>';
             var item = tests[index];
-			var pageLinkEdit = emr.pageLink("inventoryapp", "viewStockBalanceDetail", {
+			var pageLinkEdit = ui.pageLink("ehrinventoryapp", "viewStockBalanceDetail", {
 				drugId: item.drug.id,
 				formulationId: item.formulation.id,
 				expiry: 1
