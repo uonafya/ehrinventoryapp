@@ -41,18 +41,18 @@ public class MainPageController {
             }
         }
         InventoryStore mainStore = null;
+        List<InventoryStore> listStore = new ArrayList<InventoryStore>();
         if (srl != null) {
             mainStore = inventoryService.getStoreById(srl.getStoreid());
-            List<InventoryStore> listStore = inventoryService.listStoreByMainStore(mainStore.getId(), false);
-
-            pageModel.addAttribute("listMainStoreStatus", listMainStoreStatus);
-            pageModel.put("listCategory", listCategory);
-            pageModel.addAttribute("listStore", listStore);
+            listStore = inventoryService.listStoreByMainStore(mainStore.getId(), false);
 
         }
-        else{
+        /*else{
             return "redirect: index.htm";
-        }
+        }*/
+        pageModel.addAttribute("listMainStoreStatus", listMainStoreStatus);
+        pageModel.addAttribute("listCategory", listCategory);
+        pageModel.addAttribute("listStore", listStore);
         return null;
     }
 
