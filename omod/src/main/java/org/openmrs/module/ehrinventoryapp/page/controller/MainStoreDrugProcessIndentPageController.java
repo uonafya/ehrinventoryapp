@@ -5,12 +5,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrug;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrugIndentDetail;
 import org.openmrs.module.ehrinventory.util.DateUtils;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@AppPage(EhrInventoryAppConstants.APP_EHRINVENTORY_APP)
 public class MainStoreDrugProcessIndentPageController {
     private Logger logger = Logger.getLogger(this.getClass().getName());
 

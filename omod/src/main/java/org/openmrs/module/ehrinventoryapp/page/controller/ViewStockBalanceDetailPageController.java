@@ -1,14 +1,18 @@
 package org.openmrs.module.ehrinventoryapp.page.controller;
 
+import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.api.context.Context;
 import java.util.Set;
+
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+@AppPage(EhrInventoryAppConstants.APP_EHRINVENTORY_APP)
 public class ViewStockBalanceDetailPageController {
     public void get( @RequestParam(value = "drugId", required = false) Integer drugId,
                      @RequestParam(value = "formulationId", required = false) Integer formulationId,

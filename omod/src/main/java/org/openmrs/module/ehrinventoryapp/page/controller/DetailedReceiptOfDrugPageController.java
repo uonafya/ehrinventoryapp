@@ -3,9 +3,11 @@ package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransaction;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * Created by ngarivictor on 3/21/2016.
+ *
  */
+@AppPage(EhrInventoryAppConstants.APP_EHRINVENTORY_APP)
 public class DetailedReceiptOfDrugPageController {
     public void get(
             @RequestParam(value = "receiptId", required = false) Integer receiptId,

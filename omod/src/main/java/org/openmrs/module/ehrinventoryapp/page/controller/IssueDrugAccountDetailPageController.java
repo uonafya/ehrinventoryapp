@@ -6,6 +6,8 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccountDetail;
 
+import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 import java.util.List;
 
+@AppPage(EhrInventoryAppConstants.APP_EHRINVENTORY_APP)
 public class IssueDrugAccountDetailPageController {
 
     public void get (
