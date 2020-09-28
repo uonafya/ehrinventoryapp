@@ -1,8 +1,7 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Drug Receipt Details"])
+	ui.decorateWith("kenyaemr", "standardPage")
 
 	ui.includeJavascript("ehrcashier", "jq.print.js")
-	ui.includeJavascript("ehrconfigs", "jquery-1.12.4.min.js")
 	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
 	ui.includeJavascript("ehrconfigs", "underscore-min.js")
 	ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
@@ -86,7 +85,7 @@
 		text-decoration: none;
 	}
 	#show-icon{
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
 		display: inline-block;
 		float: right;
 		height: 50px;
@@ -116,7 +115,7 @@
 		top: -29px;
 	}
 	.exampler div {
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/inventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
 		padding-left: 90px;
 		color: #363463;
 	}
@@ -189,7 +188,7 @@
             </li>
 			
 			<li>
-                <a href="${ui.pageLink('inventoryapp', 'main')}">
+                <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
 					<i class="icon-chevron-right link"></i>Inventory
 				</a>
             </li>
@@ -350,7 +349,7 @@
 </div>
 
 <div id="footer">
-	<img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg" />
+	<img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg" />
 	<span>Place the mouse over the Titles to get the meaning in full</span>
 	
 	<button class="button task" type="button" id="printButton"><i class="icon-print small"> </i>Print</button>

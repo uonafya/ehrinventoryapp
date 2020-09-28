@@ -1,8 +1,6 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Dashboard"])
+    ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("ehrinventoryapp", "main.css")
-
-    ui.includeJavascript("ehrconfigs", "jquery-1.12.4.min.js")
     ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "underscore-min.js")
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
@@ -19,7 +17,7 @@
 <script>
 	jq(function () {
 		jq("#tabs").tabs();
-		
+
 		
 		jq('#inline-tabs li').click(function(){			
 			if (jq('#inline-tabs li.ui-tabs-active').attr('aria-controls') == 'receipts'){

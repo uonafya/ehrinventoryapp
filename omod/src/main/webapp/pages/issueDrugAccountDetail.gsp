@@ -1,10 +1,9 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "View Drug List Items"])
+	ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("pharmacyapp", "container.css")
 
     ui.includeJavascript("ehrcashier", "jq.print.js")
     ui.includeJavascript("ehrcashier", "jquery.PrintArea.js")
-	ui.includeJavascript("ehrconfigs", "jquery-1.12.4.min.js")
 	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
 	ui.includeJavascript("ehrconfigs", "underscore-min.js")
 	ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
@@ -74,14 +73,14 @@
 				</li>
 				
 				<li>
-					<a href="${ui.pageLink('inventoryapp', 'main')}">
+					<a href="${ui.pageLink('ehrinventoryapp', 'main')}">
 						<i class="icon-chevron-right link"></i>
 						Inventory
 					</a>
 				</li>
 				
 				<li>
-					<a href="${ui.pageLink('inventoryapp', 'main')}#accounts">
+					<a href="${ui.pageLink('ehrinventoryapp', 'main')}#accounts">
 						<i class="icon-chevron-right link"></i>
 						Issue to Account
 					</a>

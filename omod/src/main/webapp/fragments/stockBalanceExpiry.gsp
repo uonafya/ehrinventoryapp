@@ -35,7 +35,7 @@
 	}
 
     function loadExpiredDrugs(currentPage, categoryId, drugName) {
-        jq.getJSON('${ui.actionLink("inventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
+        jq.getJSON('${ui.actionLink("ehrinventoryapp", "StockBalanceExpiry", "viewStockBalanceExpiry")}',
 		{
 			currentPage: currentPage,
 			categoryId: categoryId,

@@ -1,8 +1,7 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Detailed Drug Order"])
+    ui.decorateWith("kenyaemr", "standardPage")
 
 	ui.includeJavascript("ehrcashier", "jq.print.js")
-    ui.includeJavascript("ehrconfigs", "jquery-1.12.4.min.js")
     ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "underscore-min.js")
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
@@ -210,7 +209,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
             </li>
 
             <li>
-                <a href="${ui.pageLink('inventoryapp', 'main')}">
+                <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
                     <i class="icon-chevron-right link"></i>Inventory
                 </a>
             </li>
@@ -354,7 +353,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 </div>
 
 <div id="footer">
-    <img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg"/>
+    <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg"/>
     <span>Place the mouse over the Titles to get the meaning in full</span>
 
     <button class="button task" type="button" id="printButton"><i class="icon-print small"></i>Print</button>

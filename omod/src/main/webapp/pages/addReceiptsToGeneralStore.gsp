@@ -1,7 +1,6 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Manage Receipt Drugs"])
+    ui.decorateWith("kenyaemr", "standardPage")
 
-    ui.includeJavascript("ehrconfigs", "jquery-1.12.4.min.js")
     ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "underscore-min.js")
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
@@ -122,10 +121,10 @@
                             'description': receiptDescription
                         };
 
-                        jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "saveReceipt") }', addDrugsData)
+                        jq.getJSON('${ ui.actionLink("ehrinventoryapp", "AddReceiptsToStore", "saveReceipt") }', addDrugsData)
                             .success(function (data) {
                                 jq().toastmessage('showSuccessToast', 'Receipt Saved Successfully');
-                                var receiptsLink = ui.pageLink("inventoryapp", "main");
+                                var receiptsLink = ui.pageLink("ehrinventoryapp", "main");
                                 window.location = receiptsLink.substring(0, receiptsLink.length - 1) + "#receipts";
                             })
                             .error(function (xhr, status, err) {
@@ -226,7 +225,7 @@
                 jq('#drugName').empty();
                 jq('#drugFormulation').empty();
 
-                jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "fetchDrugNames") }', {
+                jq.getJSON('${ ui.actionLink("ehrinventoryapp", "AddReceiptsToStore", "fetchDrugNames") }', {
                     categoryId: categoryId
                 }).success(function (data) {
                     for (var key in data) {
@@ -256,7 +255,7 @@
                 var selectedInput = this;
                 jq(this).autocomplete({
                     source: function (request, response) {
-                        jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "searchDrugNames") }',
+                        jq.getJSON('${ ui.actionLink("ehrinventoryapp", "AddReceiptsToStore", "searchDrugNames") }',
                             {
                                 q: request.term
                             }
@@ -279,7 +278,7 @@
                         jq(this).val(ui.item.label);
                         var categoryId = ui.item.value.category.id;
                         jq("#drugCategory option[id=" + categoryId + "]").attr('selected', 'selected');
-                        jq.getJSON('${ ui.actionLink("inventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',
+                        jq.getJSON('${ ui.actionLink("ehrinventoryapp", "AddReceiptsToStore", "getFormulationByDrugName") }',
                             {
                                 "drugName": ui.item.label
                             }
@@ -742,7 +741,7 @@
             </li>
 
             <li>
-                <a href="${ui.pageLink('inventoryapp', 'main')}">
+                <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
                     <i class="icon-chevron-right link"></i>Inventory
                 </a>
             </li>
@@ -793,7 +792,7 @@
         </div>
 
         <div id="footer">
-            <img src="../ms/uiframework/resource/inventoryapp/images/tooltip.jpg"/>
+            <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg"/>
             <span>Place the mouse over the Titles to get the meaning in full</span>
 
             <div class="button task" id="addDrugsSubmitButton">
