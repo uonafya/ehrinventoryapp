@@ -36,7 +36,7 @@
         });
     }
 
-    var prescriptionDialog =ui.setupConfirmationDialog({
+    var prescriptionDialog =emr.setupConfirmationDialog({
 		dialogOpts: {
 			overlayClose: false,
 			close: true

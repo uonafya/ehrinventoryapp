@@ -358,7 +358,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 </div>
 
 <div id="footer">
-    <img src="../ms/uiframework/resources/ehrinventoryapp/images/tooltip.jpg"/>
+    <img src="/ms/uiframework/resources/ehrinventoryapp/images/tooltip.jpg"/>
     <span>Place the mouse over the Titles to get the meaning in full</span>
 
     <button class="button task" type="button" id="printButton"><i class="icon-print small"></i>Print</button>
