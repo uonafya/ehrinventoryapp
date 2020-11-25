@@ -1,18 +1,23 @@
 <%
-    ui.decorateWith("kenyaemr", "standardPage")
+    ui.decorateWith("appui", "standardEmrPage", [title: "Detailed Drug Order"])
 
-	ui.includeJavascript("ehrcashier", "jq.print.js")
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-    ui.includeJavascript("ehrconfigs", "underscore-min.js")
+    ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
+    ui.includeCss("ehrconfigs", "onepcssgrid.css")
+    ui.includeCss("ehrinventoryapp", "main.css")
+    ui.includeCss("ehrconfigs", "datetimepicker.css")
+    ui.includeCss("ehrinventoryapp", "header.css")
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
+
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
-    // toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
-    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
-    ui.includeCss("ehrconfigs", "jquery.toastmessage.css")
-    // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
+    ui.includeJavascript("ehrconfigs", "moment.js")
+    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-    ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
+    ui.includeJavascript("ehrconfigs", "datetimepicker/bootstrap-datetimepicker.min.js")
+    ui.includeJavascript("ehrinventoryapp", "jq.print.js")
 
 %>
 <script>
@@ -233,7 +238,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 <div id="print-section">
 	<div class="print-only">
 		<center>
-			<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+			<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 			<h2>${userLocation}</h2>
 		</center>
 		
@@ -353,7 +358,7 @@ form input:focus, form select:focus, form textarea:focus, form ul.select:focus, 
 </div>
 
 <div id="footer">
-    <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg"/>
+    <img src="../ms/uiframework/resources/ehrinventoryapp/images/tooltip.jpg"/>
     <span>Place the mouse over the Titles to get the meaning in full</span>
 
     <button class="button task" type="button" id="printButton"><i class="icon-print small"></i>Print</button>

@@ -7,6 +7,7 @@ import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccountDetail;
 
 import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -34,6 +35,7 @@ public class IssueDrugAccountDetailPageController {
                 .getService(InventoryService.class);
         List<InventoryStoreDrugAccountDetail> listDrugIssue = inventoryService
                 .listStoreDrugAccountDetail(issueId);
+        KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
         model.addAttribute("listDrugIssue", listDrugIssue);
 
         Date issueAccountDate = new Date();
@@ -51,7 +53,7 @@ public class IssueDrugAccountDetailPageController {
         model.addAttribute("issueAccountName", issueAccountName);
         model.addAttribute("pharmacist", pharmacist);
 
-        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
+        model.addAttribute("userLocation", kenyaEmrService.getDefaultLocation().getName());
 
     }
 }

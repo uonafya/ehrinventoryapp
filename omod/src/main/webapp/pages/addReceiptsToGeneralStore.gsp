@@ -1,17 +1,22 @@
 <%
-    ui.decorateWith("kenyaemr", "standardPage")
+    ui.decorateWith("appui", "standardEmrPage", [title: "Manage Receipt Drugs"])
 
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-    ui.includeJavascript("ehrconfigs", "underscore-min.js")
+    ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
+    ui.includeCss("ehrconfigs", "onepcssgrid.css")
+    ui.includeCss("ehrinventoryapp", "main.css")
+    ui.includeCss("ehrconfigs", "datetimepicker.css")
+    ui.includeCss("ehrinventoryapp", "header.css")
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
+
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
-    // toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
-    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
-    ui.includeCss("ehrconfigs", "jquery.toastmessage.css")
-    // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
+    ui.includeJavascript("ehrconfigs", "moment.js")
+    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-    ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
+    ui.includeJavascript("ehrconfigs", "datetimepicker/bootstrap-datetimepicker.min.js")
 %>
 <head>
     <script>
@@ -30,7 +35,7 @@
                 return dataToParse;
             }
 
-            var adddrugdialog = ui.setupConfirmationDialog({
+            var adddrugdialog = emr.setupConfirmationDialog({
                 dialogOpts: {
                     overlayClose: false,
                     close: true
@@ -57,15 +62,15 @@
                         var institutionalCost = jq("#institutionalCost").val();
                         var receiptFrom = jq("#receiptFrom").val();
 
-                        if (unitPrice == '') {
+                        if (unitPrice === '') {
                             unitPrice = 0;
                         }
 
-                        if (institutionalCost == '') {
+                        if (institutionalCost === '') {
                             institutionalCost = 0;
                         }
 
-                        if (receiptFrom == '') {
+                        if (receiptFrom === '') {
                             receiptFrom = 'N/A';
                         }
 
@@ -105,7 +110,7 @@
 
             });
 
-            var addDescriptionDialog = ui.setupConfirmationDialog({
+            var addDescriptionDialog = emr.setupConfirmationDialog({
                 dialogOpts: {
                     overlayClose: false,
                     close: true
@@ -143,63 +148,63 @@
             function page_verified() {
                 var error = 0;
 
-                if (jq("#drugCategory").children(":selected").attr("id") == 0) {
+                if (jq("#drugCategory").children(":selected").attr("id") === 0) {
                     jq("#drugCategory").addClass('red');
                     error++;
                 } else {
                     jq("#drugCategory").removeClass('red');
                 }
 
-                if (jq("#drugName").children(":selected").attr("id") == 0) {
+                if (jq("#drugName").children(":selected").attr("id") === 0) {
                     jq("#drugName").addClass('red');
                     error++;
                 } else {
                     jq("#drugName").removeClass('red');
                 }
 
-                if (jq("#drugFormulation").children(":selected").attr("id") == 0) {
+                if (jq("#drugFormulation").children(":selected").attr("id") === 0) {
                     jq("#drugFormulation").addClass('red');
                     error++;
                 } else {
                     jq("#drugFormulation").removeClass('red');
                 }
 
-                if (jq("#quantity").val() == "") {
+                if (jq("#quantity").val() === "") {
                     jq("#quantity").addClass('red');
                     error++;
                 } else {
                     jq("#quantity").removeClass('red');
                 }
 
-                if (jq("#costToThePatient").val() == "") {
+                if (jq("#costToThePatient").val() === "") {
                     jq("#costToThePatient").addClass('red');
                     error++;
                 } else {
                     jq("#costToThePatient").removeClass('red');
                 }
 
-                if (jq("#batchNo").val() == "") {
+                if (jq("#batchNo").val() === "") {
                     jq("#batchNo").addClass('red');
                     error++;
                 } else {
                     jq("#batchNo").removeClass('red');
                 }
 
-                if (jq("#dateOfExpiry-display").val() == "") {
+                if (jq("#dateOfExpiry-display").val() === "") {
                     jq("#dateOfExpiry-display").addClass('red');
                     error++;
                 } else {
                     jq("#dateOfExpiry-display").removeClass('red');
                 }
 
-                if (jq("#receiptDate-display").val() == "") {
+                if (jq("#receiptDate-display").val() === "") {
                     jq("#receiptDate-display").addClass('red');
                     error++;
                 } else {
                     jq("#receiptDate-display").removeClass('red');
                 }
 
-                if (error == 0) {
+                if (error === 0) {
                     return true;
                 } else {
                     return false;
@@ -792,7 +797,7 @@
         </div>
 
         <div id="footer">
-            <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg"/>
+            <img src="/ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg" />
             <span>Place the mouse over the Titles to get the meaning in full</span>
 
             <div class="button task" id="addDrugsSubmitButton">

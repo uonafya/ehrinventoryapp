@@ -98,7 +98,7 @@
 		text-decoration: none;
 	}
 	#show-icon{
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resources/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
 		display: inline-block;
 		float: right;
 		height: 50px;
@@ -128,7 +128,7 @@
 		top: -29px;
 	}
 	.exampler div {
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resources/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
 		padding-left: 90px;
 		color: #363463;
 	}
@@ -200,7 +200,7 @@
 		<div id="print-section">
 			<div class="print-only">
 				<center>
-					<img width="100" height="100" align="center" title="Integrated EHR" alt="EHRS" src="${ui.resourceLink('ehrcashier', 'images/kenya_logo.bmp')}">
+					<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 					<h2>${userLocation}</h2>
 				</center>
 				

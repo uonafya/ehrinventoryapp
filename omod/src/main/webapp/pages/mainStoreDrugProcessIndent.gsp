@@ -1,16 +1,5 @@
 <%
-    ui.decorateWith("kenyaemr", "standardPage")
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-    ui.includeJavascript("ehrconfigs", "underscore-min.js")
-    ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
-    ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
-    // toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
-    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
-    ui.includeCss("ehrconfigs", "jquery.toastmessage.css")
-    // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
-    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-    ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.decorateWith("appui", "standardEmrPage", [title: "Process Order "])
 %>
 
 <script>
@@ -109,7 +98,7 @@
 }
 
 #show-icon {
-    background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+    background: rgba(0, 0, 0, 0) url("/ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
     display: inline-block;
     float: right;
     height: 50px;
@@ -142,7 +131,7 @@
 }
 
 .exampler div {
-    background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/indent-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+    background: rgba(0, 0, 0, 0) url("/ms/uiframework/resource/ehrinventoryapp/images/indent-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
     padding-left: 90px;
     color: #363463;
 }

@@ -154,7 +154,7 @@
 		<div id="print-section">
 			<div class="print-only">
 				<center>
-					<img width="100" height="100" align="center" title="EHRS" alt="EHRS" src="${ui.resourceLink('ehrcashier', 'images/kenya_logo.bmp')}">
+					<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 					<h2>${userLocation}</h2>
 				</center>
 				

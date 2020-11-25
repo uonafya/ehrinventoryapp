@@ -7,6 +7,7 @@ import org.openmrs.module.hospitalcore.model.InventoryStoreDrugIndent;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrugIndentDetail;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ public class DetailDrugIndentPageController {
             PageModel model) {
         InventoryService inventoryService = (InventoryService) Context
                 .getService(InventoryService.class);
+        KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
         InventoryStoreDrugIndent indent = inventoryService
                 .getStoreDrugIndentById(indentId);
         List<InventoryStoreDrugIndentDetail> listIndentDetail = inventoryService
@@ -39,7 +41,7 @@ public class DetailDrugIndentPageController {
         model.addAttribute("date",
                 !CollectionUtils.isEmpty(listIndentDetail) ? listIndentDetail
                         .get(0).getIndent().getCreatedOn() : null);
-        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
+        model.addAttribute("userLocation", kenyaEmrService.getDefaultLocation().getName());
 
     }
 

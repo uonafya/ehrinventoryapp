@@ -6,6 +6,7 @@ import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.api.context.Context;
 import java.util.Set;
 
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.module.ehrinventory.InventoryService;
@@ -21,6 +22,7 @@ public class ViewStockBalanceDetailPageController {
 
         InventoryService inventoryService = (InventoryService) Context
                 .getService(InventoryService.class);
+        KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 
         pageModel.addAttribute("drugId",drugId );
         pageModel.addAttribute("formulationId",formulationId );
@@ -32,7 +34,7 @@ public class ViewStockBalanceDetailPageController {
         InventoryDrugFormulation formulation = inventoryService.getDrugFormulationById(formulationId);
         pageModel.addAttribute("formulation",formulation);
         pageModel.addAttribute("drug",drug);
-        pageModel.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
+        pageModel.addAttribute("userLocation", kenyaEmrService.getDefaultLocation().getName());
     }
 
 }

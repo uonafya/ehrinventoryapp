@@ -1,18 +1,9 @@
 <%
-    ui.decorateWith("kenyaemr", "standardPage")
+    ui.decorateWith("appui", "standardEmrPage", [title: "Add Account Drug"])
     ui.includeCss("pharmacyapp", "container.css")
-	ui.includeJavascript("ehrcashier", "jq.print.js")
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-    ui.includeJavascript("ehrconfigs", "underscore-min.js")
-    ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
+
+    ui.includeJavascript("ehrinventoryapp", "jq.print.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
-    // toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
-    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
-    ui.includeCss("ehrconfigs", "jquery.toastmessage.css")
-    // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
-    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-    ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script>
     var processCounts = 0;
@@ -32,7 +23,7 @@
             addissuedialog.show();
         });
 
-        var addissuedialog = ui.setupConfirmationDialog({
+        var addissuedialog = emr.setupConfirmationDialog({
 			dialogOpts: {
 				overlayClose: false,
 				close: true
@@ -202,9 +193,9 @@
                                 var name, dozage;
                                 if (val.hasOwnProperty(i)) {
                                     var j = val[i];
-                                    if (i == "id") {
+                                    if (i === "id") {
                                         drugFormulationData = drugFormulationData + '<option id="' + j + '">';
-                                    } else if (i == "name") {
+                                    } else if (i === "name") {
                                         name = j;
                                     }
                                     else {
@@ -309,7 +300,7 @@
             };
 
             self.processIssueDrugToAccount = function () {				
-				if (self.selectedDrugs().length == 0){
+				if (self.selectedDrugs().length === 0){
 					jq().toastmessage('showErrorToast', "No Drugs added to the List!");
 					return false;
 				}
@@ -339,7 +330,7 @@
             selector: '#addAccountForIssueSlip',
             actions: {
                 confirm: function () {
-                    if (jq("#accountName").val().trim() == '') {
+                    if (jq("#accountName").val().trim() === '') {
                         jq().toastmessage('showErrorToast', "Enter Account Name!");
                     } else {
 						jq().toastmessage({
@@ -526,7 +517,7 @@
 	<div id="print-section">
 		<div class="print-only">
 			<center>
-				<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+				<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 				<h2>${userLocation}</h2>
 				<h2>ISSUE DRUGS TO ACCOUNT</h2>
 			</center>

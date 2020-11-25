@@ -6,6 +6,7 @@ import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.InventoryDrugCategory;
 import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.SimpleObject;
@@ -28,6 +29,7 @@ public class SubStoreIssueAccountDrugPageController {
         sessionContext.requireAuthentication();
 
         InventoryService inventoryService = Context.getService(InventoryService.class);
+        KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 
         List<InventoryDrugCategory> listCategory = inventoryService.findDrugCategory("");
         model.addAttribute("listCategory", listCategory);
@@ -39,6 +41,6 @@ public class SubStoreIssueAccountDrugPageController {
             model.addAttribute("drugs", SimpleObject.create("drugs",simpleDrugs).toJson());
         }
         model.addAttribute("date", new Date());
-        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
+        model.addAttribute("userLocation", kenyaEmrService.getDefaultLocation().getName());
     }
 }

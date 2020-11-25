@@ -7,6 +7,7 @@ import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransaction;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail;
 import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -28,6 +29,7 @@ public class DetailedReceiptOfDrugPageController {
                 .getService(InventoryService.class);
         List<InventoryStoreDrugTransactionDetail> transactionDetails = inventoryService
                 .listTransactionDetail(receiptId);
+        KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 
         InventoryStoreDrugTransaction transaction = inventoryService.getStoreDrugTransactionById(receiptId);
         model.addAttribute("description", transaction.getDescription());
@@ -49,7 +51,7 @@ public class DetailedReceiptOfDrugPageController {
         List<SimpleObject> simpleObjects = SimpleObject.fromCollection(transactionDetails, uiUtils, "drug.name", "formulation.name", "formulation.dozage", "quantity", "unitPrice", "costToPatient", "VAT", "batchNo", "companyName", "dateManufacture", "dateExpiry", "createdOn", "receiptFrom");
 
         model.addAttribute("transactionDetails", SimpleObject.create("simpleObjects",simpleObjects).toJson());
-        model.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));
+        model.addAttribute("userLocation", kenyaEmrService.getDefaultLocation().getName());
         model.addAttribute("arrayLength", arrayLength);
     }
 

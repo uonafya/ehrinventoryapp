@@ -1,18 +1,23 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("appui", "standardEmrPage", [title: "Drug Receipt Details"])
 
-	ui.includeJavascript("ehrcashier", "jq.print.js")
-	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-	ui.includeJavascript("ehrconfigs", "underscore-min.js")
+	ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
+	ui.includeCss("ehrconfigs", "onepcssgrid.css")
+	ui.includeCss("ehrinventoryapp", "main.css")
+	ui.includeCss("ehrconfigs", "datetimepicker.css")
+	ui.includeCss("ehrinventoryapp", "header.css")
+	ui.includeCss("ehrconfigs", "referenceapplication.css")
+
 	ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
-	ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
-	// toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
-	ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
-	ui.includeCss("ehrconfigs", "jquery.toastmessage.css")
-	// simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
+	ui.includeJavascript("ehrconfigs", "moment.js")
+	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
 	ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-	ui.includeCss("ehrconfigs", "referenceapplication.css")
+	ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
+	ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+	ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
+	ui.includeJavascript("ehrconfigs", "datetimepicker/bootstrap-datetimepicker.min.js")
+	ui.includeJavascript("ehrinventoryapp", "jq.print.js")
 %>
 
 <script>
@@ -85,7 +90,7 @@
 		text-decoration: none;
 	}
 	#show-icon{
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
+		background: rgba(0, 0, 0, 0) url("/ms/uiframework/resource/ehrinventoryapp/images/inventory-icon.png") no-repeat scroll 0 0 / 100% auto;
 		display: inline-block;
 		float: right;
 		height: 50px;
@@ -115,7 +120,7 @@
 		top: -29px;
 	}
 	.exampler div {
-		background: rgba(0, 0, 0, 0) url("../ms/uiframework/resource/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
+		background: rgba(0, 0, 0, 0) url("/ms/uiframework/resource/ehrinventoryapp/images/drugs-icon.jpg") no-repeat scroll 10px 0 / auto 100%;
 		padding-left: 90px;
 		color: #363463;
 	}
@@ -239,7 +244,7 @@
 <div id="print-section" style="display: block; margin-top:3px;">
 	<div class="print-only">
 		<center>
-			<img width="100" height="100" align="center" title="Afya EHRS" alt="Afya EHRS" src="${ui.resourceLink('billingui', 'images/kenya_logo.bmp')}">				
+			<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 			<h2>${userLocation}<br/>RECEIPT TRANSACTION DETAILS</h2>
 		</center>
 		
