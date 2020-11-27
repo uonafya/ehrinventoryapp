@@ -1,9 +1,13 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Add Account Drug"])
     ui.includeCss("pharmacyapp", "container.css")
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
 
     ui.includeJavascript("ehrinventoryapp", "jq.print.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
+    ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
+    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
+
 %>
 <script>
     var processCounts = 0;
@@ -33,7 +37,7 @@
                 confirm: function () {
                     issueList.addDrugItem();
 
-                    if (processCounts == 0) {
+                    if (processCounts === 0) {
                         jq().toastmessage('showErrorToast', "Ensure information has been properly filled.");
                         return false;
                     }
@@ -322,7 +326,7 @@
             });
         }
 
-        var addaccountforissueslipdialog = ui.setupConfirmationDialog({
+        var addaccountforissueslipdialog = emr.setupConfirmationDialog({
 			dialogOpts: {
 				overlayClose: false,
 				close: true
