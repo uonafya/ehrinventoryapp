@@ -4,7 +4,6 @@
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeCss("ehrinventoryapp", "main.css")
-    ui.includeCss("ehrinventoryapp", "header.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
 
     ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")

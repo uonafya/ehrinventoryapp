@@ -3,20 +3,15 @@
 
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
-    ui.includeCss("ehrinventoryapp", "main.css")
-    ui.includeCss("ehrconfigs", "datetimepicker.css")
-    ui.includeCss("ehrinventoryapp", "header.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeCss("ehrconfigs", "header.css")
 
-    ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
+    ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("ehrconfigs", "moment.js")
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
-    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
-    ui.includeJavascript("ehrconfigs", "datetimepicker/bootstrap-datetimepicker.min.js")
 %>
 <head>
     <script>
@@ -797,7 +792,7 @@
         </div>
 
         <div id="footer">
-            <img src="/ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg" />
+            <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg" />
             <span>Place the mouse over the Titles to get the meaning in full</span>
 
             <div class="button task" id="addDrugsSubmitButton">

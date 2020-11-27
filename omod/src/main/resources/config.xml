@@ -9,7 +9,7 @@
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
 	<author>HealthIT</author>
 	<description>
-		${project.parent.description}
+		Inventory application UI for the inventory core module, exposing backend to the UI
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
 	<require_version>${openMRSVersion}</require_version>

@@ -91,7 +91,6 @@ public class IssueDrugAccountListFragmentController {
 
         List<InventoryStoreDrugTransactionDetail> listReceiptDrugReturn = new ArrayList<InventoryStoreDrugTransactionDetail>();
         InventoryService inventoryService = Context.getService(InventoryService.class);
-        ConceptService conceptService = Context.getConceptService();
         InventoryDrug drug = inventoryService.getDrugById(drugId);
         //InventoryStore store = inventoryService.getStoreByCollectionRole(new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles()));
         List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
