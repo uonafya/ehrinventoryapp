@@ -4,9 +4,11 @@
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
-    ui.includeCss("ehrconfigs", "header.css")
+    ui.includeCss("ehrinventoryapp", "header.css")
+    ui.includeCss("ehrinventoryapp", "jquery-ui-1.9.2.custom.css")
 
     ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
+    ui.includeJavascript("ehrinventoryapp", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("ehrconfigs", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
@@ -266,6 +268,7 @@
                                 results.push(result);
                             }
                             response(results);
+                            console.log("The results are>> "+results);
                         });
                     },
                     minLength: 3,

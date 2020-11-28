@@ -5,6 +5,7 @@
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeCss("ehrinventoryapp", "main.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeCss("ehrinventoryapp", "header.css")
 
     ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
