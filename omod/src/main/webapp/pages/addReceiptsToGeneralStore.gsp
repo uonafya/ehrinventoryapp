@@ -1,13 +1,11 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Manage Receipt Drugs"])
+    ui.decorateWith("kenyaemr", "standardEmrPage")
 
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
-    ui.includeCss("ehrinventoryapp", "jquery-ui-1.9.2.custom.min.css")
 
     ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
-    ui.includeJavascript("ehrinventoryapp", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("ehrconfigs", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
