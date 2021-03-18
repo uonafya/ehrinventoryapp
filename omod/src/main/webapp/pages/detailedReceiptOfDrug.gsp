@@ -8,10 +8,9 @@
 	ui.includeCss("ehrinventoryapp", "header.css")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
 
-	ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
+	ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
 	ui.includeJavascript("ehrconfigs", "moment.js")
-	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
 	ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
 	ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
 	ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
