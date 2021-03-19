@@ -7,7 +7,7 @@
     ui.includeCss("ehrconfigs", "referenceapplication.css")
 
     ui.includeCss("ehrinventoryapp", "main.css")
-    ui.includeCss("patientdashboardapp", "custom.css")
+    ui.includeCss("ehrconfigs", "custom.css")
 
     ui.includeJavascript("kenyaui", "pagebus/simple/pagebus.js")
     ui.includeJavascript("kenyaui", "kenyaui-tabs.js")
