@@ -70,12 +70,12 @@
                         }
 
                         table.append('<tr id="' + index + '"><td>' + count + '</td><td>' + jq("#drugCategory").val() + '</td><td>'
-								+ jq("#drugName").val() + '</td><td>' + jq("#drugFormulation option:selected").text() + '</td><td>'
-								+ jq("#quantity").val() + '</td><td>' + unitPrice + '</td><td>' + institutionalCost + '</td><td>'
-								+ jq("#costToThePatient").val() + '</td><td>' + jq("#batchNo").val() + '</td><td>'  + jq("#dateOfExpiry-display").val()
-								+ '</td><td>' + jq("#receiptDate-display").val() + '</td><td>' + receiptFrom
-								+ '</td><td><a onclick="removerFunction(' + index + ')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
-								'<a onclick="editorFunction(' + index + ')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
+                            + jq("#drugName").val() + '</td><td>' + jq("#drugFormulation option:selected").text() + '</td><td>'
+                            + jq("#quantity").val() + '</td><td>' + unitPrice + '</td><td>' + institutionalCost + '</td><td>'
+                            + jq("#costToThePatient").val() + '</td><td>' + jq("#batchNo").val() + '</td><td>' + jq("#dateOfExpiry-display").val()
+                            + '</td><td>' + jq("#receiptDate-display").val() + '</td><td>' + receiptFrom
+                            + '</td><td><a onclick="removerFunction(' + index + ')" class="remover"><i class="icon-remove small" style="color:red"></i></a> ' +
+                            '<a onclick="editorFunction(' + index + ')" class="remover" ><i class="icon-edit small" style="color:blue"></i></a></td></tr>');
                         drugOrder.push(
                             {
                                 rowId: index,
@@ -90,6 +90,7 @@
                                 institutionalCost: institutionalCost,
                                 costToThePatient: jq("#costToThePatient").val(),
                                 batchNo: jq("#batchNo").val(),
+                                dateOfManufacture: jq("#dateOfManufacture-field").val(),
                                 dateOfExpiry: jq("#dateOfExpiry-field").val(),
                                 receiptDate: jq("#receiptDate-field").val(),
                                 receiptFrom: receiptFrom
@@ -184,7 +185,19 @@
                 } else {
                     jq("#batchNo").removeClass('red');
                 }
-
+                if (jq("#companyName").val().trim() == '') {
+                    jq("#companyName").addClass('red');
+                    error++;
+                } else {
+                    jq("#companyName").removeClass('red');
+                }
+                if (jq("#dateOfManufacture-display").val() == "") {
+                    jq("#dateOfManufacture-display").addClass('red');
+                    error++;
+                } else {
+                    jq("#dateOfManufacture-display").removeClass('red');
+                }
+                //
                 if (jq("#dateOfExpiry-display").val() === "") {
                     jq("#dateOfExpiry-display").addClass('red');
                     error++;
@@ -266,7 +279,7 @@
                                 results.push(result);
                             }
                             response(results);
-                            console.log("The results are>> "+results);
+                            console.log("The results are>> " + results);
                         });
                     },
                     minLength: 3,
@@ -393,9 +406,13 @@
             if (dateOfReceipt > dateOfExpiry) {
                 jq().toastmessage('showErrorToast', 'Please review receipt date is greater than date of expiry');
                 return false;
+            } else if (dateOfManufacture > dateOfReceipt) {
+                jq().toastmessage('showErrorToast', 'Please review date of manufacture is greater than receipt date');
+                return false;
             } else {
                 return true;
             }
+
         }
 
     </script>
@@ -793,7 +810,7 @@
         </div>
 
         <div id="footer">
-            <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg" />
+            <img src="../ms/uiframework/resource/ehrinventoryapp/images/tooltip.jpg"/>
             <span>Place the mouse over the Titles to get the meaning in full</span>
 
             <div class="button task" id="addDrugsSubmitButton">
@@ -870,6 +887,27 @@
             <li>
                 <label for="batchNo">Batch No.<span>*</span></label>
                 <input name="batchNo" id="batchNo" type="text">
+            </li>
+
+            <li>
+                <label for="companyName">Company Name<span>*</span></label>
+                <input name="companyName" id="companyName" type="text">
+            </li>
+
+
+            <li>
+                <label for="dateOfManufacture">Date of Manufacture<span>*</span></label>
+                ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfManufacture', id: 'dateOfManufacture', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
+            </li>
+
+            <li>
+                <label for="dateOfExpiry">Date of Expiry<span>*</span></label>
+                ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'dateOfExpiry', id: 'dateOfExpiry', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
+            </li>
+
+            <li>
+                <label for="receiptDate">Receipt Date<span>*</span></label>
+                ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'receiptDate', id: 'receiptDate', label: '', useTime: false, defaultToday: false, class: ['newdtp']])}
             </li>
 
             <li>
