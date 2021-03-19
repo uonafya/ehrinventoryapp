@@ -1,10 +1,13 @@
 <%
-    ui.decorateWith("kenyaemr", "standardEmrPage", [title: "Inventory Dashboard"])
-    ui.includeCss("kenyaui", "kenyaui.css")
-    ui.includeCss("kenyaemr", "kenyaemr.css")
+//    ui.decorateWith("kenyaemr", "standardEmrPage", [title: "Inventory Dashboard"])
+    ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Dashboard"]);
+
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
+
+    ui.includeCss("ehrinventoryapp", "main.css")
+    ui.includeCss("patientdashboardapp", "custom.css")
 
     ui.includeJavascript("kenyaui", "pagebus/simple/pagebus.js")
     ui.includeJavascript("kenyaui", "kenyaui-tabs.js")
@@ -12,6 +15,11 @@
     ui.includeJavascript("ehrconfigs", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
+
+    ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
+    ui.includeJavascript("ehrconfigs", "emr.js")
+    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
+
 %>
 <head>
     <script>
