@@ -193,13 +193,15 @@
                 } else {
                     jq("#batchNo").removeClass('red');
                 }
-                if (jq("#companyName").val().trim() === '') {
+
+                if (jq("#companyName").val().trim() == '') {
                     jq("#companyName").addClass('red');
                     error++;
                 } else {
                     jq("#companyName").removeClass('red');
                 }
-                if (jq("#dateOfManufacture-display").val() === "") {
+
+                if (jq("#dateOfManufacture-display").val() == "") {
                     jq("#dateOfManufacture-display").addClass('red');
                     error++;
                 } else {

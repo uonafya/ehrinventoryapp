@@ -13,6 +13,7 @@
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
     ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
+    ui.includeJavascript("ehrconfigs", "jquery.toastmessage.css")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
     ui.includeJavascript("ehrconfigs", "datetimepicker/bootstrap-datetimepicker.min.js")
