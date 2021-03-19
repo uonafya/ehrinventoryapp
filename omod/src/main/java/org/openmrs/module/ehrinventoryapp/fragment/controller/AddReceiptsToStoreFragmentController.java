@@ -2,6 +2,7 @@ package org.openmrs.module.ehrinventoryapp.fragment.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.json.JSONArray;
 import org.openmrs.Role;
@@ -111,10 +112,10 @@ public class AddReceiptsToStoreFragmentController {
             String drugName = drugInformation.getDrugName();
             String unitPriceStr = drugInformation.getUnitPrice();
             String costToPatientStr = drugInformation.getCostToThePatient();
-//            String companyName = drugInformation.getCompanyName();
+            String companyName = drugInformation.getCompanyName();
             String batchNo = drugInformation.getBatchNo();
             String receiptFrom = drugInformation.getReceiptFrom();
-//            String dateManufacture = drugInformation.getDateOfManufacture();
+            String dateManufacture = drugInformation.getDateOfManufacture();
             String dateExpiry = drugInformation.getDateOfExpiry();
             String receiptDate = drugInformation.getReceiptDate();
             String institutionalCost = drugInformation.getInstitutionalCost();
@@ -138,18 +139,16 @@ public class AddReceiptsToStoreFragmentController {
             if (null != unitPriceStr && "" != unitPriceStr) {
                 unitPrice = NumberUtils.createBigDecimal(unitPriceStr);
             }
-            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-            /*if(!StringUtils.isBlank(dateManufacture)) {
+            if(!StringUtils.isBlank(dateManufacture)) {
+                DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
                 Date dateManufac = dateFormatter.parse(dateManufacture);
-            }*/
-
-
                 Date dateExpi = dateFormatter.parse(dateExpiry);
-//                if (receiptDate.after(dateExpi)) {
-//                    errors.add("inventory.receiptDrug.receptDateAfterExpiryDate");
-//                }
+                if (dateManufac.after(dateExpi)) {
+                    errors.add("inventory.receiptDrug.manufacNeedLessThanExpiry");
+                }
 
+            }
 
             InventoryDrugFormulation formulationO = inventoryService.getDrugFormulationById(formulation);
             if (formulationO == null) {
@@ -169,7 +168,7 @@ public class AddReceiptsToStoreFragmentController {
             transactionDetail.setFormulation(inventoryService.getDrugFormulationById(formulation));
             transactionDetail.setVAT(VAT);
             transactionDetail.setBatchNo(batchNo);
-//            transactionDetail.setCompanyName(companyName);
+            transactionDetail.setCompanyName(companyName);
             transactionDetail.setCurrentQuantity(quantity);
             transactionDetail.setQuantity(quantity);
             transactionDetail.setUnitPrice(unitPrice);
@@ -180,7 +179,7 @@ public class AddReceiptsToStoreFragmentController {
 
             try {
                 transactionDetail.setDateExpiry(formatter.parse(dateExpiry+" 23:59:59"));
-//                transactionDetail.setDateManufacture(formatter.parse(dateManufacture + " 23:59:59"));
+                transactionDetail.setDateManufacture(formatter.parse(dateManufacture + " 23:59:59"));
                 transactionDetail.setReceiptDate(formatter.parse(receiptDate + " 23:59:59"));
             } catch (ParseException e) {
                 e.printStackTrace();
