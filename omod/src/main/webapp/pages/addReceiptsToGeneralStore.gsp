@@ -1,5 +1,5 @@
 <%
-//    ui.decorateWith("kenyaemr", "standardEmrPage", [title: "Inventory Dashboard"])
+    //    ui.decorateWith("kenyaemr", "standardEmrPage", [title: "Inventory Dashboard"])
     ui.decorateWith("appui", "standardEmrPage", [title: "Inventory Dashboard"]);
 
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
@@ -7,7 +7,7 @@
     ui.includeCss("ehrconfigs", "referenceapplication.css")
 
     ui.includeCss("ehrinventoryapp", "main.css")
-    ui.includeCss("patientdashboardapp", "custom.css")
+    ui.includeCss("ehrconfigs", "custom.css")
 
     ui.includeJavascript("kenyaui", "pagebus/simple/pagebus.js")
     ui.includeJavascript("kenyaui", "kenyaui-tabs.js")
