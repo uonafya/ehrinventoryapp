@@ -1,5 +1,8 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [title: "Process Order "])
+    ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
+
 %>
 
 <script>
