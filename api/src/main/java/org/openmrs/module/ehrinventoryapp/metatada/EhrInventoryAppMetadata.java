@@ -17,12 +17,12 @@ public class EhrInventoryAppMetadata extends AbstractMetadataBundle {
 
     public static class _Privilege {
 
-        public static final String APP_EHRINVENTORYAPP_MODULE_APP = "App: ehrinventoryapp.ehrinventory";
+        public static final String APP_EHRINVENTORYAPP_MODULE_APP = "App: ehrinventoryapp.ehrinventoryapp";
     }
 
     public static final class _Role {
 
-        public static final String APPLICATION_EHRINVENTORYAPP_MODULE = "Access Inventory App";
+        public static final String APPLICATION_EHRINVENTORYAPP_MODULE = "Inventory";
     }
 
     /**
@@ -30,8 +30,8 @@ public class EhrInventoryAppMetadata extends AbstractMetadataBundle {
      */
     @Override
     public void install() {
-        install(privilege(_Privilege.APP_EHRINVENTORYAPP_MODULE_APP, "Able to access Key inventroy module"));
-        install(role(_Role.APPLICATION_EHRINVENTORYAPP_MODULE, "Can access inventory module App",
+        install(privilege(_Privilege.APP_EHRINVENTORYAPP_MODULE_APP, "Able to access Key EHR Inventroy app module"));
+        install(role(_Role.APPLICATION_EHRINVENTORYAPP_MODULE, "Can access EHR Inventory module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(_Privilege.APP_EHRINVENTORYAPP_MODULE_APP)));
     }
