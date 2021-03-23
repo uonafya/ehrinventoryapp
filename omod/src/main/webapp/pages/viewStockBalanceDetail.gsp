@@ -5,6 +5,7 @@
 	ui.includeJavascript("ehrconfigs", "underscore-min.js")
 	ui.includeJavascript("ehrconfigs", "knockout-2.2.1.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
+	ui.includeJavascript("ehrcashier", "moment.js")
 
 	// toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
 	ui.includeJavascript("ehrconfigs", "jquery.toastmessage.js")
@@ -24,19 +25,19 @@
 		}).success(function (data) {
 			if (data.length === 0 && data != null) {
 				jq('#expiry-detail-results-table > tbody > tr').remove();
-				
+
 				var row = '<tr align="center">';
 				row += '<td>0</td>';
 				row += '<td colspan="7">No Records Found</td>';
 				row += '</tr>';
-				
+
 				tbody.append(row);
 			} else {
 				updateQueueTable(data)
 			}
 		});
     });
-	
+
     //update the queue table
     function updateQueueTable(tests) {
         jq('#expiry-detail-results-table > tbody > tr').remove();
@@ -46,40 +47,40 @@
 			var row = '<tr>';
             var item = tests[index];
 			var attr = 'B';
-			
+
 			if (item.drug.attribute == 1){
 				attr = 'A';
 			}
-			
+
 			var dateManufacture = item.dateManufacture;
-			
+
 			if (!dateManufacture){
 				dateManufacture = 'N/A';
 			}
 			else{
 				dateManufacture.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ");
 			}
-            
+
 			row += '<td>' + (1+parseInt(index)) + '</td>';
 			row += '<td>' + item.transaction.typeTransactionName + '</td>';
 			row += '<td>' + item.openingBalance + '</td>';
 			row += '<td>' + item.issueQuantity + '</td>';
 			row += '<td>' + item.currentQuantity + '</td>';
 			row += '<td>' + item.closingBalance + '</td>';
-			
-			
+
+
 			row += '<td>' + dateManufacture + '</td>';
 			row += '<td>' + item.dateExpiry.substring(0, 11).replaceAt(2, ",").replaceAt(6, " ").insertAt(3, 0, " ") + '</td>';
 
             row += '</tr>';
             tbody.append(row);
         }
-		
+
 		jq('.cancel').click(function(){
 			var receiptsLink =ui.pageLink("ehrinventoryapp", "main");
 			window.location = receiptsLink.substring(0, receiptsLink.length - 1)+'#manage';
 		});
-		
+
 		jq('.task').click(function(){
 			jq("#print-section").print({
 				globalStyles: 	false,
@@ -112,7 +113,7 @@
 					<i class="icon-home small"></i>
 				</a>
             </li>
-			
+
 			<li>
                 <a href="${ui.pageLink('ehrinventoryapp', 'main')}">
 					<i class="icon-chevron-right link"></i>Inventory
@@ -125,20 +126,20 @@
             </li>
         </ul>
     </div>
-	
+
 	<div class="patient-header new-patient-header">
 		<div class="demographics">
             <h1 class="name" style="border-bottom: 1px solid #ddd;">
                 <span>VIEW EXPIRED DRUGS STOCK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
             </h1>
         </div>
-		
+
 		<div id="show-icon">
 			&nbsp;
 		</div>
-		
+
 		<div class="exampler">
-			
+
 			<div>
 				<span>Drug Name:</span><b>${drug.name}</b><br/>
 				<span>Category:</span>${drug.category.name}<br/>
@@ -156,28 +157,28 @@
 					<img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
 					<h2>${userLocation}</h2>
 				</center>
-				
+
 				<div>
 					<label>
 						Drug Name:
 					</label>
 					<span>${drug.name}</span>
 					<br/>
-					
+
 					<label>
 						Category:
 					</label>
 					<span>${drug.category.name}</span>
 					<br/>
-					
+
 					<label>
 						Formulation:
 					</label>
 					<span>${formulation.name} ${formulation.dozage}</span>
-					<br/>				
+					<br/>
 				</div>
 			</div>
-			
+
 			<table id="expiry-detail-results-table" class="dataTable" aria-describedby="expiry-detail-results-table_info">
 				<thead>
 					<tr role="row">
@@ -198,19 +199,19 @@
 					</tr>
 				</tbody>
 			</table>
-			
+
 			<div class='print-only' style="padding-top: 30px">
 				<span>Signature of sub-store/ Stamp</span>
 				<span style="float:right;">Signature of inventory clerk/ Stamp</span>
-			</div>	
-		</div>	
-		
+			</div>
+		</div>
+
 		<div>
 			<span class="button cancel">Cancel</span>
 			<span class="button task right">
 				<i class="icon-print small"></i>
 				Print
-			</span>		
+			</span>
 		</div>
 
     </div>
