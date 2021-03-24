@@ -345,6 +345,26 @@
                     }
                 }
             });
+             jq("#dateOfExpiry-display").on("change", function (e) {
+	        if(jq("#dateOfExpiry-field").val()!==""){
+					if (jq("#dateOfExpiry-field").val() <jq("#dateOfManufacture-field").val()) {
+                         kenyaui.notifyError("Date of Expiry must be after Date of manufacture");
+                        jq('#dateOfExpiry-display').focus();
+						jq("#dateOfExpiry-display").val("");
+                        jq("#dateOfExpiry-field").val("");
+                        }
+            }
+        });
+        jq("#dateOfManufacture-display").on("change", function (e) {
+	        if(jq("#dateOfExpiry-field").val()!==""){
+					if (jq("#dateOfExpiry-field").val() <jq("#dateOfManufacture-field").val()) {
+                        kenyaui.notifyError("Date of Manufacture must be before the Date of Expiry");
+                        jq('#dateOfManufacture-display').focus();
+						jq("#dateOfManufacture-display").val("");
+                        jq("#dateOfManufacture-field").val();
+                        }
+            }
+        });
 
         });
 
@@ -424,7 +444,6 @@
             }
 
         }
-
     </script>
 
     <style>
