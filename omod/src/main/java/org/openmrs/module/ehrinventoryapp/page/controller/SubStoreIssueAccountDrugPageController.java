@@ -2,13 +2,12 @@ package org.openmrs.module.ehrinventoryapp.page.controller;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.InventoryDrugCategory;
-import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -25,8 +24,6 @@ public class SubStoreIssueAccountDrugPageController {
                     UiSessionContext sessionContext,
                     PageRequest pageRequest,
                     UiUtils ui) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
 
         InventoryService inventoryService = Context.getService(InventoryService.class);
         KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);

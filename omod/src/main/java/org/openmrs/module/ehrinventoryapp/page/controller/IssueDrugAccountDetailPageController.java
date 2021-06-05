@@ -5,11 +5,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.model.InventoryStoreDrugAccountDetail;
-
 import org.openmrs.module.ehrinventoryapp.EhrInventoryAppConstants;
 import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -27,9 +25,6 @@ public class IssueDrugAccountDetailPageController {
             PageRequest pageRequest,
             UiUtils ui,
             PageModel model) {
-
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
 
         InventoryService inventoryService = (InventoryService) Context
                 .getService(InventoryService.class);
