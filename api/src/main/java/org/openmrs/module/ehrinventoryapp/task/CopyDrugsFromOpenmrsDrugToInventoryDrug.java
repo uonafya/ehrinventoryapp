@@ -32,19 +32,16 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
             try {
                 //do all the work here by looping through the durgs that are availble and compare against what is supplied
                 for (Drug drug : Context.getConceptService().getAllDrugs(false)) {
+                    InventoryDrug inventoryDrug = null;
                     //supply a method that will get all the drugs here
                     if(inventoryCommonService.getDrugByName(drug.getName()) == null){
-                        System.out.println("The drug is NOT created, we need it created in the inventory drug>>"+drug.getName());
-                        //create a new inventory drug object
-                        //check if there is drug units in the database
 
                         if(inventoryService.getDrugUnitById(1) != null && inventoryService.getDrugCategoryById(1) != null && inventoryService.getDrugFormulationById(1) != null) {
-                            System.out.println("At least the required parameters to set have been provided");
                             Set<InventoryDrugFormulation> formulations = new HashSet<InventoryDrugFormulation>();
                             formulations.add(inventoryService.getDrugFormulationById(1));
 
-                            InventoryDrug inventoryDrug = new InventoryDrug();
-                            inventoryDrug.setName("All drugs");
+                            inventoryDrug  = new InventoryDrug();
+                            inventoryDrug.setName(drug.getName());
                             inventoryDrug.setUnit(inventoryService.getDrugUnitById(1));
                             inventoryDrug.setCategory(inventoryService.getDrugCategoryById(1));
                             inventoryDrug.setFormulations(formulations);
