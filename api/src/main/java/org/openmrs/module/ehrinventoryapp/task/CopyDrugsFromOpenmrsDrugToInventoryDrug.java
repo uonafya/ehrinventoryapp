@@ -1,16 +1,13 @@
 package org.openmrs.module.ehrinventoryapp.task;
 
 import org.openmrs.Drug;
-import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.hospitalcore.InventoryCommonService;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
 
@@ -19,6 +16,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
     @Override
     public void execute() {
         InventoryCommonService inventoryCommonService = Context.getService(InventoryCommonService.class);
+        InventoryService inventoryService = Context.getService(InventoryService.class);
         if (!isExecuting) {
             if (log.isDebugEnabled()) {
                 log.debug("Copying new drugs to the inventory drugs");
@@ -34,11 +32,15 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
                         //create a new inventory drug object
                         InventoryDrug inventoryDrug = new InventoryDrug();
 
+
+                        //save the inventry drugs as formulated
+                        inventoryService.saveDrug(inventoryDrug);
+
                     }
 
                 }
             } catch (Exception e) {
-                log.error("Error while copying patients to the respective destination ", e);
+                log.error("Error while copying drugs to tthr invrntory_drug table ", e);
             } finally {
                 stopExecuting();
             }
