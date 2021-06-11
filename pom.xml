@@ -261,7 +261,7 @@
 					<configuration>
 						<noDeploy>true</noDeploy>
 						<flowInitContext>
-						  <developBranchName>qa</developBranchName>
+						  <developBranchName>master</developBranchName>
 						</flowInitContext>
 					</configuration>
 				</plugin>
