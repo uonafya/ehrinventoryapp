@@ -41,6 +41,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
             startExecuting();
             try {
                 //load drug categories
+                setUnit(inventoryService);
                 updateDrugCategories(inventoryService, categoryPath);
                 updateDrugFormulation(inventoryService, formulationPath);
                 //do all the work here by looping through the drugs that are availble and compare against what is supplied
@@ -138,6 +139,17 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
         }
         catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void setUnit(InventoryService inventoryService){
+        if (inventoryService.getDrugUnitByName("EACH") == null) {
+            InventoryDrugUnit inventoryDrugUnit = new InventoryDrugUnit();
+            inventoryDrugUnit.setName("EACH");
+            inventoryDrugUnit.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
+            inventoryDrugUnit.setCreatedOn(new Date());
+            inventoryDrugUnit.setDescription("Measuere unit for a given drug");
+
+            inventoryService.saveDrugUnit(inventoryDrugUnit);
         }
     }
 }
