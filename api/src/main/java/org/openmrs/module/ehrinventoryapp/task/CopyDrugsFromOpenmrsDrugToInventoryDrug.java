@@ -48,7 +48,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
                 for (Drug drug : Context.getConceptService().getAllDrugs(false)) {
                     InventoryDrug inventoryDrug = null;
                     //supply a method that will get all the drugs here
-                    if(inventoryCommonService.getDrugByName(drug.getName()) == null){
+                    if(drug.getName() != null && inventoryCommonService.getDrugByName(drug.getName()).getDrugCore() == null){
 
                         if(inventoryService.getDrugUnitById(1) != null && inventoryService.getDrugCategoryById(1) != null && inventoryService.getDrugFormulationById(1) != null) {
                             Set<InventoryDrugFormulation> formulations = new HashSet<InventoryDrugFormulation>();
