@@ -27,5 +27,17 @@
             <column name="uuid" value="35b6c2be-ca0d-11eb-9449-47161d6bf8ef" />
         </insert>
     </changeSet>
+    <changeSet id="ehrinventoryapp-202107011136" author="ningosi" dbms="mysql">
+
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM inventory_drug_unit WHERE name='EACH';
+            </sqlCheck>
+        </preConditions>
+        <comment>Creating the drug unit by default </comment>
+        <sql>
+            INSERT INTO inventory_drug_unit(id,name,description,created_on,created_by) Values(1,'EACH','Default drug unit',CURDATE(),'admin');
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

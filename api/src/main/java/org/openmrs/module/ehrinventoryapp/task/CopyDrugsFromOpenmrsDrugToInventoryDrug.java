@@ -48,7 +48,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
                 for (Drug drug : Context.getConceptService().getAllDrugs(false)) {
                     InventoryDrug inventoryDrug = null;
                     //supply a method that will get all the drugs here
-                    if(drug.getName() != null && inventoryCommonService.getDrugByName(drug.getName()).getDrugCore() == null){
+                    if(drug.getName() != null && inventoryCommonService.getDrugByName(drug.getName()) == null){
 
                         if(inventoryService.getDrugUnitById(1) != null && inventoryService.getDrugCategoryById(1) != null && inventoryService.getDrugFormulationById(1) != null) {
                             Set<InventoryDrugFormulation> formulations = new HashSet<InventoryDrugFormulation>();
@@ -74,7 +74,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
 
                 }
             } catch (Exception e) {
-                log.error("Error while copying drugs to the invrntory resources ", e);
+                log.error("Error while copying drugs to the inventory resources ", e);
             } finally {
                 stopExecuting();
             }
@@ -147,7 +147,7 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
             inventoryDrugUnit.setName("EACH");
             inventoryDrugUnit.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
             inventoryDrugUnit.setCreatedOn(new Date());
-            inventoryDrugUnit.setDescription("Measuere unit for a given drug");
+            inventoryDrugUnit.setDescription("Measure unit for a given drug");
 
             inventoryService.saveDrugUnit(inventoryDrugUnit);
         }
