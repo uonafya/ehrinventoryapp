@@ -67,7 +67,10 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
                             inventoryDrug.setConsumption(10);
 
                             //save the inventry drugs as formulated
-                            inventoryService.saveDrug(inventoryDrug);
+                            System.out.println("The drug being saved is >>"+drug.getName());
+                            if(inventoryCommonService.getDrugByName(inventoryDrug.getName()) == null) {
+                                inventoryService.saveDrug(inventoryDrug);
+                            }
                         }
 
                     }
@@ -124,16 +127,18 @@ public class CopyDrugsFromOpenmrsDrugToInventoryDrug extends AbstractTask {
                 String[] records = line.split(cvsSplitBy);
                 name = records[0];
                 dosage = records[1];
-                if (StringUtils.isNotEmpty(name) && inventoryService.getDrugFormulationByName(name) == null) {
-                    InventoryDrugFormulation inventoryDrugFormulation = new InventoryDrugFormulation();
-                    inventoryDrugFormulation.setName(name);
-                    inventoryDrugFormulation.setDozage(dosage);
-                    inventoryDrugFormulation.setCreatedOn(new Date());
-                    inventoryDrugFormulation.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
+                if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(dosage)) {
+                    if(inventoryService.getDrugFormulation(name, dosage) == null ) {
+                        InventoryDrugFormulation inventoryDrugFormulation = new InventoryDrugFormulation();
+                        inventoryDrugFormulation.setName(name);
+                        inventoryDrugFormulation.setDozage(dosage);
+                        inventoryDrugFormulation.setCreatedOn(new Date());
+                        inventoryDrugFormulation.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
 
 
-                    //save the object
-                    inventoryService.saveDrugFormulation(inventoryDrugFormulation);
+                        //save the object
+                        inventoryService.saveDrugFormulation(inventoryDrugFormulation);
+                    }
                 }
             }
         }
