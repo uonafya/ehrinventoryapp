@@ -39,5 +39,20 @@
             INSERT INTO inventory_drug_unit(id,name,description,created_on,created_by) Values(1,'EACH','Default drug unit',CURDATE(),'admin');
         </sql>
     </changeSet>
+    <changeSet id="ehrconfigs-202107112320" author="ningosi">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM scheduler_task_config WHERE uuid='35b6c2be-ca0d-11eb-9449-47161d6bf8ef';
+            </sqlCheck>
+        </preConditions>
+        <comment>Turnng off the automatc Copying of drugs from drug core table to inventory drug - only to be turned on when needed</comment>
+        <sql>
+            SET SQL_SAFE_UPDATES = 0;
+            SET FOREIGN_KEY_CHECKS = 0;
+            UPDATE scheduler_task_config SET start_on_startup = 0 WHERE uuid = '35b6c2be-ca0d-11eb-9449-47161d6bf8ef';
+            SET FOREIGN_KEY_CHECKS = 1;
+            SET SQL_SAFE_UPDATES = 1;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
